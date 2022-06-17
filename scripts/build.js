@@ -2,6 +2,7 @@ import { execSync } from 'child_process'
 import fs from 'fs'
 import path, { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
+import { packageExtension } from '@lvce-editor/package-extension'
 
 const NOT_NEEDED = [
   'node_modules/prettier/bin-prettier.js',
@@ -67,7 +68,7 @@ for (const notNeeded of NOT_NEEDED) {
   fs.rmSync(join(root, 'dist', notNeeded), { force: true })
 }
 
-execSync(
-  'node ~/.cache/repos/marketplace-server/packages/cli/bin/vsce.js package --highest-compression',
-  { cwd: join(root, 'dist'), stdio: 'inherit' }
-)
+await packageExtension({
+  highestCompression: true,
+  cwd: join(root, 'dist'),
+})
