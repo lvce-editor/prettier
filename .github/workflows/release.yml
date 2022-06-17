@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: |
           staging="prettier-${{ needs.create-release.outputs.rg_version }}"
-          mv "dist/extension.tar.br" "$staging.tar.br"
+          mv "extension.tar.br" "$staging.tar.br"
           echo "ASSET=$staging.tar.br" >> $GITHUB_ENV
 
       - name: Upload release archive

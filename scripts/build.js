@@ -70,5 +70,6 @@ for (const notNeeded of NOT_NEEDED) {
 
 await packageExtension({
   highestCompression: true,
-  cwd: join(root, 'dist'),
+  inDir: join(root, 'dist'),
+  outFile: join(root, 'extension.tar.br'),
 })
