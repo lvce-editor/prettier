@@ -1,27 +1,24 @@
 {
-  "name": "builtin.prettier",
+  "name": "builtin.prettier-monorepo",
   "version": "0.0.0-dev",
   "description": "",
-  "type": "module",
-  "main": "index.js",
   "scripts": {
-    "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
-    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch"
+    "postinstall": "lerna bootstrap --ci",
+    "test": "lerna run test",
+    "dev": "npx @lvce-editor/server",
+    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "e2e": "cd packages/e2e && npm run e2e",
+    "e2e:headless": "cd packages/e2e && npm run e2e:headless"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "prettier": "^2.7.1",
-    "verror": "^1.10.1"
-  },
   "devDependencies": {
-    "@types/jest": "^28.1.1",
-    "@types/node": "^18.0.0",
-    "@types/verror": "^1.10.5",
-    "jest": "^28.1.1",
-    "typescript": "^4.7.3",
-    "@lvce-editor/package-extension": "git+https://github.com/lvce-editor/package-extension.git#v0.0.2"
+    "@lvce-editor/package-extension": "git+https://github.com/lvce-editor/package-extension.git#v0.0.2",
+    "@types/node": "^18.6.2",
+    "lerna": "^5.3.0",
+    "typescript": "^4.7.4",
+    "@lvce-editor/server": "^0.0.24"
   },
   "prettier": {
     "semi": false,
