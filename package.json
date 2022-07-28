@@ -2,11 +2,13 @@
   "name": "builtin.prettier-monorepo",
   "version": "0.0.0-dev",
   "description": "",
-  "type": "module",
-  "main": "index.js",
   "scripts": {
-    "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
-    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch"
+    "postinstall": "lerna bootstrap --ci",
+    "test": "lerna run test",
+    "dev": "npx @lvce-editor/server",
+    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "e2e": "cd packages/e2e && npm run e2e",
+    "e2e:headless": "cd packages/e2e && npm run e2e:headless"
   },
   "keywords": [],
   "author": "",
