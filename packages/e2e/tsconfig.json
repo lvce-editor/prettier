@@ -4,7 +4,7 @@
     "lib": ["esnext"],
     "checkJs": true,
     "module": "esnext",
-    "types": ["vscode-types", "jest", "node"],
+    "types": ["node"],
     "moduleResolution": "node",
     "rootDir": ".",
     "allowJs": true,
@@ -13,7 +13,8 @@
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "assumeChangesOnlyAffectDirectDependencies": true,
-    "strict": true
+    "strict": true,
+    "noImplicitAny": false
   },
-  "include": ["src", "test", "playground"]
+  "include": ["src", "test"]
 }

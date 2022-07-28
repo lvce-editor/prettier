@@ -8,7 +8,7 @@ on:
 jobs:
   create-release:
     name: create-release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       upload_url: ${{ steps.release.outputs.upload_url }}
       rg_version: ${{ env.RG_VERSION }}
@@ -17,9 +17,6 @@ jobs:
         shell: bash
         if: env.RG_VERSION == ''
         run: |
-          # Apparently, this is the right way to get a tag name. Really?
-          #
-          # See: https://github.community/t5/GitHub-Actions/How-to-get-just-the-tag-name/m-p/32167/highlight/true#M1027
           echo "RG_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
           echo "version is: ${{ env.RG_VERSION }}"
       - name: Create GitHub release
@@ -34,24 +31,34 @@ jobs:
   build-release:
     name: build-release
     needs: ['create-release']
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18.3.0'
+          node-version: '18.6.0'
       - uses: actions/cache@v3
         id: npm-cache
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('.github/workflows/*.yml') }}
           restore-keys: ${{ runner.os }}-node-
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
       - run: npm test
+      - name: install playwright dependencies
+        working-directory: ./packages/e2e
+        run: npx playwright install chromium
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
+      - name: Run headless test
+        run: npm run e2e:headless
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
       - run: node scripts/build.js
-
       - name: Build archive
         shell: bash
         run: |

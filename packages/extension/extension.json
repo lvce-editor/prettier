@@ -1,0 +1,15 @@
+{
+  "id": "builtin.language-features-css",
+  "name": "Language Features CSS",
+  "description": "Provides rich language support for CSS files",
+  "activation": ["onLanguage:css", "onCompletion:css", "onTabCompletion:css"],
+  "main": "src/languageFeaturesCssMain.js",
+  "icon": "./icon.png",
+  "commands": [],
+  "languages": [
+    {
+      "id": "css",
+      "extensions": [".css"]
+    }
+  ]
+}
