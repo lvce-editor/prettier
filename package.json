@@ -2,6 +2,7 @@
   "name": "builtin.prettier-monorepo",
   "version": "0.0.0-dev",
   "description": "",
+  "type": "module",
   "scripts": {
     "postinstall": "lerna bootstrap --ci",
     "test": "lerna run test",
