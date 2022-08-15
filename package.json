@@ -15,11 +15,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/package-extension": "git+https://github.com/lvce-editor/package-extension.git#v0.0.2",
-    "@types/node": "^18.7.3",
-    "lerna": "^5.4.1",
+    "@lvce-editor/package-extension": "^0.0.4",
+    "@types/node": "^18.7.5",
+    "lerna": "^5.4.2",
     "typescript": "^4.7.4",
-    "@lvce-editor/server": "^0.0.29"
+    "@lvce-editor/server": "^0.0.31"
   },
   "prettier": {
     "semi": false,
