@@ -3,6 +3,15 @@ image:
 
 tasks:
   - init: npm ci && cd packages/e2e && npx playwright install chromium && cd ../../ && npm test
+    command: npm run dev
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 5900
+    onOpen: ignore
+  - port: 6080
+    onOpen: ignore
 
 github:
   prebuilds:
