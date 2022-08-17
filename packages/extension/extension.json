@@ -1,15 +1,18 @@
 {
-  "id": "builtin.language-features-css",
-  "name": "Language Features CSS",
-  "description": "Provides rich language support for CSS files",
-  "activation": ["onLanguage:css", "onCompletion:css", "onTabCompletion:css"],
-  "main": "src/languageFeaturesCssMain.js",
+  "id": "builtin.prettier",
+  "name": "Prettier",
+  "description": "Code formatter using prettier",
+  "main": "src/prettierMain.js",
   "icon": "./icon.png",
-  "commands": [],
+  "activation": ["onStartupFinished"],
   "languages": [
     {
-      "id": "css",
-      "extensions": [".css"]
+      "id": "json",
+      "filenames": [".prettierrc"]
+    },
+    {
+      "id": "ignore",
+      "filenames": [".prettierignore"]
     }
   ]
 }
