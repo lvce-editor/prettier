@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "e2e": "node ./node_modules/@lvce-editor/test-with-playwright/src/all.js",
-    "e2e:headless": "node ./node_modules/@lvce-editor/test-with-playwright/src/all.js --headless"
+    "e2e": "node ./node_modules/@lvce-editor/test-with-playwright/bin/test-with-playwright.js --only-extension=../extension --test-path=.",
+    "e2e:headless": "node ./node_modules/@lvce-editor/test-with-playwright/bin/test-with-playwright.js  --only-extension=../extension --test-path=. --headless"
   },
   "type": "module",
   "keywords": [],
@@ -13,6 +13,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.7.6",
-    "@lvce-editor/test-with-playwright": "^0.0.14"
+    "@lvce-editor/test-with-playwright": "^0.0.17"
   }
 }

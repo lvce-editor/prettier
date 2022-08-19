@@ -19,7 +19,7 @@
     "@types/node": "^18.7.6",
     "lerna": "^5.4.3",
     "typescript": "^4.7.4",
-    "@lvce-editor/server": "^0.0.31"
+    "@lvce-editor/server": "^0.0.33"
   },
   "prettier": {
     "semi": false,
