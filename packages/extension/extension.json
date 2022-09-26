@@ -8,11 +8,11 @@
   "languages": [
     {
       "id": "json",
-      "filenames": [".prettierrc"]
+      "fileNames": [".prettierrc"]
     },
     {
       "id": "ignore",
-      "filenames": [".prettierignore"]
+      "fileNames": [".prettierignore"]
     }
   ]
 }
