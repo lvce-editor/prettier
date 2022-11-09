@@ -1,10 +1,12 @@
 import * as PluginVue from '../src/parts/PluginVue/PluginVue.js'
 import * as Prettier from '../src/parts/Prettier/Prettier.js'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
 
-const formatVue = PluginVue.plugin(Prettier)
+const plugins = await PrettierModule.loadAll(PluginVue.plugins)
+const format = PluginVue.plugin(Prettier, plugins)
 
 test('formatVue', () => {
-  expect(formatVue(' <template>hello world</template>'))
+  expect(format(' <template>hello world</template>'))
     .toBe(`<template>hello world</template>
 `)
 })

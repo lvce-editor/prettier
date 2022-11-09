@@ -1,9 +1,10 @@
-// @ts-ignore
-import parserTypeScript from 'prettier/esm/parser-typescript.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
+export const plugins = [PrettierModuleId.ParserTypeScript]
+
+export const plugin = (prettier, plugins) => (text, options) => {
   return prettier.format(text, {
     parser: 'typescript',
-    plugins: [parserTypeScript],
+    plugins,
   })
 }

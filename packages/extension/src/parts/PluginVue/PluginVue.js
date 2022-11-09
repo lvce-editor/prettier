@@ -1,9 +1,10 @@
-// @ts-ignore
-import parserHtml from 'prettier/esm/parser-html.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
+export const plugins = [PrettierModuleId.ParserHtml]
+
+export const plugin = (prettier, plugins) => (text, options) => {
   return prettier.format(text, {
     parser: 'html',
-    plugins: [parserHtml],
+    plugins,
   })
 }

@@ -1,9 +1,10 @@
-// @ts-ignore
-import parserCss from 'prettier/esm/parser-postcss.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
+export const plugins = [PrettierModuleId.ParserCss]
+
+export const plugin = (prettier, plugins) => (text, options) => {
   return prettier.format(text, {
     parser: 'css',
-    plugins: [parserCss],
+    plugins,
   })
 }

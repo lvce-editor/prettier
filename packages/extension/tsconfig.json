@@ -4,14 +4,15 @@
     "checkJs": true,
     "module": "esnext",
     "target": "esnext",
-    "types": ["vscode-types", "node", "jest"],
+    "types": ["node", "jest"],
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "assumeChangesOnlyAffectDirectDependencies": true,
-    "strict": true
+    "strict": true,
+    "noImplicitAny": false
   },
-  "include": ["src", "test", "data"]
+  "include": ["src", "test", "third_party"]
 }
