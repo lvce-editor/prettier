@@ -22,6 +22,8 @@ const loadInternal = (moduleId) => {
       return import('../../../third_party/prettier/esm/parser-typescript.mjs')
     case PrettierModuleId.ParserYaml:
       return import('../../../third_party/prettier/esm/parser-yaml.mjs')
+    case PrettierModuleId.Standalone:
+      return import('../../../third_party/prettier/esm/standalone.mjs')
     default:
       throw new Error(`module ${moduleId} not found`)
   }

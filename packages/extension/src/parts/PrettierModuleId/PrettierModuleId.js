@@ -8,3 +8,4 @@ export const ParserPostCss = 7
 export const ParserMarkdown = 8
 export const ParserTypeScript = 9
 export const ParserYaml = 10
+export const Standalone = 11
