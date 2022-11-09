@@ -1,4 +1,3 @@
-import VError from 'verror'
 import * as PluginModule from '../PluginModule/PluginModule.js'
 import * as Prettier from '../Prettier/Prettier.js'
 import * as PrettierModule from '../PrettierModule/PrettierModule.js'
@@ -25,16 +24,12 @@ export const format = async (uri, content) => {
     const formattedText = fn(content)
     return formattedText
   } catch (error) {
-    const enhancedError = new VError(error, `Failed to format ${uri}`)
+    const enhancedError = new Error(`Failed to format ${uri}`)
     throw enhancedError
     // if (error instanceof SyntaxError) {
     //   return {
     //     error: error.toString(),
     //   }
-    // }
-    // console.warn(new VError(error, `failed to format ${path}`))
-    // return {
-    //   error: error.toString(),
     // }
   }
 }
