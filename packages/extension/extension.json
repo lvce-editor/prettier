@@ -4,7 +4,7 @@
   "description": "Code formatter using prettier",
   "browser": "src/prettierMain.js",
   "icon": "./icon.png",
-  "activation": ["onStartupFinished"],
+  "activation": ["onFormatting:css", "onFormatting:json"],
   "languages": [
     {
       "id": "json",

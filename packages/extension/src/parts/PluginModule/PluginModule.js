@@ -1,7 +1,9 @@
-import path from 'node:path'
+const extName = (uri) => {
+  return uri.slice(uri.lastIndexOf('.'))
+}
 
 export const loadPlugin = (uri) => {
-  const extension = path.extname(uri)
+  const extension = extName(uri)
   switch (extension) {
     case '.css':
       return import('../PluginCss/PluginCss.js')
