@@ -11,7 +11,13 @@ export const format = async (textDocument) => {
   const text = vscode.getTextFromTextDocument(textDocument)
   const formattedText = await Format.format(uri, text)
   if (text === formattedText) {
-    return null
+    return []
   }
-  return formattedText
+  return [
+    {
+      startOffset: 0,
+      endOffset: text.length,
+      inserted: formattedText,
+    },
+  ]
 }
