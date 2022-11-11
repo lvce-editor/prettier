@@ -3,7 +3,9 @@ import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 const loadInternal = (moduleId) => {
   switch (moduleId) {
     case PrettierModuleId.PluginAcornAndEspree:
-      return import('../../../third_party/prettier-v3/plugins/acorn-and-espree.mjs')
+      return import(
+        '../../../third_party/prettier-v3/plugins/acorn-and-espree.mjs'
+      )
     case PrettierModuleId.PluginAngular:
       return import('../../../third_party/prettier-v3/plugins/angular.mjs')
     case PrettierModuleId.PluginBabel:
@@ -24,8 +26,10 @@ const loadInternal = (moduleId) => {
       return import('../../../third_party/prettier-v3/plugins/postcss.mjs')
     case PrettierModuleId.PluginTypeScript:
       return import('../../../third_party/prettier-v3/plugins/typescript.mjs')
-     case PrettierModuleId.PluginYaml:
+    case PrettierModuleId.PluginYaml:
       return import('../../../third_party/prettier-v3/plugins/yaml.mjs')
+    case PrettierModuleId.Standalone:
+      return import('../../../third_party/prettier-v3/standalone.mjs')
     default:
       throw new Error(`module ${moduleId} not found`)
   }
@@ -33,7 +37,7 @@ const loadInternal = (moduleId) => {
 
 export const load = async (moduleId) => {
   const module = await loadInternal(moduleId)
-  return module.default
+  return module
 }
 
 export const loadAll = (moduleIds) => {

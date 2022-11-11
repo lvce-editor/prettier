@@ -3,11 +3,16 @@ import * as Prettier from '../src/parts/Prettier/Prettier.js'
 import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
 
 const plugins = await PrettierModule.loadAll(PluginMarkdown.plugins)
-const format = PluginMarkdown.plugin(Prettier, plugins)
+const format = (code) => {
+  return Prettier.format(code, {
+    plugins,
+    parser: PluginMarkdown.parser,
+  })
+}
 
-test('formatMarkdown', () => {
+test('formatMarkdown', async () => {
   expect(
-    format(`\`\`\`html
+    await format(`\`\`\`html
   <h1>hello world</h1>
 \`\`\`
 `)

@@ -14,5 +14,6 @@
     "strict": true,
     "noImplicitAny": false
   },
-  "include": ["src", "test", "third_party"]
+  "include": ["src", "test"],
+  "exclude": ["third_party"]
 }

@@ -1,10 +1,5 @@
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugins = [PrettierModuleId.ParserMarkdown]
+export const plugins = [PrettierModuleId.PluginMarkdown]
 
-export const plugin = (prettier, plugins) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'markdown',
-    plugins,
-  })
-}
+export const parser = 'markdown'

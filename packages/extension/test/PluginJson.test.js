@@ -3,9 +3,14 @@ import * as Prettier from '../src/parts/Prettier/Prettier.js'
 import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
 
 const plugins = await PrettierModule.loadAll(PluginJsonc.plugins)
-const formatJson = PluginJsonc.plugin(Prettier, plugins)
+const format = (code) => {
+  return Prettier.format(code, {
+    plugins,
+    parser: PluginJsonc.parser,
+  })
+}
 
-test('formatJson', () => {
-  expect(formatJson(' {}')).toBe(`{}
+test('formatJson', async () => {
+  expect(await format(' {}')).toBe(`{}
 `)
 })

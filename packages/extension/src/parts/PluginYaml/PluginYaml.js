@@ -1,10 +1,5 @@
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugins = [PrettierModuleId.ParserYaml]
+export const plugins = [PrettierModuleId.PluginYaml]
 
-export const plugin = (prettier, plugins) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'yaml',
-    plugins,
-  })
-}
+export const parser = 'yaml'
