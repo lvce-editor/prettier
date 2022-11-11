@@ -27,14 +27,20 @@ class FormattingError extends Error {
 
 // TODO should use languageId to get right formatter instead of path
 export const format = async (uri, content) => {
+  // console.log({ uri, content })
   const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
   try {
+    const s = performance.now()
     const formattedText = fn(content)
+    const e = performance.now()
+    const diff = e - s
+    console.log(`actually took ${diff}ms`)
     if (formattedText === null) {
       return content
     }
     return formattedText
   } catch (error) {
+    console.log({ error })
     const enhancedError = new FormattingError(
       `Failed to format ${uri}: ${error}`
     )
@@ -46,3 +52,5 @@ export const format = async (uri, content) => {
     // }
   }
 }
+
+// format('/test/index.js', 'let x=2')

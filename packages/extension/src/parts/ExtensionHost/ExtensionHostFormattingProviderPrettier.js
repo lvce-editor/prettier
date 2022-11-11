@@ -9,7 +9,11 @@ export const languageId = 'css'
 export const format = async (textDocument) => {
   const uri = textDocument.uri
   const text = vscode.getTextFromTextDocument(textDocument)
+  console.log({ text })
+  const start = performance.now()
   const formattedText = await Format.format(uri, text)
+  const end = performance.now()
+  console.log('took', end - start, 'ms')
   if (text === formattedText) {
     return []
   }

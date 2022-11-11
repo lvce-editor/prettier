@@ -12,6 +12,7 @@ export const loadPlugin = (uri) => {
     case '.html':
       return import('../PluginHtml/PluginHtml.js')
     case '.js':
+    case '.mjs':
       return import('../PluginJavaScript/PluginJavaScript.js')
     case '.jsx':
       return import('../PluginJavaScriptReact/PluginJavaScriptReact.js')
