@@ -1,10 +1,6 @@
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugins = [PrettierModuleId.ParserCss]
+export const plugins = [PrettierModuleId.PluginPostCss]
 
-export const plugin = (prettier, plugins) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'css',
-    plugins,
-  })
-}
+
+export const parser='css'
