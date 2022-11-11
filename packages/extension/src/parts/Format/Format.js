@@ -11,9 +11,14 @@ const getFormatFnSync = (uri) => {
 }
 
 const getFormatFnAsync = async (uri) => {
-  const { plugin, plugins } = await PluginModule.loadPlugin(uri)
+  const { parser, plugins } = await PluginModule.loadPlugin(uri)
   const pluginInstances = await Promise.all(plugins.map(PrettierModule.load))
-  state.plugins[uri] = plugin(Prettier, pluginInstances)
+  state.plugins[uri] = (code) => {
+    return Prettier.format(code, {
+      plugins: pluginInstances,
+      parser,
+    })
+  }
   return state.plugins[uri]
 }
 

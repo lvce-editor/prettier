@@ -37,6 +37,11 @@ const loadInternal = (moduleId) => {
 
 export const load = async (moduleId) => {
   const module = await loadInternal(moduleId)
+  // @ts-ignore
+  if (module.default) {
+    // @ts-ignore
+    return module.default
+  }
   return module
 }
 
