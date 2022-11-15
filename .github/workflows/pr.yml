@@ -1,18 +1,12 @@
-name: CI
+name: PR
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  ci:
+  pr:
     strategy:
       matrix:
         os: [ubuntu-22.04, macos-12, windows-2022]
@@ -49,18 +43,3 @@ jobs:
         run: node scripts/build-static.js
         env:
           PATH_PREFIX: auto
-      - name: Upload artifact
-        if: matrix.os == 'ubuntu-22.04'
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-22.04
-    needs: ci
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
