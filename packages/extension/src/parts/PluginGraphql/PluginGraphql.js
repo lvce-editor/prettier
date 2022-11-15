@@ -1,9 +1,5 @@
-// @ts-ignore
-import parserGraphql from 'prettier/esm/parser-graphql.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'graphql',
-    plugins: [parserGraphql],
-  })
-}
+export const plugins = [PrettierModuleId.PluginGraphql]
+
+export const parser = 'graphql'

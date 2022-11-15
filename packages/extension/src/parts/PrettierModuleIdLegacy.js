@@ -1,0 +1,11 @@
+export const LegacyParserAngular = 1
+export const LegacyParserHtml = 2
+export const LegacyParserJavaScript = 3
+export const LegacyParserCss = 4
+export const LegacyParserGraphql = 5
+export const LegacyParserBabel = 6
+export const LegacyParserPostCss = 7
+export const LegacyParserMarkdown = 8
+export const LegacyParserTypeScript = 9
+export const LegacyParserYaml = 10
+export const LegacyStandalone = 11

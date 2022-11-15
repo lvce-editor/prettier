@@ -1,9 +1,16 @@
 import * as PluginJsonc from '../src/parts/PluginJsonc/PluginJsonc.js'
 import * as Prettier from '../src/parts/Prettier/Prettier.js'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
 
-const formatJsonc = PluginJsonc.plugin(Prettier)
+const plugins = await PrettierModule.loadAll(PluginJsonc.plugins)
+const format = (code) => {
+  return Prettier.format(code, {
+    plugins,
+    parser: PluginJsonc.parser,
+  })
+}
 
-test('formatJsonc', () => {
-  expect(formatJsonc(' {}')).toBe(`{}
+test('formatJsonc', async () => {
+  expect(await format(' {}')).toBe(`{}
 `)
 })

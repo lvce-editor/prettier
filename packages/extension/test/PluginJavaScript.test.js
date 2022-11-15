@@ -1,9 +1,16 @@
 import * as PluginJavaScript from '../src/parts/PluginJavaScript/PluginJavaScript.js'
 import * as Prettier from '../src/parts/Prettier/Prettier.js'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
 
-const formatJavaScript = PluginJavaScript.plugin(Prettier)
+const plugins = await PrettierModule.loadAll(PluginJavaScript.plugins)
+const format = (code) => {
+  return Prettier.format(code, {
+    plugins,
+    parser: PluginJavaScript.parser,
+  })
+}
 
-test('formatJavaScript', () => {
-  expect(formatJavaScript(' let x = ""')).toBe(`let x = "";
+test('formatJavaScript', async () => {
+  expect(await format(' let x = ""')).toBe(`let x = "";
 `)
 })

@@ -1,6 +1,8 @@
-// @ts-ignore
-import prettier from 'prettier/esm/standalone.mjs'
+import * as PrettierModule from '../PrettierModule/PrettierModule.js'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const format = prettier.format
+const Prettier = await PrettierModule.load(PrettierModuleId.Standalone)
 
-export const formatWithCursor = prettier.formatWithCursor
+export const format = Prettier.format
+
+export const formatWithCursor = Prettier.formatWithCursor

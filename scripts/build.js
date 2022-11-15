@@ -1,8 +1,7 @@
-import { execSync } from 'child_process'
-import fs, { readFileSync } from 'fs'
-import path, { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
 import { packageExtension } from '@lvce-editor/package-extension'
+import fs, { readFileSync } from 'node:fs'
+import path, { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const NOT_NEEDED = [
   'node_modules/prettier/bin-prettier.js',
@@ -54,38 +53,29 @@ fs.copyFileSync(
 fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
   recursive: true,
 })
-fs.cpSync(join(extension, 'data'), join(root, 'dist', 'data'), {
+
+fs.mkdirSync(join(root, 'dist', 'third_party', 'prettier-v3', 'plugins'), {
   recursive: true,
 })
-
-const getAllDependencies = (obj) => {
-  if (!obj || !obj.dependencies) {
-    return []
-  }
-  return [obj, ...Object.values(obj.dependencies).flatMap(getAllDependencies)]
-}
-
-const getDependencies = () => {
-  const stdout = execSync('npm list --omit=dev --parseable --all', {
-    cwd: extension,
-  }).toString()
-  const lines = stdout.split('\n')
-  return lines.slice(1, -1)
-}
-
-const dependencies = getDependencies()
-for (const dependency of dependencies) {
+for (const file of ['standalone.mjs', 'README.md', 'LICENSE', 'package.json']) {
   fs.cpSync(
-    dependency,
-    join(root, 'dist', dependency.slice(extension.length)),
+    join(extension, 'third_party', 'prettier-v3', file),
+    join(root, 'dist', 'third_party', 'prettier-v3', file),
     {
       recursive: true,
     }
   )
 }
-
-for (const notNeeded of NOT_NEEDED) {
-  fs.rmSync(join(root, 'dist', notNeeded), { force: true, recursive: true })
+const dirents = fs.readdirSync(
+  join(extension, 'third_party', 'prettier-v3', 'plugins')
+)
+for (const dirent of dirents) {
+  if (dirent.endsWith('.mjs')) {
+    fs.cpSync(
+      join(extension, 'third_party', 'prettier-v3', 'plugins', dirent),
+      join(root, 'dist', 'third_party', 'prettier-v3', 'plugins', dirent)
+    )
+  }
 }
 
 await packageExtension({

@@ -15,6 +15,7 @@ declare const Editor: {
   readonly cursorCharacterRight: () => Promise<void>
   readonly cursorCharacterLeft: () => Promise<void>
   readonly copyLineDown: () => Promise<void>
+  readonly format: () => Promise<void>
 }
 
 declare const Explorer: {

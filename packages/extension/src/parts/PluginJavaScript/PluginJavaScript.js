@@ -1,9 +1,5 @@
-// @ts-ignore
-import parserBabel from 'prettier/esm/parser-babel.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'babel',
-    plugins: [parserBabel],
-  })
-}
+export const plugins = [PrettierModuleId.PluginBabel]
+
+export const parser = 'babel'

@@ -1,9 +1,5 @@
-// @ts-ignore
-import parserYaml from 'prettier/esm/parser-yaml.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'yaml',
-    plugins: [parserYaml],
-  })
-}
+export const plugins = [PrettierModuleId.PluginYaml]
+
+export const parser = 'yaml'

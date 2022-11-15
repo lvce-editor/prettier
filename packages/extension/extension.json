@@ -2,9 +2,15 @@
   "id": "builtin.prettier",
   "name": "Prettier",
   "description": "Code formatter using prettier",
-  "main": "src/prettierMain.js",
+  "browser": "src/prettierMain.js",
   "icon": "./icon.png",
-  "activation": ["onStartupFinished"],
+  "activation": [
+    "onFormatting:css",
+    "onFormatting:json",
+    "onFormatting:javascript",
+    "onFormatting:typescript",
+    "onFormatting:html"
+  ],
   "languages": [
     {
       "id": "json",

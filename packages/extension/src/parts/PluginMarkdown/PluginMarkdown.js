@@ -1,9 +1,5 @@
-// @ts-ignore
-import parserMarkdown from 'prettier/esm/parser-markdown.mjs'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
-export const plugin = (prettier) => (text, options) => {
-  return prettier.format(text, {
-    parser: 'markdown',
-    plugins: [parserMarkdown],
-  })
-}
+export const plugins = [PrettierModuleId.PluginMarkdown]
+
+export const parser = 'markdown'
