@@ -19,6 +19,9 @@
   "jest": {
     "testMatch": [
       "<rootDir>/test/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/third_party/"
     ]
   }
 }
