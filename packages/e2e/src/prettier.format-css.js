@@ -1,4 +1,6 @@
-test('prettier.format-html', async () => {
+export const name = 'prettier.format-css'
+
+export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -15,4 +17,4 @@ test('prettier.format-html', async () => {
   // assert
   const editor = Locator('.Editor')
   await expect(editor).toHaveText(`h1 {  font-size: 10px;}`)
-})
+}
