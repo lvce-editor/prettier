@@ -1,4 +1,8 @@
-test.skip('prettier.format-html-preserve-cursor-position', async () => {
+export const skip = true
+
+export const name = 'prettier.format-html-preserve-cursor-position'
+
+export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.html`, `<h1  >hello world</h1>`)
@@ -13,4 +17,4 @@ test.skip('prettier.format-html-preserve-cursor-position', async () => {
   await expect(editor).toHaveText('<h1>hello world</h1>')
   const cursor = Locator('.EditorCursor')
   await expect(cursor).toHaveCSS('left', '27px')
-})
+}
