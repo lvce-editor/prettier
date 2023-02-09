@@ -1,12 +1,8 @@
-export const create = async () => {
-  const workerUrl = new URL(
-    '../../../packages/prettier-worker/src/prettierWorkerMain.js',
-    import.meta.url
-  ).toString()
+export const create = async ({ url, name }) => {
   const worker = await vscode.createWorker({
     method: 'moduleWorker',
-    url: workerUrl,
-    name: 'Prettier Worker',
+    url,
+    name,
   })
   return worker
 }
@@ -16,6 +12,9 @@ export const wrap = (worker) => {
     worker,
     send(message) {
       this.worker.postMessage(message)
+    },
+    set onmessage(listener) {
+      this.worker.onmessage = listener
     },
   }
 }
