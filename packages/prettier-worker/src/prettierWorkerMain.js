@@ -14,10 +14,7 @@ const handleMessage = async (event) => {
       id: id,
       result: formattedText,
     })
-    console.log({ formattedText })
   }
-  console.log('PRETTIER MESSAGE')
-  console.log({ message })
 }
 
 const main = async () => {
@@ -25,7 +22,6 @@ const main = async () => {
     method: IpcChildType.Auto(),
   })
   ipc.onmessage = handleMessage
-  console.log('hello from prettier worker')
 }
 
 main()
