@@ -1,5 +1,5 @@
 import { exportStatic } from '@lvce-editor/shared-process'
-import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
+import { cp, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -33,6 +33,43 @@ for (const dirent of ['src', 'third_party']) {
       dirent
     ),
     { recursive: true, force: true }
+  )
+}
+
+for (const dirent of [
+  'bin',
+  'plugins/acorn-and-espree.js',
+  'plugins/angular.js',
+  'plugins/babel.js',
+  'plugins/flow.js',
+  'plugins/glimmer.js',
+  'plugins/graphql.js',
+  'plugins/html.js',
+  'plugins/markdown.js',
+  'plugins/meriyah.js',
+  'plugins/postcss.js',
+  'plugins/typescript.js',
+  'plugins/yaml.js',
+  'doc.js',
+  'index.cjs',
+  'standalone.js',
+]) {
+  await rm(
+    path.join(
+      root,
+      'dist',
+      commitHash,
+      'extensions',
+      'builtin.prettier',
+      'prettier-worker',
+      'third_party',
+      'prettier-v3',
+      dirent
+    ),
+    {
+      recursive: true,
+      force: true,
+    }
   )
 }
 
