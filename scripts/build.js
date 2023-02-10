@@ -1,5 +1,5 @@
 import { packageExtension } from '@lvce-editor/package-extension'
-import fs, { readFileSync } from 'node:fs'
+import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -27,6 +27,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const root = path.join(__dirname, '..')
 const extension = path.join(root, 'packages', 'extension')
+const prettierWorker = path.join(root, 'packages', 'prettier-worker')
 
 fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 
@@ -54,29 +55,69 @@ fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
   recursive: true,
 })
 
-fs.mkdirSync(join(root, 'dist', 'third_party', 'prettier-v3', 'plugins'), {
-  recursive: true,
-})
+fs.mkdirSync(
+  join(
+    root,
+    'dist',
+    'prettier-worker',
+    'third_party',
+    'prettier-v3',
+    'plugins'
+  ),
+  {
+    recursive: true,
+  }
+)
 for (const file of ['standalone.mjs', 'README.md', 'LICENSE', 'package.json']) {
   fs.cpSync(
-    join(extension, 'third_party', 'prettier-v3', file),
-    join(root, 'dist', 'third_party', 'prettier-v3', file),
+    join(prettierWorker, 'third_party', 'prettier-v3', file),
+    join(root, 'dist', 'prettier-worker', 'third_party', 'prettier-v3', file),
     {
       recursive: true,
     }
   )
 }
 const dirents = fs.readdirSync(
-  join(extension, 'third_party', 'prettier-v3', 'plugins')
+  join(prettierWorker, 'third_party', 'prettier-v3', 'plugins')
 )
 for (const dirent of dirents) {
   if (dirent.endsWith('.mjs')) {
     fs.cpSync(
-      join(extension, 'third_party', 'prettier-v3', 'plugins', dirent),
-      join(root, 'dist', 'third_party', 'prettier-v3', 'plugins', dirent)
+      join(prettierWorker, 'third_party', 'prettier-v3', 'plugins', dirent),
+      join(
+        root,
+        'dist',
+        'prettier-worker',
+        'third_party',
+        'prettier-v3',
+        'plugins',
+        dirent
+      )
     )
   }
 }
+fs.cpSync(
+  join(prettierWorker, 'src'),
+  join(root, 'dist', 'prettier-worker', 'src'),
+  {
+    recursive: true,
+  }
+)
+
+const workerUrlFilePath = path.join(
+  root,
+  'dist',
+  'src',
+  'parts',
+  'PrettierWorkerUrl',
+  'PrettierWorkerUrl.js'
+)
+const oldContent = readFileSync(workerUrlFilePath, 'utf8')
+const newContent = oldContent.replace(
+  '../../../../prettier-worker/src/prettierWorkerMain.js',
+  '../../../prettier-worker/src/prettierWorkerMain.js'
+)
+writeFileSync(workerUrlFilePath, newContent)
 
 await packageExtension({
   highestCompression: true,
