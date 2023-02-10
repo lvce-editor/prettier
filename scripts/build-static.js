@@ -1,5 +1,5 @@
 import { exportStatic } from '@lvce-editor/shared-process'
-import { cp, readdir } from 'node:fs/promises'
+import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -20,15 +20,36 @@ const isCommitHash = (dirent) => {
 const dirents = await readdir(path.join(root, 'dist'))
 const commitHash = dirents.find(isCommitHash) || ''
 
-await cp(
-  path.join(root, 'packages', 'extension', 'third_party'),
-  path.join(
-    root,
-    'dist',
-    commitHash,
-    'extensions',
-    'builtin.prettier',
-    'third_party'
-  ),
-  { recursive: true, force: true }
+for (const dirent of ['src', 'third_party']) {
+  await cp(
+    path.join(root, 'packages', 'prettier-worker', dirent),
+    path.join(
+      root,
+      'dist',
+      commitHash,
+      'extensions',
+      'builtin.prettier',
+      'prettier-worker',
+      dirent
+    ),
+    { recursive: true, force: true }
+  )
+}
+
+const workerUrlFilePath = path.join(
+  root,
+  'dist',
+  commitHash,
+  'extensions',
+  'builtin.prettier',
+  'src',
+  'parts',
+  'PrettierWorkerUrl',
+  'PrettierWorkerUrl.js'
 )
+const oldContent = await readFile(workerUrlFilePath, 'utf8')
+const newContent = oldContent.replace(
+  '../../../../prettier-worker/src/prettierWorkerMain.js',
+  '../../../prettier-worker/src/prettierWorkerMain.js'
+)
+await writeFile(workerUrlFilePath, newContent)

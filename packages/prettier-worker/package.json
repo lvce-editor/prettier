@@ -1,0 +1,31 @@
+{
+  "name": "prettier-worker",
+  "version": "0.0.0-dev",
+  "description": "",
+  "main": "src/prettierWorkerMain.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
+    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "build": "esbuild src/prettierMain.js --format=esm --minify --bundle --outfile=dist/prettierMain.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "jest": {
+    "testMatch": [
+      "<rootDir>/test/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/third_party/"
+    ],
+    "roots": [
+      "src",
+      "test"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "jest": "^29.4.2"
+  }
+}
