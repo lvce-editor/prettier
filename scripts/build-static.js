@@ -1,5 +1,5 @@
 import { exportStatic } from '@lvce-editor/shared-process'
-import { cp, readdir } from 'node:fs/promises'
+import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -35,3 +35,21 @@ for (const dirent of ['src', 'third_party']) {
     { recursive: true, force: true }
   )
 }
+
+const workerUrlFilePath = path.join(
+  root,
+  'dist',
+  commitHash,
+  'extensions',
+  'builtin.prettier',
+  'src',
+  'parts',
+  'PrettierWorkerUrl',
+  'PrettierWorkerUrl.js'
+)
+const oldContent = await readFile(workerUrlFilePath, 'utf8')
+const newContent = oldContent.replace(
+  '../../../../prettier-worker/src/prettierWorkerMain.js',
+  '../../../prettier-worker/src/prettierWorkerMain.js'
+)
+await writeFile(workerUrlFilePath, newContent)
