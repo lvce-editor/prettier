@@ -17,10 +17,10 @@
   "devDependencies": {
     "@lvce-editor/package-extension": "^0.0.5",
     "@lvce-editor/server": "^0.14.0",
-    "@types/node": "^18.15.0",
+    "@types/node": "^18.15.3",
     "lerna": "^6.5.1",
-    "prettier": "^2.8.4",
-    "typescript": "^4.9.5"
+    "prettier": "^2.8.5",
+    "typescript": "^5.0.2"
   },
   "prettier": {
     "semi": false,
