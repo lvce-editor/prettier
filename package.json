@@ -16,11 +16,11 @@
   "license": "MIT",
   "devDependencies": {
     "@lvce-editor/package-extension": "^0.0.5",
-    "@lvce-editor/server": "^0.14.5",
+    "@lvce-editor/server": "^0.14.15",
     "@types/node": "^18.15.11",
     "lerna": "^6.6.1",
     "prettier": "^2.8.7",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   },
   "prettier": {
     "semi": false,
