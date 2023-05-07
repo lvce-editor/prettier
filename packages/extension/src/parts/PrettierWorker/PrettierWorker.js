@@ -1,7 +1,4 @@
 import * as Callback from '../Callback/Callback.js'
-import * as IpcParent from '../IpcParent/IpcParent.js'
-import * as IpcParentType from '../IpcParentType/IpcParentType.js'
-import * as JsonRpc from '../JsonRpc/JsonRpc.js'
 import * as PrettierWorkerUrl from '../PrettierWorkerUrl/PrettierWorkerUrl.js'
 
 export const state = {
@@ -21,25 +18,14 @@ const handleMessage = (event) => {
   }
 }
 
-const createIpc = async ({ url, name }) => {
-  const ipc = await IpcParent.create({
-    method: IpcParentType.ModuleWorker,
-    url,
-    name,
-  })
-  ipc.onmessage = handleMessage
-  return ipc
-}
-
 const createRpc = async () => {
   const workerUrl = PrettierWorkerUrl.getPrettierWorkerUrl()
-  const ipc = await createIpc({ url: workerUrl, name: 'Prettier Worker' })
-  return {
-    ipc,
-    invoke(method, ...params) {
-      return JsonRpc.invoke(this.ipc, method, ...params)
-    },
-  }
+  const rpc = await vscode.createRpc({
+    type: 'worker',
+    url: workerUrl,
+    name: 'Prettier Worker',
+  })
+  return rpc
 }
 
 const getOrCreateRpc = async () => {
