@@ -1,4 +1,3 @@
-import * as Callback from '../Callback/Callback.js'
 import * as PrettierWorkerUrl from '../PrettierWorkerUrl/PrettierWorkerUrl.js'
 
 export const state = {
@@ -7,15 +6,6 @@ export const state = {
    * @type {any}
    */
   rpcPromise: undefined,
-}
-
-const handleMessage = (event) => {
-  const message = event.data
-  if (message.id) {
-    Callback.resolve(message.id, message)
-  } else {
-    console.log(message)
-  }
 }
 
 const createRpc = async () => {
