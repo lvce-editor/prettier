@@ -11,10 +11,13 @@ export const wrap = (worker) => {
   return {
     worker,
     send(message) {
-      this.worker.postMessage(message)
+      this.worker.send(message)
     },
     set onmessage(listener) {
-      this.worker.onmessage = listener
+      const wrappedListener = (message) => {
+        listener({ data: message })
+      }
+      this.worker.onmessage = wrappedListener
     },
   }
 }
