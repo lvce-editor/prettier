@@ -1,3 +1,4 @@
+import { FormattingError } from '../FormattingError/FormattingError.js'
 import * as PluginModule from '../PluginModule/PluginModule.js'
 import * as Prettier from '../Prettier/Prettier.js'
 import * as PrettierModule from '../PrettierModule/PrettierModule.js'
@@ -20,14 +21,6 @@ const getFormatFnAsync = async (uri) => {
     })
   }
   return state.plugins[uri]
-}
-
-class FormattingError extends Error {
-  constructor(message) {
-    super(message)
-    this.name = 'FormattingError'
-    this.code = 'E_FORMATTING_FAILED'
-  }
 }
 
 // TODO should use languageId to get right formatter instead of path
