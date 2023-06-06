@@ -1,4 +1,5 @@
 import { FormattingError } from '../FormattingError/FormattingError.js'
+import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.js'
 import * as PluginModule from '../PluginModule/PluginModule.js'
 import * as Prettier from '../Prettier/Prettier.js'
 import * as PrettierModule from '../PrettierModule/PrettierModule.js'
@@ -36,7 +37,8 @@ export const format = async (uri, content) => {
     if (formattedText === null) {
       return content
     }
-    return formattedText
+    const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
+    return minimizedEdit
   } catch (error) {
     console.log({ error })
     const enhancedError = new FormattingError(
