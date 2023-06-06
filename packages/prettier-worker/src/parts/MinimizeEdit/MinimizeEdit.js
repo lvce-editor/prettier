@@ -16,7 +16,7 @@ export const minimizeEdit = (a, b) => {
   const inserted = b.slice(i, lengthB - j)
   return {
     startOffset: i,
-    endOffset: i + j,
+    endOffset: lengthA - j,
     inserted,
   }
 }

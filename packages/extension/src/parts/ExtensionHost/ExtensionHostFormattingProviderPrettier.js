@@ -10,17 +10,17 @@ export const format = async (textDocument) => {
   const uri = textDocument.uri
   const text = vscode.getTextFromTextDocument(textDocument)
   const start = performance.now()
-  const formattedText = await Format.format(uri, text)
+  const minimizedEdit = await Format.format(uri, text)
   const end = performance.now()
   console.log('took', end - start, 'ms')
-  if (text === formattedText) {
+  if (!minimizedEdit) {
     return []
   }
   return [
     {
-      startOffset: 0,
-      endOffset: text.length,
-      inserted: formattedText,
+      startOffset: minimizedEdit.startOffset,
+      endOffset: minimizedEdit.endOffset,
+      inserted: minimizedEdit.inserted,
     },
   ]
 }
