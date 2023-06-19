@@ -16,10 +16,7 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
 
   // assert
   const message = Locator('.EditorOverlayMessage')
-  await expect(message)
-    .toHaveText(`Error: Failed to execute formatting provider: Failed to format memfs:///workspace/test.css: SyntaxError: CssSyntaxError: Unknown word (2:3)
-  1 | h1 {
-> 2 |   font-size 10px
-    |   ^
-  3 | }`)
+  await expect(message).toHaveText(
+    `Error: Failed to execute formatting provider: Failed to format memfs:///workspace/test.css: CssSyntaxError: Unknown word`
+  )
 }

@@ -40,10 +40,7 @@ export const format = async (uri, content) => {
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
     return minimizedEdit
   } catch (error) {
-    console.log({ error })
-    const enhancedError = new FormattingError(
-      `Failed to format ${uri}: ${error}`
-    )
+    const enhancedError = new FormattingError(error, `Failed to format ${uri}`)
     throw enhancedError
     // if (error instanceof SyntaxError) {
     //   return {
