@@ -8,7 +8,7 @@ const NOT_NEEDED = [
   'node_modules/prettier/cli.js',
   'node_modules/prettier/doc.js',
   'node_modules/prettier/index.js',
-  'node_modules/prettier/parser-angular.js',
+    'node_modules/prettier/parser-angular.js',
   'node_modules/prettier/parser-babel.js',
   'node_modules/prettier/parser-espree.js',
   'node_modules/prettier/parser-flow.js',

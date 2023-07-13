@@ -11,3 +11,5 @@ export const PluginPostCss = 10
 export const PluginTypeScript = 11
 export const PluginYaml = 12
 export const Standalone = 13
+export const PluginAcorn = 14
+export const PluginEstree = 15

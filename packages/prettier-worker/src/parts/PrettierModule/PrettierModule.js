@@ -2,14 +2,14 @@ import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
 
 const loadInternal = (moduleId) => {
   switch (moduleId) {
-    case PrettierModuleId.PluginAcornAndEspree:
-      return import(
-        '../../../third_party/prettier-v3/plugins/acorn-and-espree.mjs'
-      )
+    case PrettierModuleId.PluginAcorn:
+      return import('../../../third_party/prettier-v3/plugins/acorn.mjs')
     case PrettierModuleId.PluginAngular:
       return import('../../../third_party/prettier-v3/plugins/angular.mjs')
     case PrettierModuleId.PluginBabel:
       return import('../../../third_party/prettier-v3/plugins/babel.mjs')
+    case PrettierModuleId.PluginEstree:
+      return import('../../../third_party/prettier-v3/plugins/estree.mjs')
     case PrettierModuleId.PluginFlow:
       return import('../../../third_party/prettier-v3/plugins/flow.mjs')
     case PrettierModuleId.PluginGlimmer:

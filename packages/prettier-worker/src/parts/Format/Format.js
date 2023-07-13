@@ -42,7 +42,7 @@ export const format = async (uri, content) => {
   } catch (error) {
     console.log({ error })
     const enhancedError = new FormattingError(
-      `Failed to format ${uri}: ${error}`
+      `Failed to format ${uri}: ${error}`,
     )
     throw enhancedError
     // if (error instanceof SyntaxError) {
