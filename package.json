@@ -15,13 +15,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/package-extension": "^0.0.5",
-    "@lvce-editor/server": "^0.17.19",
-    "@types/node": "^20.6.4",
-    "lerna": "^7.3.0",
+    "@lvce-editor/package-extension": "^0.1.0",
+    "@lvce-editor/server": "^0.18.13",
+    "@types/node": "^20.8.6",
+    "lerna": "^7.3.1",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
-    "@lerna/legacy-package-management": "^7.3.0"
+    "@lerna/legacy-package-management": "^7.3.1"
   },
   "prettier": {
     "semi": false,
