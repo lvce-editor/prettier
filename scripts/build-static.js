@@ -44,6 +44,7 @@ await cp(
     commitHash,
     'extensions',
     'builtin.prettier',
+    'prettier-worker',
     'third_party',
     'prettier',
   ),
