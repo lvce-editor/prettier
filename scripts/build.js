@@ -3,26 +3,6 @@ import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const NOT_NEEDED = [
-  'node_modules/prettier/bin-prettier.js',
-  'node_modules/prettier/cli.js',
-  'node_modules/prettier/doc.js',
-  'node_modules/prettier/index.js',
-    'node_modules/prettier/parser-angular.js',
-  'node_modules/prettier/parser-babel.js',
-  'node_modules/prettier/parser-espree.js',
-  'node_modules/prettier/parser-flow.js',
-  'node_modules/prettier/parser-glimmer.js',
-  'node_modules/prettier/parser-graphql.js',
-  'node_modules/prettier/parser-html.js',
-  'node_modules/prettier/parser-markdown.js',
-  'node_modules/prettier/parser-meriyah.js',
-  'node_modules/prettier/parser-postcss.js',
-  'node_modules/prettier/parser-typescript.js',
-  'node_modules/prettier/parser-yaml.js',
-  'node_modules/prettier/standalone.js',
-  'node_modules/prettier/third-party.js',
-]
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const root = path.join(__dirname, '..')
@@ -34,7 +14,7 @@ fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 fs.mkdirSync(path.join(root, 'dist'))
 
 const packageJson = JSON.parse(
-  readFileSync(join(extension, 'package.json')).toString()
+  readFileSync(join(extension, 'package.json')).toString(),
 )
 delete packageJson.xo
 delete packageJson.jest
@@ -43,56 +23,49 @@ delete packageJson.devDependencies
 
 fs.writeFileSync(
   join(root, 'dist', 'package.json'),
-  JSON.stringify(packageJson, null, 2) + '\n'
+  JSON.stringify(packageJson, null, 2) + '\n',
 )
 fs.copyFileSync(join(root, 'README.md'), join(root, 'dist', 'README.md'))
 fs.copyFileSync(join(extension, 'icon.png'), join(root, 'dist', 'icon.png'))
 fs.copyFileSync(
   join(extension, 'extension.json'),
-  join(root, 'dist', 'extension.json')
+  join(root, 'dist', 'extension.json'),
 )
 fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
   recursive: true,
 })
 
 fs.mkdirSync(
-  join(
-    root,
-    'dist',
-    'prettier-worker',
-    'third_party',
-    'prettier-v3',
-    'plugins'
-  ),
+  join(root, 'dist', 'prettier-worker', 'third_party', 'prettier', 'plugins'),
   {
     recursive: true,
-  }
+  },
 )
 for (const file of ['standalone.mjs', 'README.md', 'LICENSE', 'package.json']) {
   fs.cpSync(
-    join(prettierWorker, 'third_party', 'prettier-v3', file),
-    join(root, 'dist', 'prettier-worker', 'third_party', 'prettier-v3', file),
+    join(root, 'node_modules', 'prettier', file),
+    join(root, 'dist', 'prettier-worker', 'third_party', 'prettier', file),
     {
       recursive: true,
-    }
+    },
   )
 }
 const dirents = fs.readdirSync(
-  join(prettierWorker, 'third_party', 'prettier-v3', 'plugins')
+  join(root, 'node_modules', 'prettier', 'plugins'),
 )
 for (const dirent of dirents) {
   if (dirent.endsWith('.mjs')) {
     fs.cpSync(
-      join(prettierWorker, 'third_party', 'prettier-v3', 'plugins', dirent),
+      join(root, 'node_modules', 'prettier', 'plugins', dirent),
       join(
         root,
         'dist',
         'prettier-worker',
         'third_party',
-        'prettier-v3',
+        'prettier',
         'plugins',
-        dirent
-      )
+        dirent,
+      ),
     )
   }
 }
@@ -101,7 +74,7 @@ fs.cpSync(
   join(root, 'dist', 'prettier-worker', 'src'),
   {
     recursive: true,
-  }
+  },
 )
 
 const workerUrlFilePath = path.join(
@@ -110,14 +83,20 @@ const workerUrlFilePath = path.join(
   'src',
   'parts',
   'PrettierWorkerUrl',
-  'PrettierWorkerUrl.js'
+  'PrettierWorkerUrl.js',
 )
-const oldContent = readFileSync(workerUrlFilePath, 'utf8')
-const newContent = oldContent.replace(
-  '../../../../prettier-worker/src/prettierWorkerMain.js',
-  '../../../prettier-worker/src/prettierWorkerMain.js'
-)
-writeFileSync(workerUrlFilePath, newContent)
+
+const replace = ({ path, occurrence, replacement }) => {
+  const oldContent = readFileSync(path, 'utf8')
+  const newContent = oldContent.replace(occurrence, replacement)
+  writeFileSync(path, newContent)
+}
+
+replace({
+  path: workerUrlFilePath,
+  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
+  replacement: '../../../prettier-worker/src/prettierWorkerMain.js',
+})
 
 await packageExtension({
   highestCompression: true,
