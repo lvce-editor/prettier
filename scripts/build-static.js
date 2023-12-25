@@ -20,7 +20,7 @@ const isCommitHash = (dirent) => {
 const dirents = await readdir(path.join(root, 'dist'))
 const commitHash = dirents.find(isCommitHash) || ''
 
-for (const dirent of ['src', 'third_party']) {
+for (const dirent of ['src']) {
   await cp(
     path.join(root, 'packages', 'prettier-worker', dirent),
     path.join(
@@ -30,11 +30,25 @@ for (const dirent of ['src', 'third_party']) {
       'extensions',
       'builtin.prettier',
       'prettier-worker',
-      dirent
+      dirent,
     ),
-    { recursive: true, force: true }
+    { recursive: true, force: true },
   )
 }
+
+await cp(
+  path.join(root, 'node_modules', 'prettier'),
+  path.join(
+    root,
+    'dist',
+    commitHash,
+    'extensions',
+    'builtin.prettier',
+    'third_party',
+    'prettier',
+  ),
+  { recursive: true, force: true },
+)
 
 for (const dirent of [
   'bin',
@@ -63,14 +77,20 @@ for (const dirent of [
       'builtin.prettier',
       'prettier-worker',
       'third_party',
-      'prettier-v3',
-      dirent
+      'prettier',
+      dirent,
     ),
     {
       recursive: true,
       force: true,
-    }
+    },
   )
+}
+
+const replace = async ({ path, occurrence, replacement }) => {
+  const oldContent = await readFile(path, 'utf8')
+  const newContent = oldContent.replace(occurrence, replacement)
+  await writeFile(path, newContent)
 }
 
 const workerUrlFilePath = path.join(
@@ -82,11 +102,30 @@ const workerUrlFilePath = path.join(
   'src',
   'parts',
   'PrettierWorkerUrl',
-  'PrettierWorkerUrl.js'
+  'PrettierWorkerUrl.js',
 )
-const oldContent = await readFile(workerUrlFilePath, 'utf8')
-const newContent = oldContent.replace(
-  '../../../../prettier-worker/src/prettierWorkerMain.js',
-  '../../../prettier-worker/src/prettierWorkerMain.js'
+
+await replace({
+  path: workerUrlFilePath,
+  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
+  replacement: '../../../prettier-worker/src/prettierWorkerMain.js',
+})
+
+const modulePath = path.join(
+  root,
+  'dist',
+  commitHash,
+  'extensions',
+  'builtin.prettier',
+  'prettier-worker',
+  'src',
+  'parts',
+  'PrettierModule',
+  'PrettierModule.js',
 )
-await writeFile(workerUrlFilePath, newContent)
+
+await replace({
+  path: modulePath,
+  occurrence: '../../../../../node_modules/prettier',
+  replacement: '../../../third_party/prettier',
+})
