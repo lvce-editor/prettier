@@ -77,6 +77,12 @@ fs.cpSync(
   },
 )
 
+const replace = ({ path, occurrence, replacement }) => {
+  const oldContent = readFileSync(path, 'utf8')
+  const newContent = oldContent.replace(occurrence, replacement)
+  writeFileSync(path, newContent)
+}
+
 const workerUrlFilePath = path.join(
   root,
   'dist',
@@ -85,17 +91,26 @@ const workerUrlFilePath = path.join(
   'PrettierWorkerUrl',
   'PrettierWorkerUrl.js',
 )
-
-const replace = ({ path, occurrence, replacement }) => {
-  const oldContent = readFileSync(path, 'utf8')
-  const newContent = oldContent.replace(occurrence, replacement)
-  writeFileSync(path, newContent)
-}
-
 replace({
   path: workerUrlFilePath,
   occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
   replacement: '../../../prettier-worker/src/prettierWorkerMain.js',
+})
+
+const modulePath = path.join(
+  root,
+  'dist',
+  'prettier-worker',
+  'src',
+  'parts',
+  'PrettierModule',
+  'PrettierModule.js',
+)
+
+replace({
+  path: modulePath,
+  occurrence: '../../../../../node_modules/prettier',
+  replacement: '../../../third_party/prettier',
 })
 
 await packageExtension({
