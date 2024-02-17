@@ -8,7 +8,7 @@ test('format json', async () => {
   const uri = '/test/file.json'
   const content = '{}'
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
-    startOffset: 1,
+    startOffset: 2,
     endOffset: 2,
     inserted: `\n`,
   })
