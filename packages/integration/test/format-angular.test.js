@@ -7,7 +7,9 @@ test('format angular', async () => {
   })
   const uri = '/test/file.html'
   const content = ' <h1>hello world</h1>'
-  expect(await worker.execute('Format.format', uri, content))
-    .toBe(`<h1>hello world</h1>
-  `)
+  expect(await worker.execute('Prettier.format', uri, content)).toEqual({
+    startOffset: 0,
+    endOffset: 21,
+    inserted: '<h1>hello world</h1>\n',
+  })
 })
