@@ -2,6 +2,7 @@ import { packageExtension } from '@lvce-editor/package-extension'
 import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { rollup } from 'rollup'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -94,7 +95,7 @@ const workerUrlFilePath = path.join(
 replace({
   path: workerUrlFilePath,
   occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
-  replacement: '../../../prettier-worker/src/prettierWorkerMain.js',
+  replacement: '../../../prettier-worker/dist/prettierWorkerMain.js',
 })
 
 const modulePath = path.join(
@@ -110,7 +111,19 @@ const modulePath = path.join(
 replace({
   path: modulePath,
   occurrence: '../../../../../node_modules/prettier',
-  replacement: '../../../third_party/prettier',
+  replacement: '../third_party/prettier',
+})
+
+const output = await rollup({
+  input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.js'),
+})
+
+await output.write({
+  file: join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
+  format: 'es',
+  sourcemap: true,
+  sourcemapExcludeSources: true,
+  inlineDynamicImports: true,
 })
 
 await packageExtension({
