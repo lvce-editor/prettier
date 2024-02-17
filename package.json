@@ -17,11 +17,11 @@
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.1.2",
     "@lvce-editor/package-extension": "^0.1.0",
-    "@lvce-editor/server": "^0.23.0",
-    "@types/node": "^20.11.16",
+    "@lvce-editor/server": "^0.23.2",
+    "@types/node": "^20.11.19",
     "lerna": "^8.1.2",
     "prettier": "^4.0.0-alpha.8",
-    "rollup": "^4.9.6",
+    "rollup": "^4.12.0",
     "typescript": "^5.3.3"
   },
   "prettier": {
