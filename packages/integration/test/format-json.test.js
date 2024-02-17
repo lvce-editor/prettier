@@ -1,18 +1,15 @@
 import { testWorker } from '../src/testWorker.js'
 
-test('format css', async () => {
+test('format json', async () => {
   const execMap = {}
   const worker = await testWorker({
     execMap,
   })
-  const uri = '/test/file.css'
-  const content = ' h1 { height: 10px }'
+  const uri = '/test/file.json'
+  const content = '{}'
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
-    startOffset: 0,
-    endOffset: 20,
-    inserted: `h1 {
-  height: 10px;
-}
-`,
+    startOffset: 2,
+    endOffset: 2,
+    inserted: `\n`,
   })
 })
