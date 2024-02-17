@@ -7,8 +7,12 @@ test('format css', async () => {
   })
   const uri = '/test/file.css'
   const content = ' h1 { height: 10px }'
-  expect(await worker.execute('Format.format', uri, content)).toBe(`h1 {
+  expect(await worker.execute('Prettier.format', uri, content)).toEqual({
+    startOffset: 0,
+    endOffset: 20,
+    inserted: `h1 {
   height: 10px;
 }
-`)
+`,
+  })
 })
