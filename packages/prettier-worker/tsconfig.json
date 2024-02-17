@@ -2,10 +2,10 @@
   "compilerOptions": {
     "lib": ["esnext", "WebWorker"],
     "checkJs": true,
-    "module": "esnext",
     "target": "esnext",
     "types": ["jest"],
-    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "skipLibCheck": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
