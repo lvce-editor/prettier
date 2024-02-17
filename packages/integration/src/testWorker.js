@@ -3,25 +3,17 @@
 
 import { startWorker } from './startWorker.js'
 
-export const testWorker = async ({ execMap, config = {}, quickPick = () => {} }) => {
+export const testWorker = async ({
+  execMap,
+  config = {},
+  quickPick = () => {},
+}) => {
   const invocations = []
   const rpc = {
     invoke(...args) {
       invocations.push(args)
-      if (args[0] === 'Exec.exec') {
-        const result = execMap[args[2][0]]
-        if (!result) {
-          throw new Error(`exec command not found ${args[2][0]}`)
-        }
-        return result
-      } else if (args[0] === 'Config.getGitPaths') {
-        // @ts-ignore
-        return config.gitPaths
-      } else if (args[0] === 'Config.getWorkspaceFolder') {
-        // @ts-ignore
-        return config.workspaceFolder
-      } else if (args[0] === 'QuickPick.show') {
-        return quickPick()
+      if (args[0] === 'OutputChannel.log') {
+        // ignore
       } else {
         throw new Error(`unknown command ${args[0]}`)
       }
