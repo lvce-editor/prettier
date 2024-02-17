@@ -1,4 +1,4 @@
-import * as PrettierWorkerUrl from '../PrettierWorkerUrl/PrettierWorkerUrl.js'
+import * as LaunchPrettierWorker from '../LaunchPrettierWorker/LaunchPrettierWorker.js'
 
 export const state = {
   ipc: undefined,
@@ -8,19 +8,9 @@ export const state = {
   rpcPromise: undefined,
 }
 
-const createRpc = async () => {
-  const workerUrl = PrettierWorkerUrl.getPrettierWorkerUrl()
-  const rpc = await vscode.createRpc({
-    type: 'worker',
-    url: workerUrl,
-    name: 'Prettier Worker',
-  })
-  return rpc
-}
-
 const getOrCreateRpc = async () => {
   if (!state.rpcPromise) {
-    state.rpcPromise = createRpc()
+    state.rpcPromise = LaunchPrettierWorker.launchPrettierWorker()
   }
   return state.rpcPromise
 }
