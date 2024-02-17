@@ -116,6 +116,10 @@ replace({
 
 const output = await rollup({
   input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.js'),
+  preserveEntrySignatures: 'strict',
+  treeshake: {
+    propertyReadSideEffects: false,
+  },
 })
 
 await output.write({
@@ -124,6 +128,13 @@ await output.write({
   sourcemap: true,
   sourcemapExcludeSources: true,
   inlineDynamicImports: true,
+  freeze: false,
+  minifyInternalExports: false,
+  generatedCode: {
+    constBindings: true,
+    objectShorthand: true,
+  },
+  hoistTransitiveImports: false,
 })
 
 await packageExtension({
