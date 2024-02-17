@@ -7,5 +7,9 @@ test('format javascript', async () => {
   })
   const uri = '/test/file.js'
   const content = `let x=1`
-  expect(await worker.execute('Format.format', uri, content)).toBe('2.39.2')
+  expect(await worker.execute('Prettier.format', uri, content)).toEqual({
+    startOffset: 5,
+    endOffset: 7,
+    inserted: ' = 1;\n',
+  })
 })
