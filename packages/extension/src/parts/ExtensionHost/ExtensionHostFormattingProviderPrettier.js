@@ -8,6 +8,7 @@ export const languageId = 'css'
 
 export const format = async (textDocument) => {
   const uri = textDocument.uri
+  // @ts-expect-error
   const text = vscode.getTextFromTextDocument(textDocument)
   const start = performance.now()
   const minimizedEdit = await Format.format(uri, text)
