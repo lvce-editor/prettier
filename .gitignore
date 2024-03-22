@@ -1,6 +1,7 @@
 .vscode
 .tmp
 extension.tar.br
+dist2
 
 # Logs
 logs
