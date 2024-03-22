@@ -1,6 +1,6 @@
-import * as PluginVue from '../src/parts/PluginVue/PluginVue.js'
-import * as Prettier from '../src/parts/Prettier/Prettier.js'
-import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
+import * as PluginVue from '../src/parts/PluginVue/PluginVue.ts'
+import * as Prettier from '../src/parts/Prettier/Prettier.ts'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
 
 const plugins = await PrettierModule.loadAll(PluginVue.plugins)
 const format = (code) => {

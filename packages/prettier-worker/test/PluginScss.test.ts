@@ -1,6 +1,6 @@
-import * as PluginScss from '../src/parts/PluginScss/PluginScss.js'
-import * as Prettier from '../src/parts/Prettier/Prettier.js'
-import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
+import * as PluginScss from '../src/parts/PluginScss/PluginScss.ts'
+import * as Prettier from '../src/parts/Prettier/Prettier.ts'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
 
 const plugins = await PrettierModule.loadAll(PluginScss.plugins)
 const format = (code) => {
