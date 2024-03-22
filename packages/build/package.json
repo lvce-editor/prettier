@@ -1,0 +1,16 @@
+{
+  "name": "build",
+  "version": "0.0.0-dev",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.24.1",
+    "@lvce-editor/package-extension": "^0.2.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "rollup": "^4.13.0"
+  }
+}
