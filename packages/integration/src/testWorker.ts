@@ -8,7 +8,7 @@ export const testWorker = async ({
   config = {},
   quickPick = () => {},
 }) => {
-  const invocations = []
+  const invocations: any[] = []
   const rpc = {
     invoke(...args) {
       invocations.push(args)
@@ -21,8 +21,8 @@ export const testWorker = async ({
   }
   const worker = await startWorker(rpc)
   return {
-    execute(...args) {
-      return worker.execute(...args)
+    execute(commandId: string, ...args: any[]) {
+      return worker.execute(commandId, ...args)
     },
     invocations,
   }

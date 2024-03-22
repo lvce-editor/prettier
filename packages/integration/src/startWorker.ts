@@ -19,7 +19,7 @@ export const startWorker = async (rpc) => {
   const module = await import(workerUrl)
   const { commandMap } = module
   return {
-    execute(commandId, ...args) {
+    execute(commandId: string, ...args: any[]) {
       const command = commandMap[commandId]
       if (!command) {
         throw new Error(`command not found ${commandId}`)

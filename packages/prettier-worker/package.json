@@ -13,12 +13,19 @@
   "author": "",
   "license": "MIT",
   "jest": {
-    "testMatch": [
-      "<rootDir>/test/**/*.test.js"
+    "extensionsToTreatAsEsm": [
+      ".ts"
     ],
-    "roots": [
-      "src",
-      "test"
-    ]
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    }
   }
 }

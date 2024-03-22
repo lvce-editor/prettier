@@ -3,6 +3,7 @@ import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { rollup } from 'rollup'
+import typescript from '@rollup/plugin-typescript'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -120,6 +121,13 @@ const output = await rollup({
   treeshake: {
     propertyReadSideEffects: false,
   },
+  plugins: [
+    typescript({
+      allowImportingTsExtensions: true,
+      module: 'esnext',
+      target: 'esnext',
+    }),
+  ],
 })
 
 await output.write({
