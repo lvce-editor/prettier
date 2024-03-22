@@ -1,4 +1,4 @@
-import * as Format from '../../extension/src/parts/Format/Format.ts'
+import * as Format from '../src/parts/Format/Format.ts'
 
 test.skip('format javascript', () => {
   expect(Format.format('/tmp/index.ts', 'let x=1')).toBe(`let x = 1;
