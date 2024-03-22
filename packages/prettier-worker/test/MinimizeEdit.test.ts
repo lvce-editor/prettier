@@ -1,4 +1,4 @@
-import * as MinimizeEdit from '../src/parts/MinimizeEdit/MinimizeEdit.js'
+import * as MinimizeEdit from '../src/parts/MinimizeEdit/MinimizeEdit.ts'
 
 test('minimizeEdit - insert one character', () => {
   const a = 'abce'

@@ -1,6 +1,6 @@
-import * as PluginTypeScriptReact from '../src/parts/PluginTypeScriptReact/PluginTypeScriptReact.js'
-import * as Prettier from '../src/parts/Prettier/Prettier.js'
-import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.js'
+import * as PluginTypeScriptReact from '../src/parts/PluginTypeScriptReact/PluginTypeScriptReact.ts'
+import * as Prettier from '../src/parts/Prettier/Prettier.ts'
+import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
 
 const plugins = await PrettierModule.loadAll(PluginTypeScriptReact.plugins)
 const format = (code) => {

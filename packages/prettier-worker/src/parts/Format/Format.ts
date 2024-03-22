@@ -1,9 +1,9 @@
-import { FormattingError } from '../FormattingError/FormattingError.js'
-import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.js'
-import * as PluginModule from '../PluginModule/PluginModule.js'
-import * as Prettier from '../Prettier/Prettier.js'
-import * as OutputChannel from '../OutputChannel/OutputChannel.js'
-import * as PrettierModule from '../PrettierModule/PrettierModule.js'
+import { FormattingError } from '../FormattingError/FormattingError.ts'
+import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
+import * as PluginModule from '../PluginModule/PluginModule.ts'
+import * as Prettier from '../Prettier/Prettier.ts'
+import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
+import * as PrettierModule from '../PrettierModule/PrettierModule.ts'
 
 export const state = {
   plugins: Object.create(null),
@@ -55,4 +55,4 @@ export const format = async (uri, content) => {
   }
 }
 
-// format('/test/index.js', 'let x=2')
+// format('/test/index.ts', 'let x=2')

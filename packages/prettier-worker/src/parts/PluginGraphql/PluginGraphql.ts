@@ -1,5 +1,5 @@
-import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
-import * as PrettierParserId from '../PrettierParserId/PrettierParserId.js'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
+import * as PrettierParserId from '../PrettierParserId/PrettierParserId.ts'
 
 export const plugins = [PrettierModuleId.PluginGraphql]
 

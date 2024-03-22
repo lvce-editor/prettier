@@ -1,4 +1,4 @@
-import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.js'
+import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
 
 const pathPrefix = '../../../../../node_modules/prettier'
 

@@ -7,11 +7,11 @@ import * as PluginJson from '../PluginJson/PluginJson.ts'
 import * as PluginJsonc from '../PluginJsonc/PluginJsonc.ts'
 import * as PluginLess from '../PluginLess/PluginLess.ts'
 import * as PluginMarkdown from '../PluginMarkdown/PluginMarkdown.ts'
-import * as PluginScss from '../PluginScss/PluginScss.js'
-import * as PluginTypeScript from '../PluginTypeScript/PluginTypeScript.js'
-import * as PluginTypeScriptReact from '../PluginTypeScriptReact/PluginTypeScriptReact.js'
-import * as PluginVue from '../PluginVue/PluginVue.js'
-import * as PluginYaml from '../PluginYaml/PluginYaml.js'
+import * as PluginScss from '../PluginScss/PluginScss.ts'
+import * as PluginTypeScript from '../PluginTypeScript/PluginTypeScript.ts'
+import * as PluginTypeScriptReact from '../PluginTypeScriptReact/PluginTypeScriptReact.ts'
+import * as PluginVue from '../PluginVue/PluginVue.ts'
+import * as PluginYaml from '../PluginYaml/PluginYaml.ts'
 
 const extName = (uri) => {
   return uri.slice(uri.lastIndexOf('.'))
@@ -26,7 +26,7 @@ export const loadPlugin = (uri) => {
       return PluginGraphql
     case '.html':
       return PluginHtml
-    case '.js':
+    case '.ts':
     case '.mjs':
       return PluginJavaScript
     case '.jsx':
