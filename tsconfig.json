@@ -5,6 +5,7 @@
     { "path": "./packages/e2e" },
     { "path": "./packages/extension" },
     { "path": "./packages/integration" },
-    { "path": "./packages/prettier-worker" }
+    { "path": "./packages/prettier-worker" },
+    { "path": "./packages/build" }
   ]
 }
