@@ -10,7 +10,8 @@ const root = join(__dirname, '..')
 const locations = [
   'lerna.json',
   'package-lock.json',
-  'packages/e2e/package-lock.json',
+  'packages/build/package-lock.json',
+  'packages/integration/package-lock.json',
   'packages/integration/package-lock.json',
   'packages/extension/package-lock.json',
   'packages/prettier-worker/package-lock.json',
