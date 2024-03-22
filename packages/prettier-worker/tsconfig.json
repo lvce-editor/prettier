@@ -15,9 +15,9 @@
     "noImplicitAny": false,
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "composite": true
   },
-  "include": ["src"],
+  "include": ["src", "test"],
   "exclude": ["third_party", "coverage"]
 }
