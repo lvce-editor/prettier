@@ -122,7 +122,7 @@ const modulePath = path.join(
   'src',
   'parts',
   'PrettierModule',
-  'PrettierModule.js',
+  'PrettierModule.ts',
 )
 
 await replace({
