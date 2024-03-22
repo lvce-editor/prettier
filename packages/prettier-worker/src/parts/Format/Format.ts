@@ -35,7 +35,6 @@ export const format = async (uri, content) => {
     const formattedText = await fn(content)
     const e = performance.now()
     const diff = e - s
-    console.log(`actually took ${diff}ms`)
     if (formattedText === null) {
       return content
     }

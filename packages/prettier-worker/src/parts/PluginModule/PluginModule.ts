@@ -26,7 +26,7 @@ export const loadPlugin = (uri) => {
       return PluginGraphql
     case '.html':
       return PluginHtml
-    case '.ts':
+    case '.js':
     case '.mjs':
       return PluginJavaScript
     case '.jsx':
