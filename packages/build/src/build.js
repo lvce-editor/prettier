@@ -2,7 +2,6 @@ import { packageExtension } from '@lvce-editor/package-extension'
 import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { rollup } from 'rollup'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -114,38 +113,51 @@ replace({
   replacement: '../third_party/prettier',
 })
 
-const { babel } = await import('@rollup/plugin-babel')
-const { default: pluginTypeScript } = await import('@babel/preset-typescript')
+const bundleJs = async (input, outFile) => {
+  const { babel } = await import('@rollup/plugin-babel')
+  const { default: pluginTypeScript } = await import('@babel/preset-typescript')
+  const { rollup } = await import('rollup')
 
-const output = await rollup({
-  input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
-  preserveEntrySignatures: 'strict',
-  treeshake: {
-    propertyReadSideEffects: false,
-  },
-  plugins: [
-    babel({
-      babelHelpers: 'bundled',
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      presets: [pluginTypeScript],
-    }),
-  ],
-})
+  const prettierWorkerOutput = await rollup({
+    input,
+    preserveEntrySignatures: 'strict',
+    treeshake: {
+      propertyReadSideEffects: false,
+    },
+    plugins: [
+      babel({
+        babelHelpers: 'bundled',
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        presets: [pluginTypeScript],
+      }),
+    ],
+  })
 
-await output.write({
-  file: join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
-  format: 'es',
-  sourcemap: true,
-  sourcemapExcludeSources: true,
-  inlineDynamicImports: true,
-  freeze: false,
-  minifyInternalExports: false,
-  generatedCode: {
-    constBindings: true,
-    objectShorthand: true,
-  },
-  hoistTransitiveImports: false,
-})
+  await prettierWorkerOutput.write({
+    file: outFile,
+    format: 'es',
+    sourcemap: true,
+    sourcemapExcludeSources: true,
+    inlineDynamicImports: true,
+    freeze: false,
+    minifyInternalExports: false,
+    generatedCode: {
+      constBindings: true,
+      objectShorthand: true,
+    },
+    hoistTransitiveImports: false,
+  })
+}
+
+await bundleJs(
+  join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
+  join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
+)
+
+await bundleJs(
+  join(root, 'dist', 'src', 'prettierMain.js'),
+  join(root, 'dist', 'dist', 'prettierMain.js'),
+)
 
 await packageExtension({
   highestCompression: true,
