@@ -6,7 +6,7 @@
   "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/preset-typescript": "^7.24.1",
     "@lvce-editor/package-extension": "^0.2.0",
