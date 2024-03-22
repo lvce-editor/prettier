@@ -10,7 +10,7 @@ const workerPath = join(
   'packages',
   'prettier-worker',
   'src',
-  'prettierWorkerMain.js',
+  'prettierWorkerMain.ts',
 )
 
 export const startWorker = async (rpc) => {

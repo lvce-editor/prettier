@@ -95,7 +95,7 @@ const workerUrlFilePath = path.join(
 )
 replace({
   path: workerUrlFilePath,
-  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
+  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.ts',
   replacement: '../../../prettier-worker/dist/prettierWorkerMain.js',
 })
 
@@ -116,7 +116,7 @@ replace({
 })
 
 const output = await rollup({
-  input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.js'),
+  input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,

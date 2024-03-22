@@ -108,7 +108,7 @@ const workerUrlFilePath = path.join(
 
 await replace({
   path: workerUrlFilePath,
-  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.js',
+  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.ts',
   replacement: '../../../prettier-worker/src/prettierWorkerMain.js',
 })
 

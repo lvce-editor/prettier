@@ -2,7 +2,7 @@
   "name": "prettier-worker",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "src/prettierWorkerMain.js",
+  "main": "src/prettierWorkerMain.ts",
   "type": "module",
   "scripts": {
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ../../node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
