@@ -6,7 +6,7 @@ import { rollup } from 'rollup'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const root = path.join(__dirname, '..')
+const root = path.join(__dirname, '..', '..', '..', '..')
 const extension = path.join(root, 'packages', 'extension')
 const prettierWorker = path.join(root, 'packages', 'prettier-worker')
 
