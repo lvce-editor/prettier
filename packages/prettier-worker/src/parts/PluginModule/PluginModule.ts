@@ -11,6 +11,7 @@ import * as PluginScss from '../PluginScss/PluginScss.ts'
 import * as PluginTypeScript from '../PluginTypeScript/PluginTypeScript.ts'
 import * as PluginTypeScriptReact from '../PluginTypeScriptReact/PluginTypeScriptReact.ts'
 import * as PluginVue from '../PluginVue/PluginVue.ts'
+import * as FileExtension from '../FileExtension/FileExtension.ts'
 import * as PluginYaml from '../PluginYaml/PluginYaml.ts'
 
 const extName = (uri) => {
@@ -20,34 +21,34 @@ const extName = (uri) => {
 export const loadPlugin = (uri) => {
   const extension = extName(uri)
   switch (extension) {
-    case '.css':
+    case FileExtension.Css:
       return PluginCss
-    case '.gql':
+    case FileExtension.GraphQl:
       return PluginGraphql
-    case '.html':
+    case FileExtension.Html:
       return PluginHtml
-    case '.js':
-    case '.mjs':
+    case FileExtension.JavaScript:
+    case FileExtension.JavascriptModule:
       return PluginJavaScript
-    case '.jsx':
+    case FileExtension.Jsx:
       return PluginJavaScriptReact
-    case '.json':
+    case FileExtension.Json:
       return PluginJson
-    case '.jsonc':
+    case FileExtension.Jsonc:
       return PluginJsonc
-    case '.less':
+    case FileExtension.Less:
       return PluginLess
-    case '.md':
+    case FileExtension.Markdown:
       return PluginMarkdown
-    case '.scss':
+    case FileExtension.Scss:
       return PluginScss
-    case '.ts':
+    case FileExtension.Typescript:
       return PluginTypeScript
-    case '.tsx':
+    case FileExtension.Tsx:
       return PluginTypeScriptReact
-    case '.vue':
+    case FileExtension.Vue:
       return PluginVue
-    case '.yml':
+    case FileExtension.Yaml:
       return PluginYaml
     default:
       throw new Error(`cannot format ${uri}`)
