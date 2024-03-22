@@ -95,7 +95,7 @@ const workerUrlFilePath = path.join(
 replace({
   path: workerUrlFilePath,
   occurrence: '../../../../prettier-worker/src/prettierWorkerMain.ts',
-  replacement: '../../../prettier-worker/dist/prettierWorkerMain.js',
+  replacement: '../prettier-worker/dist/prettierWorkerMain.js',
 })
 
 const modulePath = path.join(
@@ -112,6 +112,12 @@ replace({
   path: modulePath,
   occurrence: '../../../../../node_modules/prettier',
   replacement: '../third_party/prettier',
+})
+
+replace({
+  path: join(root, 'dist', 'extension.json'),
+  occurrence: 'src/prettierMain.js',
+  replacement: 'dist/prettierMain.js',
 })
 
 await bundleJs(
