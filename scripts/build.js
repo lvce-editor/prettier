@@ -3,7 +3,6 @@ import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { rollup } from 'rollup'
-import typescript from '@rollup/plugin-typescript'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -106,7 +105,7 @@ const modulePath = path.join(
   'src',
   'parts',
   'PrettierModule',
-  'PrettierModule.js',
+  'PrettierModule.ts',
 )
 
 replace({
@@ -115,6 +114,9 @@ replace({
   replacement: '../third_party/prettier',
 })
 
+const { babel } = await import('@rollup/plugin-babel')
+const { default: pluginTypeScript } = await import('@babel/preset-typescript')
+
 const output = await rollup({
   input: join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
   preserveEntrySignatures: 'strict',
@@ -122,10 +124,10 @@ const output = await rollup({
     propertyReadSideEffects: false,
   },
   plugins: [
-    typescript({
-      allowImportingTsExtensions: true,
-      module: 'esnext',
-      target: 'esnext',
+    babel({
+      babelHelpers: 'bundled',
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      presets: [pluginTypeScript],
     }),
   ],
 })
