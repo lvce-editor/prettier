@@ -3,7 +3,7 @@
     "lib": ["esnext", "WebWorker"],
     "checkJs": true,
     "target": "esnext",
-    "types": ["jest"],
+    "types": ["node"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
