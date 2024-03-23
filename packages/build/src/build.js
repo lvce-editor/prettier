@@ -87,7 +87,7 @@ const workerUrlFilePath = path.join(
   'src',
   'parts',
   'PrettierWorkerUrl',
-  'PrettierWorkerUrl.js',
+  'PrettierWorkerUrl.ts',
 )
 replace({
   path: workerUrlFilePath,

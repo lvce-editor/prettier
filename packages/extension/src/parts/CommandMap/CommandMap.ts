@@ -1,4 +1,4 @@
-import { CommandNotFoundError } from '../CommandNotFoundError/CommandNotFoundError.js'
+import { CommandNotFoundError } from '../CommandNotFoundError/CommandNotFoundError.ts'
 
 const log = (message) => {
   console.info(message)

@@ -1,5 +1,5 @@
-import * as PrettierWorker from '../PrettierWorker/PrettierWorker.js'
-import * as PrettierWorkerCommandType from '../PrettierWorkerCommandType/PrettierWorkerCommandType.js'
+import * as PrettierWorker from '../PrettierWorker/PrettierWorker.ts'
+import * as PrettierWorkerCommandType from '../PrettierWorkerCommandType/PrettierWorkerCommandType.ts'
 
 export const format = async (uri, text) => {
   const rpc = await PrettierWorker.getInstance()

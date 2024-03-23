@@ -1,5 +1,5 @@
-import * as PrettierWorkerUrl from '../PrettierWorkerUrl/PrettierWorkerUrl.js'
-import * as Command from '../Command/Command.js'
+import * as PrettierWorkerUrl from '../PrettierWorkerUrl/PrettierWorkerUrl.ts'
+import * as Command from '../Command/Command.ts'
 
 export const launchPrettierWorker = async () => {
   const workerUrl = PrettierWorkerUrl.getPrettierWorkerUrl()

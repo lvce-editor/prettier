@@ -1,10 +1,12 @@
-import * as LaunchPrettierWorker from '../LaunchPrettierWorker/LaunchPrettierWorker.js'
+import * as LaunchPrettierWorker from '../LaunchPrettierWorker/LaunchPrettierWorker.ts'
 
-export const state = {
+interface State {
+  ipc: any
+  rpcPromise: any
+}
+
+export const state: State = {
   ipc: undefined,
-  /**
-   * @type {any}
-   */
   rpcPromise: undefined,
 }
 
