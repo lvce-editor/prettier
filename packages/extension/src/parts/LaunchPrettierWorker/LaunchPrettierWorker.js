@@ -9,6 +9,7 @@ export const launchPrettierWorker = async () => {
     url: workerUrl,
     name: 'Prettier Worker',
     execute: Command.execute,
+    contentSecurityPolicy: "default-src 'none'; script-src 'self'",
   })
   return rpc
 }
