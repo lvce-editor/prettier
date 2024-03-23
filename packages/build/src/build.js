@@ -1,12 +1,9 @@
 import { packageExtension } from '@lvce-editor/package-extension'
 import fs, { readFileSync, writeFileSync } from 'node:fs'
-import path, { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import path, { join } from 'node:path'
 import { bundleJs } from './bundle-js.js'
+import { root } from './root.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const root = path.join(__dirname, '..', '..', '..')
 const extension = path.join(root, 'packages', 'extension')
 const prettierWorker = path.join(root, 'packages', 'prettier-worker')
 

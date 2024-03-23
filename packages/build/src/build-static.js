@@ -1,10 +1,7 @@
 import { exportStatic } from '@lvce-editor/shared-process'
 import { cp, readdir } from 'node:fs/promises'
-import path, { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const root = path.join(__dirname, '..', '..', '..')
+import path from 'node:path'
+import { root } from './root.js'
 
 await import('./build.js')
 
