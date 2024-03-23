@@ -2,7 +2,7 @@
   "name": "builtin.prettier",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "src/prettierMain.js",
+  "main": "src/prettierMain.ts",
   "scripts": {
     "test": ""
   },
