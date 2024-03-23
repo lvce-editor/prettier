@@ -116,7 +116,7 @@ replace({
 
 replace({
   path: join(root, 'dist', 'extension.json'),
-  occurrence: 'src/prettierMain.js',
+  occurrence: 'src/prettierMain.ts',
   replacement: 'dist/prettierMain.js',
 })
 
@@ -126,7 +126,7 @@ await bundleJs(
 )
 
 await bundleJs(
-  join(root, 'dist', 'src', 'prettierMain.js'),
+  join(root, 'dist', 'src', 'prettierMain.ts'),
   join(root, 'dist', 'dist', 'prettierMain.js'),
 )
 
