@@ -1,4 +1,4 @@
-import * as ExtensionHostFormattingProviderPrettier from './parts/ExtensionHost/ExtensionHostFormattingProviderPrettier.js'
+import * as ExtensionHostFormattingProviderPrettier from './parts/ExtensionHost/ExtensionHostFormattingProviderPrettier.ts'
 
 const languageIds = ['css', 'html', 'json', 'javascript', 'typescript']
 

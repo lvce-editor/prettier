@@ -1,4 +1,4 @@
-import * as Format from '../Format/Format.js'
+import * as Format from '../Format/Format.ts'
 
 export const id = 'prettier'
 

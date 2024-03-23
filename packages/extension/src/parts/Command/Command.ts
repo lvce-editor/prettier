@@ -1,4 +1,4 @@
-import * as CommandMap from '../CommandMap/CommandMap.js'
+import * as CommandMap from '../CommandMap/CommandMap.ts'
 
 export const execute = async (method, ...params) => {
   const fn = CommandMap.getFn(method)
