@@ -1,9 +1,8 @@
-import { packageExtension } from '@lvce-editor/package-extension'
-import fs, { readFileSync, writeFileSync } from 'node:fs'
+import { packageExtension, bundleJs } from '@lvce-editor/package-extension'
+import fs, { readFileSync } from 'node:fs'
 import path, { join } from 'node:path'
-import { bundleJs } from './bundle-js.js'
-import { root } from './root.js'
 import { replace } from './replace.js'
+import { root } from './root.js'
 
 const extension = path.join(root, 'packages', 'extension')
 const prettierWorker = path.join(root, 'packages', 'prettier-worker')
