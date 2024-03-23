@@ -3,6 +3,7 @@ import fs, { readFileSync, writeFileSync } from 'node:fs'
 import path, { join } from 'node:path'
 import { bundleJs } from './bundle-js.js'
 import { root } from './root.js'
+import { replace } from './replace.js'
 
 const extension = path.join(root, 'packages', 'extension')
 const prettierWorker = path.join(root, 'packages', 'prettier-worker')
@@ -74,12 +75,6 @@ fs.cpSync(
     recursive: true,
   },
 )
-
-const replace = ({ path, occurrence, replacement }) => {
-  const oldContent = readFileSync(path, 'utf8')
-  const newContent = oldContent.replace(occurrence, replacement)
-  writeFileSync(path, newContent)
-}
 
 const workerUrlFilePath = path.join(
   root,
