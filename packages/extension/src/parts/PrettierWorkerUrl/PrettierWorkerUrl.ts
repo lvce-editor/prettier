@@ -1,6 +1,3 @@
-export const getPrettierWorkerUrl = () => {
-  return new URL(
-    '../../../../prettier-worker/src/prettierWorkerMain.ts',
-    import.meta.url,
-  ).toString()
-}
+import * as AssetDir from '../AssetDir/AssetDir.ts'
+
+export const prettierWorkerUrl = `${AssetDir.assetDir}prettier-worker/src/prettierWorkerMain.ts`
