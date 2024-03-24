@@ -1,6 +1,7 @@
 import * as PluginMarkdown from '../src/parts/PluginMarkdown/PluginMarkdown.ts'
 import * as Prettier from '../src/parts/Prettier/Prettier.ts'
 import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
+import { test, expect } from '@jest/globals'
 
 const plugins = await PrettierModule.loadAll(PluginMarkdown.plugins)
 const format = (code) => {
