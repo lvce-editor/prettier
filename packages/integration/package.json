@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {},
   "jest": {
+    "injectGlobals": false,
     "extensionsToTreatAsEsm": [
       ".ts"
     ],
