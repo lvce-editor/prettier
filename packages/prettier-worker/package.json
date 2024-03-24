@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "jest": {
+    "injectGlobals": false,
     "extensionsToTreatAsEsm": [
       ".ts"
     ],
