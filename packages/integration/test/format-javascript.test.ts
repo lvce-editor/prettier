@@ -1,4 +1,5 @@
 import { testWorker } from '../src/testWorker.js'
+import { test, expect } from '@jest/globals'
 
 test('format javascript', async () => {
   const execMap = {}
