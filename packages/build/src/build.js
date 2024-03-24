@@ -75,6 +75,21 @@ fs.cpSync(
   },
 )
 
+const assetDirPath = path.join(
+  root,
+  'dist',
+  'src',
+  'parts',
+  'AssetDir',
+  'AssetDir.ts',
+)
+
+replace({
+  path: assetDirPath,
+  occurrence: '../../../../',
+  replacement: '../',
+})
+
 const workerUrlFilePath = path.join(
   root,
   'dist',
@@ -85,8 +100,8 @@ const workerUrlFilePath = path.join(
 )
 replace({
   path: workerUrlFilePath,
-  occurrence: '../../../../prettier-worker/src/prettierWorkerMain.ts',
-  replacement: '../prettier-worker/dist/prettierWorkerMain.js',
+  occurrence: 'src/prettierWorkerMain.ts',
+  replacement: 'dist/prettierWorkerMain.js',
 })
 
 const modulePath = path.join(
