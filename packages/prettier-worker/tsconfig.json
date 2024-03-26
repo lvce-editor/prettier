@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["esnext", "WebWorker"],
+    "lib": ["esnext", "webworker"],
     "checkJs": true,
     "target": "esnext",
     "types": ["jest"],
@@ -13,11 +13,9 @@
     "assumeChangesOnlyAffectDirectDependencies": true,
     "strict": true,
     "noImplicitAny": false,
+    "composite": true,
     "allowImportingTsExtensions": true,
-    "forceConsistentCasingInFileNames": true,
-    "rootDir": ".",
-    "composite": true
+    "rootDir": "."
   },
-  "include": ["src", "test"],
-  "exclude": ["third_party", "coverage"]
+  "include": ["src", "test"]
 }

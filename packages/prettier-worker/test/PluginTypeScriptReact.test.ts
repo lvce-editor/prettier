@@ -1,7 +1,7 @@
+import { expect, test } from '@jest/globals'
 import * as PluginTypeScriptReact from '../src/parts/PluginTypeScriptReact/PluginTypeScriptReact.ts'
 import * as Prettier from '../src/parts/Prettier/Prettier.ts'
 import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
-import { test, expect } from '@jest/globals'
 
 const plugins = await PrettierModule.loadAll(PluginTypeScriptReact.plugins)
 const format = (code) => {

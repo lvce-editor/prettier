@@ -1,5 +1,5 @@
+import { expect, test } from '@jest/globals'
 import * as MinimizeEdit from '../src/parts/MinimizeEdit/MinimizeEdit.ts'
-import { test, expect } from '@jest/globals'
 
 test('minimizeEdit - insert one character', () => {
   const a = 'abce'

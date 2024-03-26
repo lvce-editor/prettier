@@ -1,5 +1,5 @@
+import { expect, test } from '@jest/globals'
 import * as Format from '../src/parts/Format/Format.ts'
-import { test, expect } from '@jest/globals'
 
 test.skip('format javascript', () => {
   expect(Format.format('/tmp/index.ts', 'let x=1')).toBe(`let x = 1;
