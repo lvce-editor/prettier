@@ -1,7 +1,7 @@
+import { expect, test } from '@jest/globals'
 import * as PluginLess from '../src/parts/PluginLess/PluginLess.ts'
 import * as Prettier from '../src/parts/Prettier/Prettier.ts'
 import * as PrettierModule from '../src/parts/PrettierModule/PrettierModule.ts'
-import { test, expect } from '@jest/globals'
 
 const plugins = await PrettierModule.loadAll(PluginLess.plugins)
 const format = (code) => {
