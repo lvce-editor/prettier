@@ -26,9 +26,11 @@ function updateDependencies {
   fi
 }
 
-updateDependencies &&
-cd packages/e2e && updateDependencies && cd ../../ &&
-cd packages/extension && updateDependencies && cd ../../ &&
+                               updateDependencies &&
+cd packages/build           && updateDependencies && cd ../../ &&
+cd packages/e2e             && updateDependencies && cd ../../ &&
+cd packages/extension       && updateDependencies && cd ../../ &&
+cd packages/integration     && updateDependencies && cd ../../ &&
 cd packages/prettier-worker && updateDependencies && cd ../../ &&
 
 echo "Great Success!"
