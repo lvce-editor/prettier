@@ -1,7 +1,10 @@
-import { packageExtension, bundleJs } from '@lvce-editor/package-extension'
+import {
+  packageExtension,
+  bundleJs,
+  replace,
+} from '@lvce-editor/package-extension'
 import fs, { readFileSync } from 'node:fs'
 import path, { join } from 'node:path'
-import { replace } from './replace.js'
 import { root } from './root.js'
 
 const extension = path.join(root, 'packages', 'extension')
@@ -84,7 +87,7 @@ const assetDirPath = path.join(
   'AssetDir.ts',
 )
 
-replace({
+await replace({
   path: assetDirPath,
   occurrence: '../../../../',
   replacement: '../',
@@ -98,7 +101,7 @@ const workerUrlFilePath = path.join(
   'PrettierWorkerUrl',
   'PrettierWorkerUrl.ts',
 )
-replace({
+await replace({
   path: workerUrlFilePath,
   occurrence: 'src/prettierWorkerMain.ts',
   replacement: 'dist/prettierWorkerMain.js',
@@ -114,13 +117,13 @@ const modulePath = path.join(
   'PrettierModule.ts',
 )
 
-replace({
+await replace({
   path: modulePath,
   occurrence: '../../../../../node_modules/prettier',
   replacement: '../third_party/prettier',
 })
 
-replace({
+await replace({
   path: join(root, 'dist', 'extension.json'),
   occurrence: 'src/prettierMain.ts',
   replacement: 'dist/prettierMain.js',
