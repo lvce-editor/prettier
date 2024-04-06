@@ -1,8 +1,8 @@
 import { FormattingError } from '../FormattingError/FormattingError.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
+import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as Prettier from '../Prettier/Prettier.ts'
-import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PrettierModule from '../PrettierModule/PrettierModule.ts'
 
 export const state = {
@@ -31,10 +31,7 @@ export const format = async (uri, content) => {
   OutputChannel.log(`formatting ${uri}`)
   const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
   try {
-    const s = performance.now()
     const formattedText = await fn(content)
-    const e = performance.now()
-    const diff = e - s
     if (formattedText === null) {
       return content
     }
