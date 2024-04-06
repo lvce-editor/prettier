@@ -15,7 +15,8 @@
     "noImplicitAny": false,
     "composite": true,
     "allowImportingTsExtensions": true,
-    "rootDir": "."
+    "rootDir": ".",
+    "noUnusedLocals": true
   },
   "include": ["src", "test"]
 }
