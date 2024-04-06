@@ -1,7 +1,7 @@
+import { replace } from '@lvce-editor/package-extension'
 import { exportStatic } from '@lvce-editor/shared-process'
 import { cp } from 'node:fs/promises'
 import path from 'node:path'
-import { replace } from './replace.js'
 import { root } from './root.js'
 
 await import('./build.js')
@@ -23,7 +23,7 @@ await cp(
   { recursive: true, force: true },
 )
 
-replace({
+await replace({
   path: path.join(root, 'dist', commitHash, 'config', 'webExtensions.json'),
   occurrence: 'src/prettierMain.ts',
   replacement: 'dist/prettierMain.js',
