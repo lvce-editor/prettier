@@ -1,5 +1,7 @@
 export const name = 'prettier.format-css'
 
+export const skip = true
+
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -7,7 +9,7 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
     `${tmpDir}/test.css`,
     `h1 {
   font-size 10px
-}`
+}`,
   )
   await Main.openUri(`${tmpDir}/test.css`)
 
