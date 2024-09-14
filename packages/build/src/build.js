@@ -6,6 +6,7 @@ import {
 import fs, { readFileSync } from 'node:fs'
 import path, { join } from 'node:path'
 import { root } from './root.js'
+import { rm } from 'node:fs/promises'
 
 const extension = path.join(root, 'packages', 'extension')
 const prettierWorker = path.join(root, 'packages', 'prettier-worker')
@@ -138,6 +139,14 @@ await bundleJs(
   join(root, 'dist', 'src', 'prettierMain.ts'),
   join(root, 'dist', 'dist', 'prettierMain.js'),
 )
+
+await rm(join(root, 'dist', 'prettier-worker', 'src'), {
+  recursive: true,
+})
+
+await rm(join(root, 'dist', 'src'), {
+  recursive: true,
+})
 
 await packageExtension({
   highestCompression: true,
