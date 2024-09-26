@@ -1,13 +1,10 @@
 import * as Command from '../Command/Command.ts'
 
-export const launchWorker = async ({ url, name, contentSecurityPolicy }) => {
+export const launchWorker = async ({ id }) => {
   // @ts-expect-error
   const rpc = await vscode.createRpc({
-    type: 'worker',
-    url: url,
-    name,
+    id,
     execute: Command.execute,
-    contentSecurityPolicy,
   })
   return rpc
 }
