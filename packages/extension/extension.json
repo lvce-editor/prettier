@@ -14,7 +14,9 @@
   "rpc": [
     {
       "type": "web-worker",
-      "url": "../prettier-worker/src/prettierWorkerMain.ts"
+      "name": "Prettier Worker",
+      "url": "../prettier-worker/src/prettierWorkerMain.ts",
+      "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'"]
     }
   ],
   "languages": [
