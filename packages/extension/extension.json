@@ -13,6 +13,7 @@
   ],
   "rpc": [
     {
+      "id": "builtin.prettier.prettier-worker",
       "type": "web-worker",
       "name": "Prettier Worker",
       "url": "../prettier-worker/src/prettierWorkerMain.ts",
