@@ -11,6 +11,12 @@
     "onFormatting:typescript",
     "onFormatting:html"
   ],
+  "rpc": [
+    {
+      "type": "web-worker",
+      "url": "../prettier-worker/src/prettierWorkerMain.ts"
+    }
+  ],
   "languages": [
     {
       "id": "json",
