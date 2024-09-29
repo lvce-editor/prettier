@@ -10,9 +10,7 @@ test('launchWorker', async () => {
   }
   expect(
     await LaunchWorker.launchWorker({
-      url: '/test/worker.js',
-      name: 'Test',
-      contentSecurityPolicy: '',
+      id: '',
     }),
   ).toBe(mockRpc)
 })
