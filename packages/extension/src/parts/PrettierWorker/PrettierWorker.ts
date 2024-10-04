@@ -6,10 +6,6 @@ const rpc = vscode.createRpc({
   execute: Command.execute,
 })
 
-export const getInstance = () => {
-  return rpc
-}
-
 export const invoke = (method, ...params) => {
   return rpc.invoke(method, ...params)
 }
