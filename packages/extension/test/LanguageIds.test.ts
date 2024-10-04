@@ -1,5 +1,5 @@
+import { expect, test } from '@jest/globals'
 import * as LanguageIds from '../src/parts/LanguageIds/LanguageIds.ts'
-import { jest, test, expect } from '@jest/globals'
 
 test('css', () => {
   expect(LanguageIds.languageIds).toContain('css')
