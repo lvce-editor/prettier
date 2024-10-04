@@ -21,3 +21,9 @@ export const getInstance = async () => {
   const rpc = await getOrCreateRpc()
   return rpc
 }
+
+export const invoke = async (method, ...params) => {
+  const rpc = await getInstance()
+  const result = await rpc.invoke(method, ...params)
+  return result
+}
