@@ -9,7 +9,9 @@
     "onFormatting:json",
     "onFormatting:javascript",
     "onFormatting:typescript",
-    "onFormatting:html"
+    "onFormatting:html",
+    "onFormatting:graphql",
+    "onFormatting:yaml"
   ],
   "rpc": [
     {
