@@ -1,23 +1,15 @@
-import * as LaunchPrettierWorker from '../LaunchPrettierWorker/LaunchPrettierWorker.ts'
+import * as Command from '../Command/Command.ts'
 
-interface State {
-  ipc: any
-  rpcPromise: any
-}
+// @ts-ignore
+const rpc = vscode.createRpc({
+  id: 'builtin.prettier.prettier-worker',
+  execute: Command.execute,
+})
 
-export const state: State = {
-  ipc: undefined,
-  rpcPromise: undefined,
-}
-
-const getOrCreateRpc = async () => {
-  if (!state.rpcPromise) {
-    state.rpcPromise = LaunchPrettierWorker.launchPrettierWorker()
-  }
-  return state.rpcPromise
-}
-
-export const getInstance = async () => {
-  const rpc = await getOrCreateRpc()
+export const getInstance = () => {
   return rpc
+}
+
+export const invoke = (method, ...params) => {
+  return rpc.invoke(method, ...params)
 }
