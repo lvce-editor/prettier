@@ -118,6 +118,12 @@ await replace({
   replacement: 'dist/prettierMain.js',
 })
 
+await replace({
+  path: join(root, 'dist', 'extension.json'),
+  occurrence: '../prettier-worker/src/prettierWorkerMain.ts',
+  replacement: './prettier-worker/dist/prettierWorkerMain.js',
+})
+
 await bundleJs(
   join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
   join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
