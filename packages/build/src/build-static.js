@@ -28,3 +28,8 @@ await replace({
   occurrence: 'src/prettierMain.ts',
   replacement: 'dist/prettierMain.js',
 })
+await replace({
+  path: path.join(root, 'dist', commitHash, 'config', 'webExtensions.json'),
+  occurrence: '../prettier-worker/src/prettierWorkerMain.ts',
+  replacement: './prettier-worker/dist/prettierWorkerMain.js',
+})
