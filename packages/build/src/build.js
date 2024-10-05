@@ -67,35 +67,6 @@ fs.cpSync(
   },
 )
 
-const assetDirPath = path.join(
-  root,
-  'dist',
-  'src',
-  'parts',
-  'AssetDir',
-  'AssetDir.ts',
-)
-
-await replace({
-  path: assetDirPath,
-  occurrence: '../../../../',
-  replacement: '../',
-})
-
-const workerUrlFilePath = path.join(
-  root,
-  'dist',
-  'src',
-  'parts',
-  'PrettierWorkerUrl',
-  'PrettierWorkerUrl.ts',
-)
-await replace({
-  path: workerUrlFilePath,
-  occurrence: 'src/prettierWorkerMain.ts',
-  replacement: 'dist/prettierWorkerMain.js',
-})
-
 const modulePath = path.join(
   root,
   'dist',
@@ -116,6 +87,12 @@ await replace({
   path: join(root, 'dist', 'extension.json'),
   occurrence: 'src/prettierMain.ts',
   replacement: 'dist/prettierMain.js',
+})
+
+await replace({
+  path: join(root, 'dist', 'extension.json'),
+  occurrence: '../prettier-worker/src/prettierWorkerMain.ts',
+  replacement: './prettier-worker/dist/prettierWorkerMain.js',
 })
 
 await bundleJs(
