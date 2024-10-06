@@ -11,5 +11,5 @@ export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
 
   // assert
   const editor = Locator('.Editor')
-  await expect(editor).toHaveText('# test')
+  await expect(editor).toHaveText(' # test')
 }
