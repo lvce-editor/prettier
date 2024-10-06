@@ -9,8 +9,8 @@ test('format markdown', async () => {
   const uri = '/test/file.md'
   const content = '# test'
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
-    startOffset: 1,
-    endOffset: 36,
-    inserted: ` # test`,
+    startOffset: 6,
+    endOffset: 6,
+    inserted: `\n`,
   })
 })
