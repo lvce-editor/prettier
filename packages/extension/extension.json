@@ -11,7 +11,8 @@
     "onFormatting:typescript",
     "onFormatting:html",
     "onFormatting:graphql",
-    "onFormatting:yaml"
+    "onFormatting:yaml",
+    "onFormatting:markdown"
   ],
   "rpc": [
     {
