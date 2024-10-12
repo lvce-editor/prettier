@@ -17,13 +17,13 @@
   "license": "MIT",
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.1.8",
-    "@lvce-editor/server": "^0.35.9",
-    "@types/node": "^22.7.4",
+    "@lvce-editor/server": "^0.36.2",
+    "@types/node": "^22.7.5",
     "jest": "^29.7.0",
     "lerna": "^8.1.8",
     "prettier": "^4.0.0-alpha.10",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "prettier": {
     "semi": false,
