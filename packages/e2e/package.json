@@ -12,6 +12,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/test-with-playwright": "^1.4.0"
+    "@lvce-editor/test-with-playwright": "^1.5.0"
   }
 }
