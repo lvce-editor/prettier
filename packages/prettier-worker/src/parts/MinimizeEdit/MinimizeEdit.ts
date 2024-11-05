@@ -1,4 +1,6 @@
-export const minimizeEdit = (a, b) => {
+import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
+
+export const minimizeEdit = (a: string, b: string): OffsetBasedEdit => {
   let i = 0
   const lengthA = a.length
   const lengthB = b.length
