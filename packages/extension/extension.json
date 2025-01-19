@@ -4,6 +4,7 @@
   "description": "Code formatter using prettier",
   "browser": "src/prettierMain.ts",
   "icon": "./icon.png",
+  "categories": ["Formatters"],
   "activation": [
     "onFormatting:css",
     "onFormatting:json",
