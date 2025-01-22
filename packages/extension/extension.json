@@ -33,5 +33,15 @@
       "id": "ignore",
       "fileNames": [".prettierignore"]
     }
+  ],
+  "jsonValidation": [
+    {
+      "fileMatch": ".prettierrc",
+      "url": "https://json.schemastore.org/prettierrc"
+    },
+    {
+      "fileMatch": ".prettierrc.json",
+      "url": "https://json.schemastore.org/prettierrc"
+    }
   ]
 }
