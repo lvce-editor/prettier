@@ -10,7 +10,8 @@
     "type-check": "tsc -b",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "e2e": "cd packages/e2e && npm run e2e",
-    "e2e:headless": "cd packages/e2e && npm run e2e:headless"
+    "e2e:headless": "cd packages/e2e && npm run e2e:headless",
+    "build": "node packages/build/src/build.js"
   },
   "keywords": [],
   "author": "",

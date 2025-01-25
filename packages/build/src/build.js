@@ -98,11 +98,13 @@ await replace({
 await bundleJs(
   join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
   join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
+  false,
 )
 
 await bundleJs(
   join(root, 'dist', 'src', 'prettierMain.ts'),
   join(root, 'dist', 'dist', 'prettierMain.js'),
+  false,
 )
 
 await rm(join(root, 'dist', 'prettier-worker', 'src'), {
