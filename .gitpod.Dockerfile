@@ -18,7 +18,7 @@ RUN sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 # Install NodeJS
 RUN bash -c ". .nvm/nvm.sh \
-    && nvm install 22.16.0 \
+    && nvm install 22.17.0 \
     && nvm use 22.13.1 \
     && nvm alias default 22.13.1"
 
