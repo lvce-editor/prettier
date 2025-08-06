@@ -19,11 +19,11 @@
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/server": "^0.56.11",
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.2.0",
     "jest": "^30.0.5",
     "lerna": "^8.2.3",
     "prettier": "^4.0.0-alpha.10",
-    "ts-jest": "^29.4.0",
+    "ts-jest": "^29.4.1",
     "typescript": "^5.9.2"
   },
   "prettier": {
