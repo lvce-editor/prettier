@@ -2,6 +2,7 @@
   "id": "builtin.prettier",
   "name": "Prettier",
   "description": "Code formatter using prettier",
+  "repository":"https://github.com/lvce-editor/prettier",
   "browser": "src/prettierMain.ts",
   "icon": "./icon.png",
   "categories": ["Formatters"],
