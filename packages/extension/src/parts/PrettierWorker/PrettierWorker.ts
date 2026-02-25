@@ -1,9 +1,11 @@
-import * as Command from '../Command/Command.ts'
+import { log } from '../CommandMap/CommandMap.ts'
 
 // @ts-ignore
 const rpc = vscode.createRpc({
   id: 'builtin.prettier.prettier-worker',
-  execute: Command.execute,
+  commandMap: {
+    'OutputChannel.log': log,
+  },
 })
 
 export const invoke = (method, ...params) => {
