@@ -2,7 +2,6 @@
 .tmp
 extension.tar.br
 dist2
-packages/extension/third_party/
 
 # Logs
 logs
