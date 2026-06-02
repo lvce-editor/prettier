@@ -1,15 +1,10 @@
-import {
-  bundleJs,
-  packageExtension,
-  replace,
-} from '@lvce-editor/package-extension'
+import { packageExtension } from '@lvce-editor/package-extension'
+import * as esbuild from 'esbuild'
 import fs from 'node:fs'
 import path, { join } from 'node:path'
 import { root } from './root.js'
-import { rm } from 'node:fs/promises'
 
 const extension = path.join(root, 'packages', 'extension')
-const prettierWorker = path.join(root, 'packages', 'prettier-worker')
 
 fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 
@@ -21,98 +16,15 @@ fs.copyFileSync(
   join(extension, 'extension.json'),
   join(root, 'dist', 'extension.json'),
 )
-fs.cpSync(join(extension, 'src'), join(root, 'dist', 'src'), {
-  recursive: true,
-})
 
-fs.mkdirSync(
-  join(root, 'dist', 'prettier-worker', 'third_party', 'prettier', 'plugins'),
-  {
-    recursive: true,
-  },
-)
-for (const file of ['standalone.mjs', 'README.md', 'LICENSE', 'package.json']) {
-  fs.cpSync(
-    join(root, 'node_modules', 'prettier', file),
-    join(root, 'dist', 'prettier-worker', 'third_party', 'prettier', file),
-    {
-      recursive: true,
-    },
-  )
-}
-const dirents = fs.readdirSync(
-  join(root, 'node_modules', 'prettier', 'plugins'),
-)
-for (const dirent of dirents) {
-  if (dirent.endsWith('.mjs')) {
-    fs.cpSync(
-      join(root, 'node_modules', 'prettier', 'plugins', dirent),
-      join(
-        root,
-        'dist',
-        'prettier-worker',
-        'third_party',
-        'prettier',
-        'plugins',
-        dirent,
-      ),
-    )
-  }
-}
-fs.cpSync(
-  join(prettierWorker, 'src'),
-  join(root, 'dist', 'prettier-worker', 'src'),
-  {
-    recursive: true,
-  },
-)
-
-const modulePath = path.join(
-  root,
-  'dist',
-  'prettier-worker',
-  'src',
-  'parts',
-  'PrettierModule',
-  'PrettierModule.ts',
-)
-
-await replace({
-  path: modulePath,
-  occurrence: '../../../../../node_modules/prettier',
-  replacement: '../third_party/prettier',
-})
-
-await replace({
-  path: join(root, 'dist', 'extension.json'),
-  occurrence: 'src/prettierMain.ts',
-  replacement: 'dist/prettierMain.js',
-})
-
-await replace({
-  path: join(root, 'dist', 'extension.json'),
-  occurrence: '../prettier-worker/src/prettierWorkerMain.ts',
-  replacement: './prettier-worker/dist/prettierWorkerMain.js',
-})
-
-await bundleJs(
-  join(root, 'dist', 'prettier-worker', 'src', 'prettierWorkerMain.ts'),
-  join(root, 'dist', 'prettier-worker', 'dist', 'prettierWorkerMain.js'),
-  false,
-)
-
-await bundleJs(
-  join(root, 'dist', 'src', 'prettierMain.ts'),
-  join(root, 'dist', 'dist', 'prettierMain.js'),
-  false,
-)
-
-await rm(join(root, 'dist', 'prettier-worker', 'src'), {
-  recursive: true,
-})
-
-await rm(join(root, 'dist', 'src'), {
-  recursive: true,
+await esbuild.build({
+  bundle: true,
+  entryPoints: [join(extension, 'src', 'prettierMain.ts')],
+  external: ['electron', 'node:*'],
+  format: 'esm',
+  outfile: join(root, 'dist', 'dist', 'prettierMain.js'),
+  platform: 'browser',
+  target: 'esnext',
 })
 
 await packageExtension({

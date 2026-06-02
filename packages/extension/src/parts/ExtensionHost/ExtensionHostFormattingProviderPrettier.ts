@@ -8,8 +8,8 @@ export const languageId = 'css'
 
 export const format = async (textDocument) => {
   const uri = textDocument.uri
-  // @ts-expect-error
-  const text = vscode.getTextFromTextDocument(textDocument)
+  const text = textDocument.text
+  console.info(`builtin.prettier formatting ${uri}`)
   const start = performance.now()
   const minimizedEdit = await Format.format(uri, text)
   const end = performance.now()

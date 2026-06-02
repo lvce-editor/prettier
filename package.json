@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "lerna bootstrap --ci",
     "test": "lerna run test",
-    "dev": "node ./node_modules/@lvce-editor/server/bin/server.js --only-extension=packages/extension --test-path=packages/e2e",
+    "dev": "node packages/build/src/dev.js",
     "type-check": "tsc -b",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "e2e": "cd packages/e2e && npm run e2e",
@@ -18,8 +18,10 @@
   "license": "MIT",
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
+    "@lvce-editor/api": "file:../extension-host-worker/packages/extension-api",
     "@lvce-editor/server": "0.69.1",
     "@types/node": "^25.9.1",
+    "esbuild": "^0.28.0",
     "jest": "^30.4.2",
     "lerna": "^8.2.3",
     "prettier": "^4.0.0-alpha.10",

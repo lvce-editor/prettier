@@ -2,7 +2,7 @@
   "name": "builtin.prettier",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "src/prettierMain.ts",
+  "main": "dist/prettierMain.js",
   "scripts": {
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ../../node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ../../node_modules/jest/bin/jest.js --watch"
