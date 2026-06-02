@@ -5,26 +5,25 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export const root = `${__dirname}/../../..`
 
-const workerPath = join(
+const formatPath = join(
   root,
   'packages',
-  'prettier-worker',
+  'extension',
   'src',
-  'prettierWorkerMain.ts',
+  'parts',
+  'Format',
+  'Format.ts',
 )
 
-export const startWorker = async (rpc) => {
-  const workerUrl = pathToFileURL(workerPath).toString()
-  globalThis.rpc = rpc
-  const module = await import(workerUrl)
-  const { commandMap } = module
+export const startWorker = async () => {
+  const formatUrl = pathToFileURL(formatPath).toString()
+  const Format = await import(formatUrl)
   return {
     execute(commandId: string, ...args: any[]) {
-      const command = commandMap[commandId]
-      if (!command) {
+      if (commandId !== 'Prettier.format') {
         throw new Error(`command not found ${commandId}`)
       }
-      return command(...args)
+      return Format.format(...args)
     },
   }
 }

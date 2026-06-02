@@ -14,7 +14,7 @@ import * as PluginYaml from 'prettier/plugins/yaml'
 import * as Standalone from 'prettier/standalone'
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
 
-const loadInternal = (moduleId) => {
+const loadInternal = (moduleId): any => {
   switch (moduleId) {
     case PrettierModuleId.PluginAcorn:
       return PluginAcorn
@@ -49,7 +49,7 @@ const loadInternal = (moduleId) => {
   }
 }
 
-export const load = async (moduleId) => {
+export const load = async (moduleId): Promise<any> => {
   const module = await loadInternal(moduleId)
   // @ts-ignore
   if (module.default) {
