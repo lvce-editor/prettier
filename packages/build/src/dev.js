@@ -1,11 +1,14 @@
 import * as esbuild from 'esbuild'
 import { spawn } from 'node:child_process'
 import path from 'node:path'
+import { copyPrettier } from './copyPrettier.js'
 import { root } from './root.js'
 
 const extension = path.join(root, 'packages', 'extension')
 const entryPoint = path.join(extension, 'src', 'prettierMain.ts')
 const outfile = path.join(extension, 'dist', 'prettierMain.js')
+
+copyPrettier(root, extension)
 
 const context = await esbuild.context({
   bundle: true,

@@ -2,6 +2,7 @@ import { packageExtension } from '@lvce-editor/package-extension'
 import * as esbuild from 'esbuild'
 import fs from 'node:fs'
 import path, { join } from 'node:path'
+import { copyPrettier } from './copyPrettier.js'
 import { root } from './root.js'
 
 const extension = path.join(root, 'packages', 'extension')
@@ -16,6 +17,7 @@ fs.copyFileSync(
   join(extension, 'extension.json'),
   join(root, 'dist', 'extension.json'),
 )
+copyPrettier(root, join(root, 'dist'))
 
 await esbuild.build({
   bundle: true,

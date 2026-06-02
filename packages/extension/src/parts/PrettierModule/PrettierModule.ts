@@ -1,49 +1,37 @@
-import * as PluginAcorn from 'prettier/plugins/acorn'
-import * as PluginAngular from 'prettier/plugins/angular'
-import * as PluginBabel from 'prettier/plugins/babel'
-import * as PluginEstree from 'prettier/plugins/estree'
-import * as PluginFlow from 'prettier/plugins/flow'
-import * as PluginGlimmer from 'prettier/plugins/glimmer'
-import * as PluginGraphql from 'prettier/plugins/graphql'
-import * as PluginHtml from 'prettier/plugins/html'
-import * as PluginMarkdown from 'prettier/plugins/markdown'
-import * as PluginMeriyah from 'prettier/plugins/meriyah'
-import * as PluginPostCss from 'prettier/plugins/postcss'
-import * as PluginTypeScript from 'prettier/plugins/typescript'
-import * as PluginYaml from 'prettier/plugins/yaml'
-import * as Standalone from 'prettier/standalone'
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
+
+const pathPrefix = globalThis.location ? '../third_party/prettier' : '../../../../../node_modules/prettier'
 
 const loadInternal = (moduleId): any => {
   switch (moduleId) {
     case PrettierModuleId.PluginAcorn:
-      return PluginAcorn
+      return import(`${pathPrefix}/plugins/acorn.mjs`)
     case PrettierModuleId.PluginAngular:
-      return PluginAngular
+      return import(`${pathPrefix}/plugins/angular.mjs`)
     case PrettierModuleId.PluginBabel:
-      return PluginBabel
+      return import(`${pathPrefix}/plugins/babel.mjs`)
     case PrettierModuleId.PluginEstree:
-      return PluginEstree
+      return import(`${pathPrefix}/plugins/estree.mjs`)
     case PrettierModuleId.PluginFlow:
-      return PluginFlow
+      return import(`${pathPrefix}/plugins/flow.mjs`)
     case PrettierModuleId.PluginGlimmer:
-      return PluginGlimmer
+      return import(`${pathPrefix}/plugins/glimmer.mjs`)
     case PrettierModuleId.PluginGraphql:
-      return PluginGraphql
+      return import(`${pathPrefix}/plugins/graphql.mjs`)
     case PrettierModuleId.PluginHtml:
-      return PluginHtml
+      return import(`${pathPrefix}/plugins/html.mjs`)
     case PrettierModuleId.PluginMarkdown:
-      return PluginMarkdown
+      return import(`${pathPrefix}/plugins/markdown.mjs`)
     case PrettierModuleId.PluginMeriyah:
-      return PluginMeriyah
+      return import(`${pathPrefix}/plugins/meriyah.mjs`)
     case PrettierModuleId.PluginPostCss:
-      return PluginPostCss
+      return import(`${pathPrefix}/plugins/postcss.mjs`)
     case PrettierModuleId.PluginTypeScript:
-      return PluginTypeScript
+      return import(`${pathPrefix}/plugins/typescript.mjs`)
     case PrettierModuleId.PluginYaml:
-      return PluginYaml
+      return import(`${pathPrefix}/plugins/yaml.mjs`)
     case PrettierModuleId.Standalone:
-      return Standalone
+      return import(`${pathPrefix}/standalone.mjs`)
     default:
       throw new Error(`module ${moduleId} not found`)
   }
