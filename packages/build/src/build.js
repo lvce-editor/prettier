@@ -1,7 +1,9 @@
 import { packageExtension } from '@lvce-editor/package-extension'
-import * as esbuild from 'esbuild'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import fs from 'node:fs'
 import path, { join } from 'node:path'
+import { rollup } from 'rollup'
+import esbuild from 'rollup-plugin-esbuild'
 import { copyPrettier } from './copyPrettier.js'
 import { root } from './root.js'
 
@@ -19,15 +21,31 @@ fs.copyFileSync(
 )
 copyPrettier(root, join(root, 'dist'))
 
-await esbuild.build({
-  bundle: true,
-  entryPoints: [join(extension, 'src', 'prettierMain.ts')],
+const bundle = await rollup({
+  input: join(extension, 'src', 'prettierMain.ts'),
   external: ['electron', 'node:*'],
-  format: 'esm',
-  outfile: join(root, 'dist', 'dist', 'prettierMain.js'),
-  platform: 'browser',
-  target: 'esnext',
+  plugins: [
+    nodeResolve({
+      browser: true,
+    }),
+    esbuild({
+      define: {
+        PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
+      },
+      target: 'esnext',
+    }),
+  ],
+  treeshake: {
+    moduleSideEffects: false,
+  },
 })
+
+await bundle.write({
+  file: join(root, 'dist', 'dist', 'prettierMain.js'),
+  format: 'esm',
+})
+
+await bundle.close()
 
 await packageExtension({
   highestCompression: true,

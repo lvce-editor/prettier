@@ -20,6 +20,7 @@
     "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/api": "file:../extension-host-worker/packages/extension-api",
     "@lvce-editor/server": "0.69.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/node": "^25.9.1",
     "esbuild": "^0.28.0",
     "jest": "^30.4.2",
