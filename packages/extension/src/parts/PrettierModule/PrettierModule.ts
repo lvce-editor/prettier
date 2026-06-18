@@ -1,8 +1,10 @@
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
 
-const pathPrefix = '../../../../../node_modules/prettier'
+declare const PRETTIER_PATH_PREFIX: string | undefined
 
-const loadInternal = (moduleId) => {
+const pathPrefix = typeof PRETTIER_PATH_PREFIX === 'string' ? PRETTIER_PATH_PREFIX : '../../../../../node_modules/prettier'
+
+const loadInternal = (moduleId): any => {
   switch (moduleId) {
     case PrettierModuleId.PluginAcorn:
       return import(`${pathPrefix}/plugins/acorn.mjs`)
@@ -37,7 +39,7 @@ const loadInternal = (moduleId) => {
   }
 }
 
-export const load = async (moduleId) => {
+export const load = async (moduleId): Promise<any> => {
   const module = await loadInternal(moduleId)
   // @ts-ignore
   if (module.default) {

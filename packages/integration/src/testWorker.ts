@@ -9,17 +9,7 @@ export const testWorker = async ({
   quickPick = () => {},
 }) => {
   const invocations: any[] = []
-  const rpc = {
-    invoke(...args) {
-      invocations.push(args)
-      if (args[0] === 'OutputChannel.log') {
-        // ignore
-      } else {
-        throw new Error(`unknown command ${args[0]}`)
-      }
-    },
-  }
-  const worker = await startWorker(rpc)
+  const worker = await startWorker()
   return {
     execute(commandId: string, ...args: any[]) {
       return worker.execute(commandId, ...args)

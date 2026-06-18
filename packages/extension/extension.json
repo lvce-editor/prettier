@@ -3,7 +3,8 @@
   "name": "Prettier",
   "description": "Code formatter using prettier",
   "repository":"https://github.com/lvce-editor/prettier",
-  "browser": "src/prettierMain.ts",
+  "browser": "dist/prettierMain.js",
+  "isolated": true,
   "icon": "./icon.png",
   "categories": ["Formatters"],
   "activation": [
@@ -16,13 +17,38 @@
     "onFormatting:yaml",
     "onFormatting:markdown"
   ],
-  "rpc": [
+  "formattingProviders": [
     {
-      "id": "builtin.prettier.prettier-worker",
-      "type": "web-worker",
-      "name": "Prettier Worker",
-      "url": "../prettier-worker/src/prettierWorkerMain.ts",
-      "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'"]
+      "id": "prettier.css",
+      "languageId": "css"
+    },
+    {
+      "id": "prettier.html",
+      "languageId": "html"
+    },
+    {
+      "id": "prettier.json",
+      "languageId": "json"
+    },
+    {
+      "id": "prettier.javascript",
+      "languageId": "javascript"
+    },
+    {
+      "id": "prettier.typescript",
+      "languageId": "typescript"
+    },
+    {
+      "id": "prettier.graphql",
+      "languageId": "graphql"
+    },
+    {
+      "id": "prettier.yaml",
+      "languageId": "yaml"
+    },
+    {
+      "id": "prettier.markdown",
+      "languageId": "markdown"
     }
   ],
   "languages": [

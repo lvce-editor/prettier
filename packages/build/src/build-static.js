@@ -1,4 +1,3 @@
-import { replace } from '@lvce-editor/package-extension'
 import { exportStatic } from '@lvce-editor/shared-process'
 import { cp } from 'node:fs/promises'
 import path from 'node:path'
@@ -22,14 +21,3 @@ await cp(
   path.join(root, 'dist', commitHash, 'extensions', 'builtin.prettier'),
   { recursive: true, force: true },
 )
-
-await replace({
-  path: path.join(root, 'dist', commitHash, 'config', 'webExtensions.json'),
-  occurrence: 'src/prettierMain.ts',
-  replacement: 'dist/prettierMain.js',
-})
-await replace({
-  path: path.join(root, 'dist', commitHash, 'config', 'webExtensions.json'),
-  occurrence: '../prettier-worker/src/prettierWorkerMain.ts',
-  replacement: './prettier-worker/dist/prettierWorkerMain.js',
-})
