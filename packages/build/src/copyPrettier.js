@@ -8,7 +8,12 @@ export const copyPrettier = (root, outDir) => {
   fs.mkdirSync(join(target, 'plugins'), {
     recursive: true,
   })
-  for (const file of ['standalone.mjs', 'README.md', 'LICENSE', 'package.json']) {
+  for (const file of [
+    'standalone.mjs',
+    'README.md',
+    'LICENSE',
+    'package.json',
+  ]) {
     fs.cpSync(join(source, file), join(target, file), {
       recursive: true,
     })
@@ -16,7 +21,10 @@ export const copyPrettier = (root, outDir) => {
   const dirents = fs.readdirSync(join(source, 'plugins'))
   for (const dirent of dirents) {
     if (dirent.endsWith('.mjs')) {
-      fs.cpSync(join(source, 'plugins', dirent), join(target, 'plugins', dirent))
+      fs.cpSync(
+        join(source, 'plugins', dirent),
+        join(target, 'plugins', dirent),
+      )
     }
   }
 }
