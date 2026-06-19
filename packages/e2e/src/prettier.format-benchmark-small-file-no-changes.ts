@@ -1,8 +1,10 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'prettier.format-benchmark-small-file-no-changes'
 
 const text = `const value = { foo: 1, bar: [1, 2, 3] };\n`
 
-export const test = async ({ Editor, FileSystem, Main }) => {
+export const test: Test = async ({ Editor, FileSystem, Main }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.js`, text)

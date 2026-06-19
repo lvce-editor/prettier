@@ -6,10 +6,7 @@ export const test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
   const text = `h1 {
   font-size 10px
 }`
-  await FileSystem.writeFile(
-    `${tmpDir}/test.css`,
-    text,
-  )
+  await FileSystem.writeFile(`${tmpDir}/test.css`, text)
   await Main.openUri(`${tmpDir}/test.css`)
 
   // act
