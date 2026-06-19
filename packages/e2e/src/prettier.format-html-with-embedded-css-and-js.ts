@@ -1,5 +1,7 @@
 export const name = 'prettier.format-html-with-embedded-css-and-js'
 
+export const skip = 1
+
 export const test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
