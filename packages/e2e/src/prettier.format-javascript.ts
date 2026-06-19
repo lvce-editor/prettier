@@ -1,6 +1,6 @@
 export const name = 'prettier.format-javascript'
 
-export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
+export const test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.js`, `let  x=1`)

@@ -1,6 +1,6 @@
 export const name = 'prettier.format-html-preserve-cursor-position'
 
-export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
+export const test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.html`, `<h1  >hello world</h1>`)
