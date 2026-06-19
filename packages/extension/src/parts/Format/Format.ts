@@ -19,7 +19,7 @@ const getFormatFnSync = (uri: string): FormatFunction | undefined => {
 }
 
 const getFormatFnAsync = async (uri: string): Promise<FormatFunction> => {
-  const { parser, plugins } = await PluginModule.loadPlugin(uri)
+  const { parser, plugins } = PluginModule.loadPlugin(uri)
   const pluginInstances = await Promise.all(plugins.map(PrettierModule.load))
   state.plugins[uri] = (code: string): Promise<string> => {
     return Prettier.format(code, {
