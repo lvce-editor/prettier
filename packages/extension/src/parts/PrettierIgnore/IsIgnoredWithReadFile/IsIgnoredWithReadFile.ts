@@ -1,11 +1,11 @@
-import ignore from 'ignore'
 import type { Ignore, Options } from 'ignore'
+import ignore from 'ignore'
+import type { ReadFile } from '../ReadFile/ReadFile.ts'
 import { dirname } from '../Dirname/Dirname.ts'
 import { getAncestorDirectories } from '../GetAncestorDirectories/GetAncestorDirectories.ts'
 import { getRelativePath } from '../GetRelativePath/GetRelativePath.ts'
 import { join } from '../Join/Join.ts'
 import { normalizeUri } from '../NormalizeUri/NormalizeUri.ts'
-import type { ReadFile } from '../ReadFile/ReadFile.ts'
 import { readIgnoreFile } from '../ReadIgnoreFile/ReadIgnoreFile.ts'
 
 const PrettierIgnoreFileName = '.prettierignore'

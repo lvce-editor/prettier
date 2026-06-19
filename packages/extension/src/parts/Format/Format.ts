@@ -4,6 +4,7 @@ import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as Prettier from '../Prettier/Prettier.ts'
+import * as PrettierIgnore from '../PrettierIgnore/PrettierIgnore.ts'
 import * as PrettierModule from '../PrettierModule/PrettierModule.ts'
 
 type FormatFunction = (code: string) => Promise<string>
@@ -34,8 +35,12 @@ const getFormatFnAsync = async (uri: string): Promise<FormatFunction> => {
 export const format = async (
   uri: string,
   content: string,
-): Promise<OffsetBasedEdit> => {
+): Promise<OffsetBasedEdit | undefined> => {
   // console.log({ uri, content })
+  if (await PrettierIgnore.isIgnored(uri)) {
+    OutputChannel.log(`ignoring ${uri}`)
+    return undefined
+  }
   OutputChannel.log(`formatting ${uri}`)
   const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
   try {
