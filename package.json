@@ -23,22 +23,12 @@
     "@lvce-editor/api": "^8.27.0",
     "@lvce-editor/eslint-config": "^12.4.0",
     "@lvce-editor/server": "0.84.1",
-<<<<<<< HEAD
     "@types/node": "^25.9.3",
-=======
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@types/node": "^26.0.0",
->>>>>>> origin/main
     "esbuild": "^0.28.1",
     "eslint": "^10.5.0",
     "jest": "^30.4.2",
     "lerna": "^8.2.3",
     "prettier": "^4.0.0-alpha.10",
-<<<<<<< HEAD
-=======
-    "rollup": "^4.62.1",
-    "rollup-plugin-esbuild": "^6.2.1",
->>>>>>> origin/main
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
   },
