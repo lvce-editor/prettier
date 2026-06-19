@@ -1,6 +1,7 @@
 import * as FileExtension from '../FileExtension/FileExtension.ts'
 import * as PluginCss from '../PluginCss/PluginCss.ts'
 import * as PluginGraphql from '../PluginGraphql/PluginGraphql.ts'
+import * as PluginHandlebars from '../PluginHandlebars/PluginHandlebars.ts'
 import * as PluginHtml from '../PluginHtml/PluginHtml.ts'
 import * as PluginJavaScript from '../PluginJavaScript/PluginJavaScript.ts'
 import * as PluginJavaScriptReact from '../PluginJavaScriptReact/PluginJavaScriptReact.ts'
@@ -30,6 +31,9 @@ export const loadPlugin = (uri: string): PluginDefinition => {
       return PluginCss
     case FileExtension.GraphQl:
       return PluginGraphql
+    case FileExtension.Handlebars:
+    case FileExtension.Hbs:
+      return PluginHandlebars
     case FileExtension.Html:
       return PluginHtml
     case FileExtension.JavaScript:

@@ -1,5 +1,7 @@
 export const Css = '.css'
 export const GraphQl = '.gql'
+export const Handlebars = '.handlebars'
+export const Hbs = '.hbs'
 export const Html = '.html'
 export const JavascriptModule = '.mjs'
 export const JavaScript = '.js'

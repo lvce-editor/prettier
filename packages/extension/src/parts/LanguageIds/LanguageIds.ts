@@ -1,5 +1,6 @@
 export const languageIds = [
   'css',
+  'handlebars',
   'html',
   'json',
   'javascript',

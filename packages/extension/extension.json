@@ -8,10 +8,12 @@
   "icon": "./icon.png",
   "categories": ["Formatters"],
   "activation": [
+    "onStatusBarItem",
     "onFormatting:css",
     "onFormatting:json",
     "onFormatting:javascript",
     "onFormatting:typescript",
+    "onFormatting:handlebars",
     "onFormatting:html",
     "onFormatting:graphql",
     "onFormatting:yaml",
@@ -21,6 +23,10 @@
     {
       "id": "prettier.css",
       "languageId": "css"
+    },
+    {
+      "id": "prettier.handlebars",
+      "languageId": "handlebars"
     },
     {
       "id": "prettier.html",
@@ -52,6 +58,10 @@
     }
   ],
   "languages": [
+    {
+      "id": "handlebars",
+      "extensions": [".hbs", ".handlebars"]
+    },
     {
       "id": "json",
       "fileNames": [".prettierrc"]
