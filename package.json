@@ -24,7 +24,6 @@
     "@lvce-editor/eslint-config": "^12.4.0",
     "@lvce-editor/server": "0.84.1",
     "@types/node": "^26.0.0",
-    "esbuild": "^0.28.1",
     "eslint": "^10.5.0",
     "jest": "^30.4.2",
     "lerna": "^8.2.3",
