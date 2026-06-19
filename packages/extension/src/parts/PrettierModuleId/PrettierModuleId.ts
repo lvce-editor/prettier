@@ -1,3 +1,5 @@
+// cspell:ignore Meriyah
+
 export const PluginAcornAndEspree = 1
 export const PluginAngular = 2
 export const PluginBabel = 3
