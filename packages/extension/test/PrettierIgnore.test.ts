@@ -9,7 +9,7 @@ import { readIgnoreFile } from '../src/parts/PrettierIgnore/ReadIgnoreFile/ReadI
 import { trimTrailingSlash } from '../src/parts/PrettierIgnore/TrimTrailingSlash/TrimTrailingSlash.ts'
 
 const createReadFile = (
-  files: Record<string, string>,
+  files: Partial<Record<string, string>>,
 ): ((uri: string) => Promise<string>) => {
   return async (uri: string): Promise<string> => {
     const content = files[uri]
@@ -18,6 +18,10 @@ const createReadFile = (
     }
     return content
   }
+}
+
+const readMissingFile = async (): Promise<string> => {
+  throw new Error('file not found')
 }
 
 test('root prettierignore ignores root file glob', async () => {
@@ -94,12 +98,11 @@ test('nested prettierignore can unignore a parent rule', async () => {
 })
 
 test('missing prettierignore files do not block formatting', async () => {
-  const readFile = async (): Promise<string> => {
-    throw new Error('file not found')
-  }
-
   expect(
-    await PrettierIgnore.isIgnoredWithReadFile('/workspace/keep.js', readFile),
+    await PrettierIgnore.isIgnoredWithReadFile(
+      '/workspace/keep.js',
+      readMissingFile,
+    ),
   ).toBe(false)
 })
 
@@ -171,9 +174,7 @@ test('getRelativePath returns root-relative path for root directory', () => {
 })
 
 test('readIgnoreFile returns empty content when read fails', async () => {
-  const readFile = async (): Promise<string> => {
-    throw new Error('file not found')
-  }
-
-  expect(await readIgnoreFile(readFile, '/workspace/.prettierignore')).toBe('')
+  expect(
+    await readIgnoreFile(readMissingFile, '/workspace/.prettierignore'),
+  ).toBe('')
 })
