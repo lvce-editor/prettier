@@ -4,6 +4,7 @@ import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as Prettier from '../Prettier/Prettier.ts'
+import * as PrettierConfig from '../PrettierConfig/PrettierConfig.ts'
 import * as PrettierModule from '../PrettierModule/PrettierModule.ts'
 
 type FormatFunction = (code: string) => Promise<string>
@@ -21,10 +22,15 @@ const getFormatFnSync = (uri: string): FormatFunction | undefined => {
 const getFormatFnAsync = async (uri: string): Promise<FormatFunction> => {
   const { parser, plugins } = await PluginModule.loadPlugin(uri)
   const pluginInstances = await Promise.all(plugins.map(PrettierModule.load))
+<<<<<<< HEAD
+  state.plugins[uri] = (code, config) => {
+=======
   state.plugins[uri] = (code: string): Promise<string> => {
+>>>>>>> origin/main
     return Prettier.format(code, {
-      parser,
+      ...config,
       plugins: pluginInstances,
+      parser,
     })
   }
   return state.plugins[uri]
@@ -39,7 +45,15 @@ export const format = async (
   OutputChannel.log(`formatting ${uri}`)
   const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
   try {
+<<<<<<< HEAD
+    const config = await PrettierConfig.resolveConfig(uri)
+    const formattedText = await fn(content, config)
+    if (formattedText === null) {
+      return content
+    }
+=======
     const formattedText = await fn(content)
+>>>>>>> origin/main
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
     return minimizedEdit
   } catch (error) {
