@@ -9,6 +9,10 @@ test('html', () => {
   expect(LanguageIds.languageIds).toContain('html')
 })
 
+test('handlebars', () => {
+  expect(LanguageIds.languageIds).toContain('handlebars')
+})
+
 test('json', () => {
   expect(LanguageIds.languageIds).toContain('json')
 })
