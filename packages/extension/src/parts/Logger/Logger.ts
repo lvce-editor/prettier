@@ -1,7 +1,7 @@
-export const info = (...args) => {
-  console.info(...args)
+export const info = (...args: readonly unknown[]): void => {
+  console.warn(...args)
 }
 
-export const warn = (...args) => {
+export const warn = (...args: readonly unknown[]): void => {
   console.warn(...args)
 }
