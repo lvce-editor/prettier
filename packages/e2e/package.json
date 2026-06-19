@@ -1,7 +1,7 @@
 {
   "name": "e2e",
   "version": "0.0.0-dev",
-  "description": "",
+  "description": "End-to-end tests for the Prettier extension",
   "main": "index.js",
   "scripts": {
     "build:extension": "node ../build/src/build-extension.js",
@@ -9,8 +9,7 @@
     "e2e:headless": "npm run build:extension && node ./node_modules/@lvce-editor/test-with-playwright/bin/test-with-playwright.js  --only-extension=../extension --test-path=. --headless"
   },
   "type": "module",
-  "keywords": [],
-  "author": "",
+  "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
     "@lvce-editor/test-with-playwright": "^19.0.0"
