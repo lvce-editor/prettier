@@ -28,11 +28,7 @@ export const test: Test = async ({
 
   // assert
   const editor = Locator('.Editor')
-  await expect(editor).toHaveText(`<main>
-  {{#if user}}
-    <p>{{user.name}}</p>
-  {{else}}
-    <p>Guest</p>
-  {{/if}}
-</main>`)
+  await expect(editor).toHaveText(
+    '<main>  {{#if user}}    <p>{{user.name}}</p>  {{else}}    <p>Guest</p>  {{/if}}</main>',
+  )
 }

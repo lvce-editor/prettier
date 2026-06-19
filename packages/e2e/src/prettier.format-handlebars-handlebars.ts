@@ -26,9 +26,7 @@ export const test: Test = async ({
 
   // assert
   const editor = Locator('.Editor')
-  await expect(editor).toHaveText(`<section>
-  {{#each users as |user|}}
-    <UserCard @name={{user.name}} />
-  {{/each}}
-</section>`)
+  await expect(editor).toHaveText(
+    '<section>  {{#each users as |user|}}    <UserCard @name={{user.name}} />  {{/each}}</section>',
+  )
 }

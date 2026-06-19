@@ -15,15 +15,12 @@ test('format handlebars', async () => {
 {{/if}}
 </main>`
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
-    endOffset: 80,
-    inserted: `<main>
-  {{#if user}}
+    endOffset: 65,
+    inserted: `  {{#if user}}
     <p>{{user.name}}</p>
   {{else}}
     <p>Guest</p>
-  {{/if}}
-</main>
-`,
-    startOffset: 0,
+  `,
+    startOffset: 7,
   })
 })
