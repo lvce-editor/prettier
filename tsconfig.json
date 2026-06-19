@@ -4,7 +4,6 @@
   "references": [
     { "path": "./packages/e2e" },
     { "path": "./packages/extension" },
-    { "path": "./packages/integration" },
     { "path": "./packages/build" }
   ]
 }
