@@ -1,7 +1,7 @@
 {
   "name": "builtin.prettier-monorepo",
   "version": "0.0.0-dev",
-  "description": "",
+  "description": "Prettier extension monorepo for Lvce Editor",
   "type": "module",
   "scripts": {
     "build": "node packages/build/src/build.js",
@@ -16,8 +16,7 @@
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "type-check": "tsc -b"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
