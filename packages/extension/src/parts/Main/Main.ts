@@ -1,14 +1,19 @@
-import { activate as activateExtensionApi, registerFormattingProvider } from '@lvce-editor/api'
+import {
+  activate as activateExtensionApi,
+  registerFormattingProvider,
+} from '@lvce-editor/api'
 import * as ExtensionHostFormattingProviderPrettier from '../ExtensionHost/ExtensionHostFormattingProviderPrettier.ts'
 import * as LanguageIds from '../LanguageIds/LanguageIds.ts'
 
-let isActivated = false
+const state = {
+  isActivated: false,
+}
 
 export const activate = async (): Promise<void> => {
-  if (isActivated) {
+  if (state.isActivated) {
     return
   }
-  isActivated = true
+  state.isActivated = true
   await activateExtensionApi()
   for (const languageId of LanguageIds.languageIds) {
     registerFormattingProvider({
@@ -19,4 +24,4 @@ export const activate = async (): Promise<void> => {
   }
 }
 
-export const deactivate = () => {}
+export const deactivate = (): void => {}

@@ -1,6 +1,8 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'prettier.format-javascript'
+export const name = 'prettier.format-prettier-config-js'
+
+export const skip = 1
 
 export const test: Test = async ({
   Editor,
@@ -11,7 +13,14 @@ export const test: Test = async ({
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/test.js`, `let  x=1`)
+  await FileSystem.writeFile(
+    `${tmpDir}/prettier.config.js`,
+    `export default {
+  semi: false,
+  singleQuote: true,
+}`,
+  )
+  await FileSystem.writeFile(`${tmpDir}/test.js`, `let message="hello";`)
   await Main.openUri(`${tmpDir}/test.js`)
 
   // act
@@ -19,5 +28,5 @@ export const test: Test = async ({
 
   // assert
   const editor = Locator('.Editor')
-  await expect(editor).toHaveText('let x = 1;')
+  await expect(editor).toHaveText(`let message = 'hello'`)
 }

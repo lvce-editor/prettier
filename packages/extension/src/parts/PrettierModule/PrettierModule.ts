@@ -1,10 +1,15 @@
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
 
+// cspell:ignore meriyah
+
 declare const PRETTIER_PATH_PREFIX: string | undefined
 
-const pathPrefix = typeof PRETTIER_PATH_PREFIX === 'string' ? PRETTIER_PATH_PREFIX : '../../../../../node_modules/prettier'
+const pathPrefix =
+  typeof PRETTIER_PATH_PREFIX === 'string'
+    ? PRETTIER_PATH_PREFIX
+    : '../../../../../node_modules/prettier'
 
-const loadInternal = (moduleId): any => {
+const loadInternal = (moduleId: number): Promise<any> => {
   switch (moduleId) {
     case PrettierModuleId.PluginAcorn:
       return import(`${pathPrefix}/plugins/acorn.mjs`)
@@ -39,7 +44,7 @@ const loadInternal = (moduleId): any => {
   }
 }
 
-export const load = async (moduleId): Promise<any> => {
+export const load = async (moduleId: number): Promise<any> => {
   const module = await loadInternal(moduleId)
   // @ts-ignore
   if (module.default) {
@@ -49,6 +54,6 @@ export const load = async (moduleId): Promise<any> => {
   return module
 }
 
-export const loadAll = (moduleIds) => {
+export const loadAll = (moduleIds: readonly number[]): Promise<any[]> => {
   return Promise.all(moduleIds.map(load))
 }
