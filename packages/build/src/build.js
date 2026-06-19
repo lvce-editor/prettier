@@ -1,4 +1,5 @@
 import { packageExtension } from '@lvce-editor/package-extension'
+import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import fs from 'node:fs'
 import path, { join } from 'node:path'
@@ -28,6 +29,7 @@ const bundle = await rollup({
     nodeResolve({
       browser: true,
     }),
+    commonjs(),
     esbuild({
       define: {
         PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
