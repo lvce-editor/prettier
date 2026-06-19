@@ -24,3 +24,24 @@ test('typescript', () => {
 test('graphql', () => {
   expect(LanguageIds.languageIds).toContain('graphql')
 })
+
+test('yaml', () => {
+  expect(LanguageIds.languageIds).toContain('yaml')
+})
+
+test('markdown', () => {
+  expect(LanguageIds.languageIds).toContain('markdown')
+})
+
+test('exports all language ids in registration order', () => {
+  expect(LanguageIds.languageIds).toEqual([
+    'css',
+    'html',
+    'json',
+    'javascript',
+    'typescript',
+    'graphql',
+    'yaml',
+    'markdown',
+  ])
+})
