@@ -1,5 +1,5 @@
 export const normalizeUri = (uri: string): string => {
-  if (uri.startsWith('file://')) {
+  if (uri.includes('://')) {
     try {
       const url = new URL(uri)
       const pathName = decodeURIComponent(url.pathname)

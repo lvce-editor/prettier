@@ -37,6 +37,19 @@ test('root prettierignore ignores root file glob', async () => {
   ).toBe(true)
 })
 
+test('root prettierignore ignores memfs root file glob', async () => {
+  const readFile = createReadFile({
+    'memfs:///workspace/.prettierignore': 'ignored.js',
+  })
+
+  expect(
+    await PrettierIgnore.isIgnoredWithReadFile(
+      'memfs:///workspace/ignored.js',
+      readFile,
+    ),
+  ).toBe(true)
+})
+
 test('root prettierignore does not ignore non-matching file', async () => {
   const readFile = createReadFile({
     '/workspace/.prettierignore': 'ignored.js',
@@ -109,6 +122,12 @@ test('missing prettierignore files do not block formatting', async () => {
 test('normalizeUri converts file uris to paths', () => {
   expect(normalizeUri('file:///workspace/a%20b/file.js')).toBe(
     '/workspace/a b/file.js',
+  )
+})
+
+test('normalizeUri converts memfs uris to paths', () => {
+  expect(normalizeUri('memfs:///workspace/file.js')).toBe(
+    '/workspace/file.js',
   )
 })
 
