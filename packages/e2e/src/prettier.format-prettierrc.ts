@@ -1,14 +1,16 @@
-<<<<<<< HEAD
-export const name = 'prettier.format-prettierrc'
-=======
-import type { Test } from "@lvce-editor/test-with-playwright";
+import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = "prettier.format-prettierrc";
->>>>>>> origin/main
+export const name = 'prettier.format-prettierrc'
 
 export const skip = 1
 
-export const test: Test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
+export const test: Test = async ({
+  Editor,
+  expect,
+  FileSystem,
+  Locator,
+  Main,
+}) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
