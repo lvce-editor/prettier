@@ -11,7 +11,7 @@ test('format graphql', async () => {
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
     endOffset: 36,
     inserted: `
-  human(id: \"1000\") {
+  human(id: "1000") {
     name
     height
   }
