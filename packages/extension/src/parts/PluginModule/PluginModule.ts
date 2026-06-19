@@ -14,11 +14,16 @@ import * as PluginTypeScriptReact from '../PluginTypeScriptReact/PluginTypeScrip
 import * as PluginVue from '../PluginVue/PluginVue.ts'
 import * as PluginYaml from '../PluginYaml/PluginYaml.ts'
 
-const extName = (uri) => {
+interface PluginDefinition {
+  readonly parser: string
+  readonly plugins: readonly number[]
+}
+
+const extName = (uri: string): string => {
   return uri.slice(uri.lastIndexOf('.'))
 }
 
-export const loadPlugin = (uri) => {
+export const loadPlugin = (uri: string): PluginDefinition => {
   const extension = extName(uri)
   switch (extension) {
     case FileExtension.Css:
