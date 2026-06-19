@@ -2,7 +2,10 @@ import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
 
 declare const PRETTIER_PATH_PREFIX: string | undefined
 
-const pathPrefix = typeof PRETTIER_PATH_PREFIX === 'string' ? PRETTIER_PATH_PREFIX : '../../../../../node_modules/prettier'
+const pathPrefix =
+  typeof PRETTIER_PATH_PREFIX === 'string'
+    ? PRETTIER_PATH_PREFIX
+    : '../../../../../node_modules/prettier'
 
 const loadInternal = (moduleId): any => {
   switch (moduleId) {

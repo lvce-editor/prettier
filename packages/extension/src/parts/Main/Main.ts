@@ -1,4 +1,7 @@
-import { activate as activateExtensionApi, registerFormattingProvider } from '@lvce-editor/api'
+import {
+  activate as activateExtensionApi,
+  registerFormattingProvider,
+} from '@lvce-editor/api'
 import * as ExtensionHostFormattingProviderPrettier from '../ExtensionHost/ExtensionHostFormattingProviderPrettier.ts'
 import * as LanguageIds from '../LanguageIds/LanguageIds.ts'
 
