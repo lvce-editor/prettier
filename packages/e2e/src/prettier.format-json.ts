@@ -1,6 +1,8 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'prettier.format-json'
 
-export const test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
+export const test: Test = async ({ Editor, expect, FileSystem, Locator, Main }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.json`, `{ }`)
