@@ -37,14 +37,6 @@ export const isIgnoredWithReadFile = async (
     const ignoreFilePath = join(directory, PrettierIgnoreFileName)
     const ignoreFileUri = getIgnoreFileUri(uri, ignoreFilePath)
     const content = await readIgnoreFile(readFileFn, ignoreFileUri)
-    console.log('[prettier-ignore]', {
-      uri,
-      file,
-      directory,
-      ignoreFilePath,
-      ignoreFileUri,
-      hasContent: Boolean(content),
-    })
     if (!content) {
       continue
     }
