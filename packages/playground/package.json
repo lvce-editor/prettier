@@ -1,9 +1,0 @@
-{
-  "name": "playground",
-  "version": "0.0.0-dev",
-  "description": "Playground for the Prettier extension",
-  "main": "index.js",
-  "type": "module",
-  "author": "Lvce Editor",
-  "license": "MIT"
-}
