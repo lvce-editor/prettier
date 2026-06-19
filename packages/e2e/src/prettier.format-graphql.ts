@@ -1,6 +1,4 @@
-export const name = 'prettier.format-css'
-
-export const skip = true
+export const name = 'prettier.format-graphql'
 
 export const test = async ({ FileSystem, Main, Editor, Locator, expect }) => {
   // arrange
