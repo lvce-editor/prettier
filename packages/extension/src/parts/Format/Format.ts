@@ -1,6 +1,6 @@
+import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import { FormattingError } from '../FormattingError/FormattingError.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
-import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as Prettier from '../Prettier/Prettier.ts'
@@ -19,8 +19,8 @@ const getFormatFnAsync = async (uri) => {
   const pluginInstances = await Promise.all(plugins.map(PrettierModule.load))
   state.plugins[uri] = (code) => {
     return Prettier.format(code, {
-      plugins: pluginInstances,
       parser,
+      plugins: pluginInstances,
     })
   }
   return state.plugins[uri]

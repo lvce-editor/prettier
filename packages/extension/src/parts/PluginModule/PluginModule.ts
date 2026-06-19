@@ -1,3 +1,4 @@
+import * as FileExtension from '../FileExtension/FileExtension.ts'
 import * as PluginCss from '../PluginCss/PluginCss.ts'
 import * as PluginGraphql from '../PluginGraphql/PluginGraphql.ts'
 import * as PluginHtml from '../PluginHtml/PluginHtml.ts'
@@ -11,7 +12,6 @@ import * as PluginScss from '../PluginScss/PluginScss.ts'
 import * as PluginTypeScript from '../PluginTypeScript/PluginTypeScript.ts'
 import * as PluginTypeScriptReact from '../PluginTypeScriptReact/PluginTypeScriptReact.ts'
 import * as PluginVue from '../PluginVue/PluginVue.ts'
-import * as FileExtension from '../FileExtension/FileExtension.ts'
 import * as PluginYaml from '../PluginYaml/PluginYaml.ts'
 
 const extName = (uri) => {
@@ -30,22 +30,22 @@ export const loadPlugin = (uri) => {
     case FileExtension.JavaScript:
     case FileExtension.JavascriptModule:
       return PluginJavaScript
-    case FileExtension.Jsx:
-      return PluginJavaScriptReact
     case FileExtension.Json:
       return PluginJson
     case FileExtension.Jsonc:
       return PluginJsonc
+    case FileExtension.Jsx:
+      return PluginJavaScriptReact
     case FileExtension.Less:
       return PluginLess
     case FileExtension.Markdown:
       return PluginMarkdown
     case FileExtension.Scss:
       return PluginScss
-    case FileExtension.Typescript:
-      return PluginTypeScript
     case FileExtension.Tsx:
       return PluginTypeScriptReact
+    case FileExtension.Typescript:
+      return PluginTypeScript
     case FileExtension.Vue:
       return PluginVue
     case FileExtension.Yaml:

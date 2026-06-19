@@ -4,8 +4,8 @@
 import { startWorker } from './startWorker.js'
 
 export const testWorker = async ({
-  execMap,
   config = {},
+  execMap,
   quickPick = () => {},
 }) => {
   const invocations: any[] = []
