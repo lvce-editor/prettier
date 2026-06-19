@@ -21,7 +21,7 @@
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/api": "^8.28.0",
-    "@lvce-editor/eslint-config": "^13.0.0",
+    "@lvce-editor/eslint-config": "^13.1.0",
     "@lvce-editor/server": "0.84.2",
     "@types/node": "^26.0.0",
     "eslint": "^10.5.0",
