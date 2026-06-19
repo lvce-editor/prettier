@@ -27,7 +27,14 @@ await context.watch()
 const server = spawn(
   process.execPath,
   [
-    path.join(root, 'node_modules', '@lvce-editor', 'server', 'bin', 'server.js'),
+    path.join(
+      root,
+      'node_modules',
+      '@lvce-editor',
+      'server',
+      'bin',
+      'server.js',
+    ),
     '--only-extension=packages/extension',
     '--test-path=packages/e2e',
   ],
