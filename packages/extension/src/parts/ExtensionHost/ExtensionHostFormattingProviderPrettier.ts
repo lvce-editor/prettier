@@ -7,8 +7,8 @@ export const label = 'Prettier'
 export const languageId = 'css'
 
 export const format = async (textDocument) => {
-  const uri = textDocument.uri
-  const text = textDocument.text
+  const {uri} = textDocument
+  const {text} = textDocument
   const start = performance.now()
   const minimizedEdit = await Format.format(uri, text)
   const end = performance.now()
@@ -18,9 +18,9 @@ export const format = async (textDocument) => {
   }
   return [
     {
-      startOffset: minimizedEdit.startOffset,
       endOffset: minimizedEdit.endOffset,
       inserted: minimizedEdit.inserted,
+      startOffset: minimizedEdit.startOffset,
     },
   ]
 }

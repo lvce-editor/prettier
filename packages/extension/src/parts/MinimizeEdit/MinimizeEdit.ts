@@ -17,8 +17,8 @@ export const minimizeEdit = (a: string, b: string): OffsetBasedEdit => {
   }
   const inserted = b.slice(i, lengthB - j)
   return {
-    startOffset: i,
     endOffset: lengthA - j,
     inserted,
+    startOffset: i,
   }
 }

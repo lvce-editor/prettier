@@ -1,5 +1,5 @@
-import { testWorker } from '../src/testWorker.js'
 import { test, expect } from '@jest/globals'
+import { testWorker } from '../src/testWorker.js'
 
 test('format vue', async () => {
   const execMap = {}
@@ -9,8 +9,8 @@ test('format vue', async () => {
   const uri = '/test/file.vue'
   const content = ' <template>hello world</template>'
   expect(await worker.execute('Prettier.format', uri, content)).toEqual({
-    startOffset: 0,
     endOffset: 33,
     inserted: `<template>hello world</template>\n`,
+    startOffset: 0,
   })
 })
