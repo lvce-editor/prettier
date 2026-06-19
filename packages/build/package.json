@@ -12,6 +12,7 @@
     "@lvce-editor/package-extension": "^3.2.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
+    "esbuild": "^0.28.1",
     "rollup": "^4.62.1",
     "rollup-plugin-esbuild": "^6.2.1"
   }
