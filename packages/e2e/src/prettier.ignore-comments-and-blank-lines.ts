@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'prettier.ignore-comments-and-blank-lines'
 
-export const skip = 1
+// export const skip = 1
 
 export const test: Test = async ({
   Editor,

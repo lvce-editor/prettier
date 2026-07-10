@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'prettier.ignore-root-file-glob'
 
-export const skip = 1
+// export const skip = 1
 
 export const test: Test = async ({
   Editor,
@@ -10,11 +10,13 @@ export const test: Test = async ({
   FileSystem,
   Locator,
   Main,
+  Workspace,
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/.prettierignore`, `ignored.js`)
   await FileSystem.writeFile(`${tmpDir}/ignored.js`, `let  x=1`)
+  await Workspace.setPath(tmpDir)
   await Main.openUri(`${tmpDir}/ignored.js`)
 
   // act

@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import { FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { dirname } from '../src/parts/PrettierIgnore/Dirname/Dirname.ts'
 import { getAncestorDirectories } from '../src/parts/PrettierIgnore/GetAncestorDirectories/GetAncestorDirectories.ts'
 import { getRelativePath } from '../src/parts/PrettierIgnore/GetRelativePath/GetRelativePath.ts'
@@ -48,6 +49,38 @@ test('root prettierignore ignores memfs root file glob', async () => {
       readFile,
     ),
   ).toBe(true)
+})
+
+test('root prettierignore ignores file uri root file glob', async () => {
+  const readFile = createReadFile({
+    'file:///workspace/.prettierignore': 'ignored.js',
+  })
+
+  expect(
+    await PrettierIgnore.isIgnoredWithReadFile(
+      'file:///workspace/ignored.js',
+      readFile,
+    ),
+  ).toBe(true)
+})
+
+test('isIgnored reads ignore files through the file system worker', async () => {
+  using mockRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string) => {
+      if (uri === 'memfs:///workspace/.prettierignore') {
+        return 'ignored.js'
+      }
+      throw new Error(`file not found: ${uri}`)
+    },
+  })
+
+  expect(await PrettierIgnore.isIgnored('memfs:///workspace/ignored.js')).toBe(
+    true,
+  )
+  expect(mockRpc.invocations).toEqual([
+    ['FileSystem.readFile', 'memfs:///.prettierignore'],
+    ['FileSystem.readFile', 'memfs:///workspace/.prettierignore'],
+  ])
 })
 
 test('root prettierignore does not ignore non-matching file', async () => {
@@ -126,9 +159,7 @@ test('normalizeUri converts file uris to paths', () => {
 })
 
 test('normalizeUri converts memfs uris to paths', () => {
-  expect(normalizeUri('memfs:///workspace/file.js')).toBe(
-    '/workspace/file.js',
-  )
+  expect(normalizeUri('memfs:///workspace/file.js')).toBe('/workspace/file.js')
 })
 
 test('normalizeUri converts windows file uris to paths', () => {

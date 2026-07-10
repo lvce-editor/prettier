@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'prettier.ignore-directory-glob'
 
-export const skip = 1
+// export const skip = 1
 
 export const test: Test = async ({
   Editor,
