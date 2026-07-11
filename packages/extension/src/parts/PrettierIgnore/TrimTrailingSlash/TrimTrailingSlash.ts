@@ -1,6 +1,7 @@
 export const trimTrailingSlash = (path: string): string => {
-  if (path === '/') {
-    return path
+  let end = path.length
+  while (end > 1 && path[end - 1] === '/') {
+    end--
   }
-  return path.replace(/\/+$/, '')
+  return path.slice(0, end)
 }

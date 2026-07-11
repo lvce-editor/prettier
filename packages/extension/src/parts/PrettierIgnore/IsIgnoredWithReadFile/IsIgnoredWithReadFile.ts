@@ -18,7 +18,9 @@ const getIgnoreFileUri = (uri: string, path: string): string => {
   }
   try {
     const url = new URL(uri)
-    const authority = url.host ? `${url.protocol}//${url.host}` : `${url.protocol}//`
+    const authority = url.host
+      ? `${url.protocol}//${url.host}`
+      : `${url.protocol}//`
     const absolutePath = path.startsWith('/') ? path : `/${path}`
     return `${authority}${absolutePath}`
   } catch {
