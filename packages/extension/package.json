@@ -4,7 +4,7 @@
   "description": "Prettier extension for Lvce Editor",
   "main": "dist/prettierMain.js",
   "dependencies": {
-    "ignore": "^7.0.5"
+    "ignore": "^7.0.6"
   },
   "scripts": {
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ../../node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
@@ -31,8 +31,8 @@
     }
   },
   "devDependencies": {
-    "@lvce-editor/api": "^8.33.0",
-    "@lvce-editor/rpc-registry": "^9.27.0",
+    "@lvce-editor/api": "^8.44.0",
+    "@lvce-editor/rpc-registry": "^9.33.0",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.11"
   }
