@@ -12,4 +12,10 @@ export default [
       'no-useless-escape': 'off',
     },
   },
+  {
+    files: ['packages/e2e/**/*.ts'],
+    rules: {
+      'e2e/prefer-filesystem-set-files': 'off',
+    },
+  },
 ]
