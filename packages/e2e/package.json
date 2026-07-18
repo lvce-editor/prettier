@@ -4,7 +4,7 @@
   "description": "End-to-end tests for the Prettier extension",
   "main": "index.js",
   "scripts": {
-    "build:extension": "node ../build/src/build-extension.js",
+    "build:extension": "node ../build/src/build-extension.ts",
     "e2e": "npm run build:extension && node ./node_modules/@lvce-editor/test-with-playwright/bin/test-with-playwright.js --only-extension=../extension --test-path=.",
     "e2e:headless": "npm run build:extension && node ./node_modules/@lvce-editor/test-with-playwright/bin/test-with-playwright.js  --only-extension=../extension --test-path=. --headless"
   },
