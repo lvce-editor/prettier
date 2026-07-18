@@ -3,30 +3,30 @@
   "version": "0.0.0-dev",
   "description": "Prettier extension monorepo for Lvce Editor",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "node packages/build/src/build.ts",
     "build:extension": "node packages/build/src/build-extension.ts",
     "dev": "node packages/build/src/dev.ts",
-    "e2e": "cd packages/e2e && npm run e2e",
-    "e2e:headless": "cd packages/e2e && npm run e2e:headless",
+    "e2e": "npm run e2e --workspace=packages/e2e",
+    "e2e:headless": "npm run e2e:headless --workspace=packages/e2e",
     "format": "prettier --write .",
-    "postinstall": "lerna bootstrap --ci",
     "lint": "eslint . && prettier --check .",
-    "test": "lerna run test",
-    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "test": "npm test --workspaces --if-present",
+    "test:watch": "npm run test:watch --workspace=packages/extension",
     "type-check": "tsc -b"
   },
   "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
-    "@lerna/legacy-package-management": "^8.2.4",
     "@lvce-editor/api": "^8.53.1",
     "@lvce-editor/eslint-config": "^16.5.0",
     "@lvce-editor/server": "0.91.21",
     "@types/node": "^26.1.1",
     "eslint": "^10.7.0",
     "jest": "^30.4.2",
-    "lerna": "^8.2.3",
     "prettier": "^4.0.0-alpha.10",
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3"
