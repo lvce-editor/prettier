@@ -4,11 +4,9 @@ import { join } from 'node:path'
 import { root } from './root.ts'
 
 const locations: readonly string[] = [
-  'lerna.json',
+  'package.json',
   'package-lock.json',
-  'packages/build/package-lock.json',
-  'packages/e2e/package-lock.json',
-  'packages/extension/package-lock.json',
+  '.github/workflows/pr.yml',
   '.github/workflows/ci.yml',
   '.github/workflows/release.yml',
   'packages/build/src/computeNodeModulesCacheKey.ts',
