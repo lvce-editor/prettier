@@ -6,7 +6,7 @@
   "repository": "https://github.com/lvce-editor/prettier",
   "browser": "dist/prettierMain.js",
   "isolated": true,
-  "icon": "./icon.png",
+  "icon": "./media/icon.png",
   "categories": ["Formatters"],
   "activation": [
     "onStatusBarItem",
