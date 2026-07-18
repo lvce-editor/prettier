@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { join } from 'node:path'
 
-export const copyPrettier = (root, outDir) => {
+export const copyPrettier = (root: string, outDir: string): void => {
   const source = join(root, 'node_modules', 'prettier')
   const target = join(outDir, 'third_party', 'prettier')
   fs.rmSync(target, { recursive: true, force: true })

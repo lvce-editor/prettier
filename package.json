@@ -4,9 +4,9 @@
   "description": "Prettier extension monorepo for Lvce Editor",
   "type": "module",
   "scripts": {
-    "build": "node packages/build/src/build.js",
-    "build:extension": "node packages/build/src/build-extension.js",
-    "dev": "node packages/build/src/dev.js",
+    "build": "node packages/build/src/build.ts",
+    "build:extension": "node packages/build/src/build-extension.ts",
+    "dev": "node packages/build/src/dev.ts",
     "e2e": "cd packages/e2e && npm run e2e",
     "e2e:headless": "cd packages/e2e && npm run e2e:headless",
     "format": "prettier --write .",
