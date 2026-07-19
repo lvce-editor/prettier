@@ -9,7 +9,6 @@
   "icon": "./media/icon.png",
   "categories": ["Formatters"],
   "activation": [
-    "onStatusBarItem",
     "onFormatting:css",
     "onFormatting:json",
     "onFormatting:javascript",
