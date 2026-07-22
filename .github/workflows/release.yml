@@ -51,8 +51,8 @@ jobs:
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
-      - run: npm run type-check
       - run: npm test
+      - run: npm run type-check
       - run: node packages/build/src/build.ts
       - name: Build archive
         shell: bash
