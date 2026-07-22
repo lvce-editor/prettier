@@ -73,6 +73,10 @@
   ],
   "jsonValidation": [
     {
+      "fileMatch": "package.json",
+      "url": "./schemas/package.schema.json"
+    },
+    {
       "fileMatch": ".prettierrc",
       "url": "https://json.schemastore.org/prettierrc"
     },

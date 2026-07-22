@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prettier configuration in package.json",
+  "type": "object",
+  "properties": {
+    "prettier": {
+      "description": "Prettier configuration options.",
+      "type": "object",
+      "properties": {
+        "arrowParens": {
+          "description": "Include parentheses around a sole arrow function parameter.",
+          "type": "string",
+          "enum": ["always", "avoid"]
+        },
+        "bracketSameLine": {
+          "description": "Put the closing bracket of a multiline element on the last line.",
+          "type": "boolean"
+        },
+        "bracketSpacing": {
+          "description": "Print spaces between brackets in object literals.",
+          "type": "boolean"
+        },
+        "embeddedLanguageFormatting": {
+          "description": "Control formatting of quoted code embedded in a file.",
+          "type": "string",
+          "enum": ["auto", "off"]
+        },
+        "endOfLine": {
+          "description": "Line ending style to use.",
+          "type": "string",
+          "enum": ["lf", "crlf", "cr", "auto"]
+        },
+        "experimentalOperatorPosition": {
+          "description": "Where to print operators when binary expressions wrap.",
+          "type": "string",
+          "enum": ["start", "end"]
+        },
+        "experimentalTernaries": {
+          "description": "Use the experimental curious ternary formatting.",
+          "type": "boolean"
+        },
+        "htmlWhitespaceSensitivity": {
+          "description": "How to handle whitespace in HTML.",
+          "type": "string",
+          "enum": ["css", "strict", "ignore"]
+        },
+        "jsxSingleQuote": {
+          "description": "Use single quotes instead of double quotes in JSX.",
+          "type": "boolean"
+        },
+        "objectWrap": {
+          "description": "How to wrap object literals when they could fit on one line.",
+          "type": "string",
+          "enum": ["preserve", "collapse"]
+        },
+        "printWidth": {
+          "description": "The line length at which Prettier tries to wrap.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "proseWrap": {
+          "description": "How to wrap prose in supported files.",
+          "type": "string",
+          "enum": ["always", "never", "preserve"]
+        },
+        "quoteProps": {
+          "description": "When to add quotes around object properties.",
+          "type": "string",
+          "enum": ["as-needed", "consistent", "preserve"]
+        },
+        "semi": {
+          "description": "Print semicolons at the ends of statements.",
+          "type": "boolean"
+        },
+        "singleAttributePerLine": {
+          "description": "Enforce one attribute per line in HTML, Vue, and JSX.",
+          "type": "boolean"
+        },
+        "singleQuote": {
+          "description": "Use single quotes instead of double quotes.",
+          "type": "boolean"
+        },
+        "tabWidth": {
+          "description": "Number of spaces per indentation level.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "trailingComma": {
+          "description": "Where to print trailing commas wherever possible.",
+          "type": "string",
+          "enum": ["all", "es5", "none"]
+        },
+        "useTabs": {
+          "description": "Indent lines with tabs instead of spaces.",
+          "type": "boolean"
+        },
+        "vueIndentScriptAndStyle": {
+          "description": "Indent script and style tags in Vue files.",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
