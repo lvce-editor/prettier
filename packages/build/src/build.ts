@@ -17,6 +17,7 @@ fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
 
 fs.mkdirSync(path.join(root, 'dist'))
 fs.mkdirSync(path.join(root, 'dist', 'media'))
+fs.mkdirSync(path.join(root, 'dist', 'schemas'))
 
 fs.copyFileSync(join(root, 'README.md'), join(root, 'dist', 'README.md'))
 fs.copyFileSync(
@@ -27,6 +28,9 @@ fs.copyFileSync(
   join(extension, 'extension.json'),
   join(root, 'dist', 'extension.json'),
 )
+fs.cpSync(join(extension, 'schemas'), join(root, 'dist', 'schemas'), {
+  recursive: true,
+})
 copyPrettier(root, join(root, 'dist'))
 
 const bundle = await rollup({
