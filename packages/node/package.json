@@ -1,0 +1,14 @@
+{
+  "name": "builtin.prettier-node",
+  "version": "0.0.0-dev",
+  "description": "Node transport for workspace-local Prettier",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/prettierNode.ts",
+  "scripts": {
+    "test": "node --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1"
+  }
+}

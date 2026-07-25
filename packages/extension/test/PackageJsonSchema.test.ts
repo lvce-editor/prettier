@@ -1,6 +1,6 @@
+import { describe, expect, test } from '@jest/globals'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { describe, expect, test } from '@jest/globals'
 
 const extensionRoot = join(import.meta.dirname, '..')
 
@@ -21,10 +21,10 @@ describe('package.json schema contribution', () => {
     const schema = await readJson(
       join(extensionRoot, 'schemas', 'package.schema.json'),
     )
-    const properties = schema.properties.prettier.properties
+    const { properties } = schema.properties.prettier
     expect(properties.semi).toMatchObject({ type: 'boolean' })
     expect(properties.singleQuote).toMatchObject({ type: 'boolean' })
-    expect(properties.printWidth).toMatchObject({ type: 'integer', minimum: 0 })
+    expect(properties.printWidth).toMatchObject({ minimum: 0, type: 'integer' })
     expect(properties.trailingComma.enum).toEqual(['all', 'es5', 'none'])
   })
 })

@@ -1,5 +1,6 @@
 import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import { FormattingError } from '../FormattingError/FormattingError.ts'
+import * as LocalPrettier from '../LocalPrettier/LocalPrettier.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
@@ -36,15 +37,29 @@ export const format = async (
   uri: string,
   content: string,
 ): Promise<OffsetBasedEdit | undefined> => {
-  // console.log({ uri, content })
   if (await PrettierIgnore.isIgnored(uri)) {
     OutputChannel.log(`ignoring ${uri}`)
     return undefined
   }
   OutputChannel.log(`formatting ${uri}`)
-  const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
   try {
-    const formattedText = await fn(content)
+    const localResult = await LocalPrettier.format(uri, content)
+    let formattedText: string
+    if (localResult.status === 'formatted') {
+      OutputChannel.log(
+        `using local Prettier ${localResult.version} from ${localResult.path}`,
+      )
+      const { formattedText: localFormattedText } = localResult
+      formattedText = localFormattedText
+    } else if (localResult.status === 'format-error') {
+      throw new Error(localResult.message)
+    } else {
+      OutputChannel.log(
+        `using bundled Prettier: local Prettier unavailable (${localResult.reason})`,
+      )
+      const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
+      formattedText = await fn(content)
+    }
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
     return minimizedEdit
   } catch (error) {
@@ -53,12 +68,5 @@ export const format = async (
       `Failed to format ${uri}: ${error}`,
     )
     throw enhancedError
-    // if (error instanceof SyntaxError) {
-    //   return {
-    //     error: error.toString(),
-    //   }
-    // }
   }
 }
-
-// format('/test/index.ts', 'let x=2')
