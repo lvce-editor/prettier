@@ -48,10 +48,13 @@ const toFilePath = (uri: string): string | undefined => {
   if (uri.startsWith('file:')) {
     return fileURLToPath(uri)
   }
+  if (isAbsolute(uri)) {
+    return uri
+  }
   if (protocolPattern.test(uri)) {
     return undefined
   }
-  return isAbsolute(uri) ? uri : resolve(uri)
+  return resolve(uri)
 }
 
 const getPrettier = (module: unknown): Prettier | undefined => {
