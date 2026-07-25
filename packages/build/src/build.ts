@@ -4,11 +4,17 @@ import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path, { join } from 'node:path'
 import { rollup } from 'rollup'
+import { build as esbuildBuild } from 'esbuild'
 import esbuild from 'rollup-plugin-esbuild'
 import { copyPrettier } from './copyPrettier.ts'
+import {
+  type ExtensionManifest,
+  withProductionNodeEntryPoint,
+} from './extensionManifest.ts'
 import { root } from './root.ts'
 
 const extension = path.join(root, 'packages', 'extension')
+const node = path.join(root, 'packages', 'node')
 const require = createRequire(import.meta.url)
 const commonjs =
   require('@rollup/plugin-commonjs') as () => import('rollup').Plugin
@@ -24,14 +30,26 @@ fs.copyFileSync(
   join(extension, 'media', 'icon.png'),
   join(root, 'dist', 'media', 'icon.png'),
 )
-fs.copyFileSync(
-  join(extension, 'extension.json'),
+const extensionManifest = JSON.parse(
+  fs.readFileSync(join(extension, 'extension.json'), 'utf8'),
+) as ExtensionManifest
+fs.writeFileSync(
   join(root, 'dist', 'extension.json'),
+  `${JSON.stringify(withProductionNodeEntryPoint(extensionManifest), undefined, 2)}\n`,
 )
 fs.cpSync(join(extension, 'schemas'), join(root, 'dist', 'schemas'), {
   recursive: true,
 })
 copyPrettier(root, join(root, 'dist'))
+
+await esbuildBuild({
+  bundle: true,
+  entryPoints: [join(node, 'src', 'prettierNode.ts')],
+  format: 'esm',
+  outdir: join(root, 'dist', 'node', 'dist'),
+  platform: 'node',
+  target: 'node24',
+})
 
 const bundle = await rollup({
   input: join(extension, 'src', 'prettierMain.ts'),
