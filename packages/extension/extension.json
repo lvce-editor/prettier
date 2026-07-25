@@ -5,6 +5,7 @@
   "description": "Code formatter using prettier",
   "repository": "https://github.com/lvce-editor/prettier",
   "browser": "dist/prettierMain.js",
+  "contentSecurityPolicy": ["default-src 'none'"],
   "isolated": true,
   "icon": "./media/icon.png",
   "categories": ["Formatters"],
