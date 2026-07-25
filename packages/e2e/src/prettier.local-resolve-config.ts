@@ -24,7 +24,7 @@ export const test: Test = async ({
     `export const version = '3.6.0'
 export const resolveConfig = async () => ({ marker: 'resolved config' })
 export const format = async (content, options) =>
-  options.marker + ':' + options.filepath.endsWith('/test.js')`,
+  options.marker + ':' + options.filepath.endsWith('test.js')`,
   )
   await FileSystem.writeFile(`${tmpDir}/test.js`, `let  x=1`)
   await Main.openUri(`${tmpDir}/test.js`)
