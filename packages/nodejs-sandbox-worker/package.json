@@ -1,0 +1,15 @@
+{
+  "name": "builtin.prettier-nodejs-sandbox-worker",
+  "version": "0.0.0-dev",
+  "description": "Restricted web worker for workspace-local JavaScript modules",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/nodejsSandboxWorkerMain.ts",
+  "scripts": {
+    "test": "node --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "@lvce-editor/rpc": "^6.8.0",
+    "@types/node": "^26.1.1"
+  }
+}

@@ -4,7 +4,13 @@ import path from 'node:path'
 import { root } from './root.ts'
 
 const extension = path.join(root, 'packages', 'extension')
-const node = path.join(root, 'packages', 'node')
+const sandboxWorker = path.join(
+  root,
+  'packages',
+  'nodejs-sandbox-worker',
+  'src',
+  'nodejsSandboxWorkerMain.ts',
+)
 const entryPoint = path.join(extension, 'src', 'prettierMain.ts')
 const outdir = path.join(extension, 'dist')
 const outfile = path.join(outdir, 'prettierMain.js')
@@ -28,10 +34,11 @@ await esbuild.build({
 
 await esbuild.build({
   bundle: true,
-  entryPoints: [path.join(node, 'src', 'prettierNode.ts')],
+  entryPoints: [sandboxWorker],
+  external: ['electron', 'node:*'],
   format: 'esm',
-  outdir: path.join(extension, 'node', 'dist'),
-  platform: 'node',
+  outfile: path.join(outdir, 'nodejsSandboxWorkerMain.js'),
+  platform: 'browser',
   sourcemap: true,
-  target: 'node24',
+  target: 'esnext',
 })
