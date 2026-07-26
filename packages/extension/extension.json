@@ -9,14 +9,6 @@
   "isolated": true,
   "icon": "./media/icon.png",
   "categories": ["Formatters"],
-  "rpc": [
-    {
-      "id": "builtin.prettier.local",
-      "type": "node",
-      "name": "Local Prettier",
-      "url": "../node/src/prettierNode.ts"
-    }
-  ],
   "activation": [
     "onFormatting:css",
     "onFormatting:json",
