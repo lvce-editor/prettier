@@ -21,7 +21,7 @@
   "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/api": "^8.65.0",
+    "@lvce-editor/api": "^8.75.0",
     "@lvce-editor/eslint-config": "^17.6.0",
     "@lvce-editor/server": "0.91.21",
     "@types/node": "^26.1.1",
