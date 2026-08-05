@@ -10,6 +10,7 @@ interface LocalPrettierLoadRequest {
   readonly config: unknown
   readonly configEntry: string
   readonly graph: NodeModuleGraph.NodeModuleGraph
+  readonly parser: string | undefined
   readonly path: string
   readonly pluginEntries: readonly string[]
   readonly prettierEntry: string
@@ -201,6 +202,35 @@ const resolvePluginEntry = async (
   }
 }
 
+const getBundledPluginDefinition = (
+  filePath: string,
+): {
+  readonly parser: string | undefined
+  readonly plugins: readonly number[]
+} => {
+  try {
+    return PluginModule.loadPlugin(filePath)
+  } catch {
+    return {
+      parser: undefined,
+      plugins: [],
+    }
+  }
+}
+
+const getConfiguredPluginSpecifiers = (config: unknown): readonly string[] => {
+  if (!config || typeof config !== 'object' || !('plugins' in config)) {
+    return []
+  }
+  const { plugins } = config as Readonly<Record<string, unknown>>
+  if (!Array.isArray(plugins)) {
+    return []
+  }
+  return plugins.filter(
+    (plugin): plugin is string => typeof plugin === 'string',
+  )
+}
+
 export const load = async (
   filePath: string,
   fileSystem: NodeModuleGraph.FileSystem = defaultFileSystem,
@@ -218,8 +248,18 @@ export const load = async (
   }
   try {
     const prettierEntry = await resolvePrettierEntry(packageRoot, fileSystem)
-    const { plugins } = PluginModule.loadPlugin(filePath)
+    const config = await findConfig(filePath, fileSystem)
+    const { parser, plugins } = getBundledPluginDefinition(filePath)
     const pluginEntries: string[] = []
+    for (const specifier of getConfiguredPluginSpecifiers(config.value)) {
+      pluginEntries.push(
+        await NodeModuleGraph.resolveModule(
+          specifier,
+          config.path || filePath,
+          fileSystem,
+        ),
+      )
+    }
     for (const pluginId of plugins) {
       const pluginName = pluginNames[pluginId]
       if (!pluginName) {
@@ -234,7 +274,6 @@ export const load = async (
         pluginEntries.push(pluginEntry)
       }
     }
-    const config = await findConfig(filePath, fileSystem)
     const entries: Record<string, string> = {
       prettier: prettierEntry,
     }
@@ -251,6 +290,7 @@ export const load = async (
         config: config.value,
         configEntry: config.entry ? 'config' : '',
         graph,
+        parser,
         path: prettierEntry,
         pluginEntries: pluginEntries.map((_, index) => `plugin:${index}`),
         prettierEntry: 'prettier',

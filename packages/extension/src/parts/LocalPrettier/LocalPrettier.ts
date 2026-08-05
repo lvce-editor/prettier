@@ -1,6 +1,5 @@
 import { createRpc } from '@lvce-editor/api'
 import * as LocalPrettierModuleGraph from '../LocalPrettierModuleGraph/LocalPrettierModuleGraph.ts'
-import * as PluginModule from '../PluginModule/PluginModule.ts'
 
 interface LocalPrettierFormattedResult {
   readonly formattedText: string
@@ -78,13 +77,12 @@ export const format = async (
       loaded.request,
     )
     await state.loadPromises[cacheKey]
-    const { parser } = PluginModule.loadPlugin(filePath)
     return await rpc.invoke(
       'NodeJsSandbox.formatWithLocalPrettier',
       cacheKey,
       filePath,
       content,
-      parser,
+      loaded.request.parser,
     )
   } catch (error) {
     return {

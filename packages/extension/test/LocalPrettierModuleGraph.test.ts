@@ -67,3 +67,36 @@ test('returns unavailable without a workspace Prettier package', async () => {
     status: 'unavailable',
   })
 })
+
+test('resolves configured plugins for an extension without a bundled parser', async () => {
+  const prettierRoot = '/workspace/node_modules/prettier'
+  const pluginRoot = '/workspace/node_modules/prettier-plugin-elm'
+  const fileSystem = createFileSystem({
+    '/workspace/.prettierrc.json': JSON.stringify({
+      plugins: ['prettier-plugin-elm'],
+    }),
+    [`${pluginRoot}/index.cjs`]: 'module.exports = { parsers: {} }',
+    [`${pluginRoot}/package.json`]: JSON.stringify({
+      main: './index.cjs',
+    }),
+    [`${prettierRoot}/package.json`]: JSON.stringify({
+      name: 'prettier',
+    }),
+    [`${prettierRoot}/standalone.js`]:
+      'module.exports = { version: "3.6.0", format() {} }',
+  })
+
+  const result = await load('/workspace/src/Main.elm', fileSystem)
+
+  if (result.status !== 'available') {
+    throw new Error(result.reason)
+  }
+  expect(result.request.parser).toBeUndefined()
+  expect(result.request.pluginEntries).toEqual(['plugin:0'])
+  expect(result.request.graph.modules.map((module) => module.id)).toEqual(
+    expect.arrayContaining([
+      `${pluginRoot}/index.cjs`,
+      `${prettierRoot}/standalone.js`,
+    ]),
+  )
+})

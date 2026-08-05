@@ -11,13 +11,6 @@ const sandboxWorker = path.join(
   'src',
   'nodejsSandboxWorkerMain.ts',
 )
-const nodeEntryPoint = path.join(
-  root,
-  'packages',
-  'node',
-  'src',
-  'prettierNodeMain.ts',
-)
 const entryPoint = path.join(extension, 'src', 'prettierMain.ts')
 const outdir = path.join(extension, 'dist')
 const outfile = path.join(outdir, 'prettierMain.js')
@@ -37,17 +30,6 @@ await esbuild.build({
   platform: 'browser',
   sourcemap: true,
   target: 'esnext',
-})
-
-await esbuild.build({
-  bundle: true,
-  entryPoints: [nodeEntryPoint],
-  external: ['electron', 'node:*'],
-  format: 'esm',
-  outfile: path.join(outdir, 'prettierNodeMain.js'),
-  platform: 'node',
-  sourcemap: true,
-  target: 'node22',
 })
 
 await esbuild.build({

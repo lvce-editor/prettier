@@ -7,14 +7,6 @@
   "browser": "dist/prettierMain.js",
   "contentSecurityPolicy": ["default-src 'none'"],
   "isolated": true,
-  "rpc": [
-    {
-      "id": "builtin.prettier.node",
-      "type": "node",
-      "name": "Prettier",
-      "url": "dist/prettierNodeMain.js"
-    }
-  ],
   "icon": "./media/icon.png",
   "categories": ["Formatters"],
   "activation": [
