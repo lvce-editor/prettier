@@ -1,0 +1,6 @@
+{
+  "name": "prettier-plugin-elm",
+  "version": "0.0.0",
+  "description": "Browser-safe Elm Prettier plugin fixture",
+  "main": "index.cjs"
+}

@@ -8,6 +8,7 @@ export interface LocalPrettierLoadRequest {
   readonly config: unknown
   readonly configEntry: string
   readonly graph: NodeModuleGraph
+  readonly parser: string | undefined
   readonly path: string
   readonly pluginEntries: readonly string[]
   readonly prettierEntry: string
@@ -104,7 +105,7 @@ export const formatWithLocalPrettier = async (
   cacheKey: string,
   filePath: string,
   content: string,
-  parser: string,
+  parser: string | undefined,
 ): Promise<unknown> => {
   const loaded = state.get(cacheKey)
   if (!loaded) {
@@ -126,9 +127,11 @@ export const formatWithLocalPrettier = async (
         ? resolvedConfig
         : {}
     const configuredPlugins =
-      'plugins' in config && Array.isArray(config.plugins) ? config.plugins : []
+      'plugins' in config && Array.isArray(config.plugins)
+        ? config.plugins.filter((plugin) => typeof plugin !== 'string')
+        : []
     const formattedText = await prettier.format(content, {
-      parser,
+      ...(parser && { parser }),
       ...config,
       filepath: filePath,
       plugins: [...configuredPlugins, ...plugins],

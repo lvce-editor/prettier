@@ -37,6 +37,7 @@ test('loads and formats with local Prettier and config in memory', async () => {
         },
       ],
     },
+    parser: 'babel',
     path: '/workspace/node_modules/prettier/standalone.js',
     pluginEntries: [],
     prettierEntry: 'prettier',
@@ -81,6 +82,7 @@ test('protects filepath from local config overrides', async () => {
         },
       ],
     },
+    parser: 'babel',
     path: '/workspace/prettier.cjs',
     pluginEntries: [],
     prettierEntry: 'prettier',
@@ -94,4 +96,54 @@ test('protects filepath from local config overrides', async () => {
   )) as Readonly<Record<string, unknown>>
 
   strictEqual(result.formattedText, '/workspace/test.js')
+})
+
+test('uses a resolved configured plugin without passing its package name to Prettier', async () => {
+  loadLocalPrettier({
+    cacheKey: 'elm-workspace',
+    config: {
+      plugins: ['prettier-plugin-elm'],
+    },
+    configEntry: '',
+    graph: {
+      entries: {
+        plugin: '/workspace/node_modules/prettier-plugin-elm/index.cjs',
+        prettier: '/workspace/node_modules/prettier/standalone.js',
+      },
+      modules: [
+        {
+          dependencies: {},
+          id: '/workspace/node_modules/prettier/standalone.js',
+          source: `module.exports = {
+  version: '3.6.0',
+  format(content, options) {
+    if ('parser' in options) throw new Error('unexpected parser')
+    if (typeof options.plugins[0] === 'string') throw new Error('unresolved plugin')
+    return options.plugins[0].format(content)
+  },
+}`,
+        },
+        {
+          dependencies: {},
+          id: '/workspace/node_modules/prettier-plugin-elm/index.cjs',
+          source: `module.exports = {
+  format(content) { return content.toUpperCase() },
+}`,
+        },
+      ],
+    },
+    parser: undefined,
+    path: '/workspace/node_modules/prettier/standalone.js',
+    pluginEntries: ['plugin'],
+    prettierEntry: 'prettier',
+  })
+
+  const result = (await formatWithLocalPrettier(
+    'elm-workspace',
+    '/workspace/Main.elm',
+    'elm source',
+    undefined,
+  )) as Readonly<Record<string, unknown>>
+
+  strictEqual(result.formattedText, 'ELM SOURCE')
 })

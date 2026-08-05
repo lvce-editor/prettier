@@ -8,4 +8,5 @@ export const languageIds = [
   'graphql',
   'yaml',
   'markdown',
+  'elm',
 ]

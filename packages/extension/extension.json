@@ -18,7 +18,8 @@
     "onFormatting:html",
     "onFormatting:graphql",
     "onFormatting:yaml",
-    "onFormatting:markdown"
+    "onFormatting:markdown",
+    "onFormatting:elm"
   ],
   "formattingProviders": [
     {
@@ -56,6 +57,10 @@
     {
       "id": "prettier.markdown",
       "languageId": "markdown"
+    },
+    {
+      "id": "prettier.elm",
+      "languageId": "elm"
     }
   ],
   "languages": [
