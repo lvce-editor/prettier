@@ -7,6 +7,14 @@
   "browser": "dist/prettierMain.js",
   "contentSecurityPolicy": ["default-src 'none'"],
   "isolated": true,
+  "rpc": [
+    {
+      "id": "builtin.prettier.node",
+      "type": "node",
+      "name": "Prettier",
+      "url": "dist/prettierNodeMain.js"
+    }
+  ],
   "icon": "./media/icon.png",
   "categories": ["Formatters"],
   "activation": [
@@ -18,7 +26,8 @@
     "onFormatting:html",
     "onFormatting:graphql",
     "onFormatting:yaml",
-    "onFormatting:markdown"
+    "onFormatting:markdown",
+    "onFormatting:elm"
   ],
   "formattingProviders": [
     {
@@ -56,6 +65,10 @@
     {
       "id": "prettier.markdown",
       "languageId": "markdown"
+    },
+    {
+      "id": "prettier.elm",
+      "languageId": "elm"
     }
   ],
   "languages": [

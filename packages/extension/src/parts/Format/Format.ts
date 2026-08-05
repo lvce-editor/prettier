@@ -2,6 +2,7 @@ import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import { FormattingError } from '../FormattingError/FormattingError.ts'
 import * as LocalPrettier from '../LocalPrettier/LocalPrettier.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
+import * as NativePrettier from '../NativePrettier/NativePrettier.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as Prettier from '../Prettier/Prettier.ts'
@@ -43,7 +44,11 @@ export const format = async (
   }
   OutputChannel.log(`formatting ${uri}`)
   try {
-    const localResult = await LocalPrettier.format(uri, content)
+    const nativeResult = await NativePrettier.format(uri, content)
+    const localResult =
+      nativeResult.status === 'unavailable'
+        ? await LocalPrettier.format(uri, content)
+        : nativeResult
     let formattedText: string
     if (localResult.status === 'formatted') {
       OutputChannel.log(

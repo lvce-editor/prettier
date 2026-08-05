@@ -17,6 +17,13 @@ const sandboxWorker = path.join(
   'src',
   'nodejsSandboxWorkerMain.ts',
 )
+const nodeEntryPoint = path.join(
+  root,
+  'packages',
+  'node',
+  'src',
+  'prettierNodeMain.ts',
+)
 const require = createRequire(import.meta.url)
 const commonjs =
   require('@rollup/plugin-commonjs') as () => import('rollup').Plugin
@@ -76,6 +83,16 @@ await esbuildBuild({
   outfile: join(root, 'dist', 'dist', 'nodejsSandboxWorkerMain.js'),
   platform: 'browser',
   target: 'esnext',
+})
+
+await esbuildBuild({
+  bundle: true,
+  entryPoints: [nodeEntryPoint],
+  external: ['electron', 'node:*'],
+  format: 'esm',
+  outfile: join(root, 'dist', 'dist', 'prettierNodeMain.js'),
+  platform: 'node',
+  target: 'node22',
 })
 
 await packageExtension({
