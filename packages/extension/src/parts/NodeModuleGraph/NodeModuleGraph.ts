@@ -349,6 +349,12 @@ const getTransformedModule = (
     if (node.type === 'CallExpression' && node.callee?.type === 'Import') {
       requiresTransform = true
     }
+    if (node.type === 'ImportExpression') {
+      requiresTransform = true
+      if (typeof node.source?.value === 'string') {
+        dependencies.add(node.source.value)
+      }
+    }
     if (
       node.type === 'CallExpression' &&
       node.arguments?.length === 1 &&
