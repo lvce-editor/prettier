@@ -25,6 +25,10 @@ test('typescript', () => {
   expect(LanguageIds.languageIds).toContain('typescript')
 })
 
+test('typescriptreact', () => {
+  expect(LanguageIds.languageIds).toContain('typescriptreact')
+})
+
 test('graphql', () => {
   expect(LanguageIds.languageIds).toContain('graphql')
 })
