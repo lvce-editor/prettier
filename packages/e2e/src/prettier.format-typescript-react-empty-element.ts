@@ -20,7 +20,5 @@ export const test: Test = async ({
 
   // assert
   const editor = Locator('.Editor')
-  await expect(editor).toHaveText(
-    'const element: JSX.Element = <div></div>;',
-  )
+  await expect(editor).toHaveText('const element: JSX.Element = <div></div>;')
 }
