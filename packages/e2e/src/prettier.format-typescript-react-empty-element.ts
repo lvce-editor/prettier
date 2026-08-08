@@ -1,6 +1,6 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'prettier.format-typescript-react'
+export const name = 'prettier.format-typescript-react-empty-element'
 
 export const test: Test = async ({
   Editor,
@@ -11,10 +11,8 @@ export const test: Test = async ({
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(
-    `${tmpDir}/test.tsx`,
-    `const  element: JSX.Element=<div>Hello</div>`,
-  )
+  const text = 'const  element: JSX.Element = <div></div>'
+  await FileSystem.writeFile(`${tmpDir}/test.tsx`, text)
   await Main.openUri(`${tmpDir}/test.tsx`)
 
   // act
@@ -23,6 +21,6 @@ export const test: Test = async ({
   // assert
   const editor = Locator('.Editor')
   await expect(editor).toHaveText(
-    `const element: JSX.Element = <div>Hello</div>;`,
+    'const element: JSX.Element = <div></div>;',
   )
 }
