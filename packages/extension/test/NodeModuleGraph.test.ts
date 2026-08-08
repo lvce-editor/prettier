@@ -153,3 +153,24 @@ test('build transforms computed dynamic imports into sandbox require calls', asy
   expect(graph.modules[0].source).not.toContain('import(')
   expect(graph.modules[0].source).toContain('require(')
 })
+
+test('build resolves literal dynamic imports', async () => {
+  const graph = await build(
+    {
+      main: '/workspace/main.cjs',
+    },
+    createFileSystem({
+      '/workspace/dependency.js': 'module.exports = 42',
+      '/workspace/main.cjs': `module.exports = async () => import('./dependency.js')`,
+    }),
+  )
+
+  expect(graph.modules).toHaveLength(2)
+  expect(graph.modules[0]).toMatchObject({
+    dependencies: {
+      './dependency.js': '/workspace/dependency.js',
+    },
+  })
+  expect(graph.modules[0].source).not.toContain('import(')
+  expect(graph.modules[0].source).toContain('require(')
+})
