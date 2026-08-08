@@ -14,6 +14,7 @@
     "onFormatting:json",
     "onFormatting:javascript",
     "onFormatting:typescript",
+    "onFormatting:typescriptreact",
     "onFormatting:handlebars",
     "onFormatting:html",
     "onFormatting:graphql",
@@ -45,6 +46,10 @@
     {
       "id": "prettier.typescript",
       "languageId": "typescript"
+    },
+    {
+      "id": "prettier.typescriptreact",
+      "languageId": "typescriptreact"
     },
     {
       "id": "prettier.graphql",
