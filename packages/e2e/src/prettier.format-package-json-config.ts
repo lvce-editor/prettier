@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'prettier.format-package-json-config'
 
-export const skip = 1
-
 export const test: Test = async ({
   Editor,
   expect,
@@ -12,7 +10,9 @@ export const test: Test = async ({
   Main,
 }) => {
   // arrange
-  const tmpDir = await FileSystem.getTmpDir()
+  const tmpRoot = await FileSystem.getTmpDir()
+  const tmpDir = `${tmpRoot}/package-config`
+  await FileSystem.mkdir(tmpDir)
   await FileSystem.writeFile(
     `${tmpDir}/package.json`,
     JSON.stringify({
