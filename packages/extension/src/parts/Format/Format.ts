@@ -1,10 +1,10 @@
 import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import { FormattingError } from '../FormattingError/FormattingError.ts'
+import * as FormattingWorker from '../FormattingWorker/FormattingWorker.ts'
 import * as LocalPrettier from '../LocalPrettier/LocalPrettier.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PrettierIgnore from '../PrettierIgnore/PrettierIgnore.ts'
-import * as FormattingWorker from '../FormattingWorker/FormattingWorker.ts'
 import { resolvePackageConfig } from '../ResolvePackageConfig/ResolvePackageConfig.ts'
 
 // TODO should use languageId to get right formatter instead of path

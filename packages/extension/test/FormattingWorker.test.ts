@@ -1,11 +1,9 @@
 import { expect, jest, test } from '@jest/globals'
+import { createFormattingWorker } from '../src/parts/FormattingWorker/FormattingWorker.ts'
 
 const invoke = jest.fn<(...args: any[]) => Promise<string>>()
 const createRpc = jest.fn<(...args: any[]) => Promise<any>>()
-jest.unstable_mockModule('@lvce-editor/api', () => ({ createRpc }))
-
-const { format } =
-  await import('../src/parts/FormattingWorker/FormattingWorker.ts')
+const format = createFormattingWorker(createRpc)
 
 test('retries failed startup and shares the worker between concurrent requests', async () => {
   createRpc.mockRejectedValueOnce(new Error('startup failed'))

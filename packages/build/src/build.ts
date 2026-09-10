@@ -84,6 +84,7 @@ await esbuildBuild({
     PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
   },
   entryPoints: [join(extension, 'src', 'formattingWorkerMain.ts')],
+  external: ['electron', 'node:*'],
   format: 'esm',
   outfile: join(root, 'dist', 'dist', 'formattingWorkerMain.js'),
   platform: 'browser',
