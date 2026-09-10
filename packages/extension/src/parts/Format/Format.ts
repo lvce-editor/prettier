@@ -43,15 +43,15 @@ export const format = async (
   content: string,
 ): Promise<OffsetBasedEdit | undefined> => {
   if (await PrettierIgnore.isIgnored(uri)) {
-    OutputChannel.log(`ignoring ${uri}`)
+    await OutputChannel.log(`ignoring ${uri}`)
     return undefined
   }
-  OutputChannel.log(`formatting ${uri}`)
+  await OutputChannel.log(`formatting ${uri}`)
   try {
     const localResult = await LocalPrettier.format(uri, content)
     let formattedText: string
     if (localResult.status === 'formatted') {
-      OutputChannel.log(
+      await OutputChannel.log(
         `using local Prettier ${localResult.version} from ${localResult.path}`,
       )
       const { formattedText: localFormattedText } = localResult
@@ -59,7 +59,7 @@ export const format = async (
     } else if (localResult.status === 'format-error') {
       throw new Error(localResult.message)
     } else {
-      OutputChannel.log(
+      await OutputChannel.log(
         `using bundled Prettier: local Prettier unavailable (${localResult.reason})`,
       )
       const fn = getFormatFnSync(uri) || (await getFormatFnAsync(uri))
@@ -68,10 +68,10 @@ export const format = async (
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
     return minimizedEdit
   } catch (error) {
-    console.error({ error })
     const enhancedError = new FormattingError(
       `Failed to format ${uri}: ${error}`,
     )
+    await OutputChannel.log(enhancedError.message)
     throw enhancedError
   }
 }
