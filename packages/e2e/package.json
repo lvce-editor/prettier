@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build:extension": "node ../build/src/build-extension.ts",
-    "e2e": "npm run build:extension && test-with-playwright --only-extension=../extension --test-path=. --reuse-page",
-    "e2e:headless": "npm run build:extension && test-with-playwright --only-extension=../extension --test-path=. --headless --reuse-page"
+    "e2e": "npm run build:extension && test-with-playwright --only-extension=../extension --test-path=.",
+    "e2e:headless": "npm run build:extension && test-with-playwright --only-extension=../extension --test-path=. --headless"
   },
   "type": "module",
   "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/test-with-playwright": "^22.22.0"
+    "@lvce-editor/test-with-playwright": "^22.36.3"
   }
 }

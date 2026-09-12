@@ -35,7 +35,10 @@ const state: {
 
 const getRpc = (): ReturnType<typeof createRpc> => {
   state.rpcPromise ||= createRpc({
-    contentSecurityPolicy: `default-src 'none'; script-src 'self' 'unsafe-eval';`,
+    contentSecurityPolicy: [
+      "default-src 'none'",
+      "script-src 'self' 'unsafe-eval'",
+    ],
     name: 'Node.js Sandbox',
     url: workerUrl,
   })
