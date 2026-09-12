@@ -23,7 +23,7 @@
   "author": "Lvce Editor",
   "license": "MIT",
   "devDependencies": {
-    "@lvce-editor/api": "^8.84.0",
+    "@lvce-editor/api": "^9.32.0",
     "@lvce-editor/eslint-config": "^18.4.0",
     "@lvce-editor/server": "0.115.5",
     "@types/node": "^26.1.2",
