@@ -5,17 +5,28 @@ import { root } from './root.ts'
 
 const extension = path.join(root, 'packages', 'extension')
 const entryPoint = path.join(extension, 'src', 'prettierMain.ts')
-const outfile = path.join(extension, 'dist', 'prettierMain.js')
+const outdir = path.join(extension, 'dist')
 
 const context = await esbuild.context({
   bundle: true,
   define: {
     PRETTIER_PATH_PREFIX: JSON.stringify('../../../node_modules/prettier'),
   },
-  entryPoints: [entryPoint],
+  entryPoints: [
+    entryPoint,
+    path.join(extension, 'src', 'formattingWorkerMain.ts'),
+    path.join(
+      root,
+      'packages',
+      'nodejs-sandbox-worker',
+      'src',
+      'nodejsSandboxWorkerMain.ts',
+    ),
+  ],
+  entryNames: '[name]',
   external: ['electron', 'node:*'],
   format: 'esm',
-  outfile,
+  outdir,
   platform: 'browser',
   sourcemap: true,
   target: 'esnext',
