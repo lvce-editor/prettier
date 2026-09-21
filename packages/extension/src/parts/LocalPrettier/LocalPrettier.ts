@@ -45,31 +45,75 @@ const getRpc = (): ReturnType<typeof createRpc> => {
   return state.rpcPromise
 }
 
-const toFilePath = (uri: string): string | undefined => {
-  if (uri.startsWith('file:')) {
-    const url = new URL(uri)
-    const path = decodeURIComponent(url.pathname)
-    return /^\/[A-Za-z]:\//.test(path) ? path.slice(1) : path
+const normalizePath = (path: string): string => {
+  const prefix = path.startsWith('/') ? '/' : ''
+  const parts: string[] = []
+  for (const part of path.replaceAll('\\', '/').split('/')) {
+    if (!part || part === '.') {
+      continue
+    }
+    if (part === '..') {
+      parts.pop()
+      continue
+    }
+    parts.push(part)
   }
-  if (/^[A-Za-z][A-Za-z\d+.-]*:/.test(uri)) {
+  return `${prefix}${parts.join('/')}` || '/'
+}
+
+interface LocalPrettierDocumentContext {
+  readonly cacheKeyNamespace: string
+  readonly filePath: string
+  readonly fileSystem: ReturnType<
+    typeof LocalPrettierModuleGraph.createFileSystem
+  >
+}
+
+const getPathFromUri = (url: URL): string => {
+  const path = decodeURIComponent(url.pathname)
+  return normalizePath(/^\/[A-Za-z]:\//.test(path) ? path.slice(1) : path)
+}
+
+export const getDocumentContext = (
+  uri: string,
+): LocalPrettierDocumentContext | undefined => {
+  if (!/^[A-Za-z][A-Za-z\d+.-]*:/.test(uri)) {
+    return {
+      cacheKeyNamespace: 'file://',
+      filePath: normalizePath(uri),
+      fileSystem: LocalPrettierModuleGraph.createFileSystem(),
+    }
+  }
+  try {
+    const url = new URL(uri)
+    return {
+      cacheKeyNamespace: `${url.protocol}//${url.host}`,
+      filePath: getPathFromUri(url),
+      fileSystem: LocalPrettierModuleGraph.createFileSystem(url.href),
+    }
+  } catch {
     return undefined
   }
-  return uri.replaceAll('\\', '/')
 }
 
 export const format = async (
   uri: string,
   content: string,
 ): Promise<LocalPrettierResult> => {
-  const filePath = toFilePath(uri)
-  if (!filePath) {
+  const context = getDocumentContext(uri)
+  if (!context) {
     return {
       reason: `unsupported document URI ${uri}`,
       status: 'unavailable',
     }
   }
   try {
-    const loaded = await LocalPrettierModuleGraph.load(filePath)
+    const { cacheKeyNamespace, filePath, fileSystem } = context
+    const loaded = await LocalPrettierModuleGraph.load(
+      filePath,
+      fileSystem,
+      cacheKeyNamespace,
+    )
     if (loaded.status === 'unavailable') {
       return loaded
     }
