@@ -100,3 +100,33 @@ test('resolves configured plugins for an extension without a bundled parser', as
     ]),
   )
 })
+
+test('normalizes paths and isolates cache keys by filesystem authority', async () => {
+  const prettierRoot = '/workspace/node_modules/prettier'
+  const fileSystem = createFileSystem({
+    [`${prettierRoot}/package.json`]: JSON.stringify({
+      name: 'prettier',
+    }),
+    [`${prettierRoot}/standalone.js`]:
+      'module.exports = { version: "3.6.0", format() {} }',
+  })
+
+  const first = await load(
+    '/workspace//src/../src/test.js',
+    fileSystem,
+    'remote-ssh://one',
+  )
+  const second = await load(
+    '/workspace/src/test.js',
+    fileSystem,
+    'remote-ssh://two',
+  )
+
+  if (first.status !== 'available' || second.status !== 'available') {
+    throw new Error('expected workspace Prettier to be available')
+  }
+  expect(first.request.graph.entries.prettier).toBe(
+    `${prettierRoot}/standalone.js`,
+  )
+  expect(first.request.cacheKey).not.toBe(second.request.cacheKey)
+})

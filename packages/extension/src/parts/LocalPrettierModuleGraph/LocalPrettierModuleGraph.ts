@@ -78,6 +78,22 @@ const dirname = (path: string): string => {
   return normalized.slice(0, index)
 }
 
+const normalizePath = (path: string): string => {
+  const prefix = path.startsWith('/') ? '/' : ''
+  const parts: string[] = []
+  for (const part of path.replaceAll('\\', '/').split('/')) {
+    if (!part || part === '.') {
+      continue
+    }
+    if (part === '..') {
+      parts.pop()
+      continue
+    }
+    parts.push(part)
+  }
+  return `${prefix}${parts.join('/')}` || '/'
+}
+
 const join = (directory: string, name: string): string => {
   return directory === '/' ? `/${name}` : `${directory}/${name}`
 }
@@ -155,10 +171,26 @@ const toFileUri = (path: string): string => {
   return url.href
 }
 
-const defaultFileSystem: NodeModuleGraph.FileSystem = {
-  exists: (path: string): Promise<boolean> => exists(toFileUri(path)),
-  readFile: (path: string): Promise<string> => readFile(toFileUri(path)),
+export const createFileSystem = (
+  baseUri?: string,
+): NodeModuleGraph.FileSystem => {
+  const toUri = (path: string): string => {
+    if (!baseUri) {
+      return toFileUri(path)
+    }
+    const url = new URL(baseUri)
+    url.pathname = /^[A-Za-z]:\//.test(path) ? `/${path}` : path
+    url.search = ''
+    url.hash = ''
+    return url.href
+  }
+  return {
+    exists: (path: string): Promise<boolean> => exists(toUri(path)),
+    readFile: (path: string): Promise<string> => readFile(toUri(path)),
+  }
 }
+
+const defaultFileSystem = createFileSystem()
 
 const resolvePrettierEntry = async (
   packageRoot: string,
@@ -234,10 +266,12 @@ const getConfiguredPluginSpecifiers = (config: unknown): readonly string[] => {
 export const load = async (
   filePath: string,
   fileSystem: NodeModuleGraph.FileSystem = defaultFileSystem,
+  cacheKeyNamespace = 'file://',
 ): Promise<LocalPrettierLoadResult> => {
+  const normalizedFilePath = normalizePath(filePath)
   const packageRoot = await NodeModuleGraph.findPackageRoot(
     'prettier',
-    dirname(filePath),
+    dirname(normalizedFilePath),
     fileSystem,
   )
   if (!packageRoot) {
@@ -248,8 +282,8 @@ export const load = async (
   }
   try {
     const prettierEntry = await resolvePrettierEntry(packageRoot, fileSystem)
-    const config = await findConfig(filePath, fileSystem)
-    const { parser, plugins } = getBundledPluginDefinition(filePath)
+    const config = await findConfig(normalizedFilePath, fileSystem)
+    const { parser, plugins } = getBundledPluginDefinition(normalizedFilePath)
     const pluginEntries: string[] = []
     for (const specifier of getConfiguredPluginSpecifiers(config.value)) {
       pluginEntries.push(
@@ -286,7 +320,7 @@ export const load = async (
     const graph = await NodeModuleGraph.build(entries, fileSystem)
     return {
       request: {
-        cacheKey: `${packageRoot}\0${config.path}\0${pluginEntries.join('\0')}`,
+        cacheKey: `${cacheKeyNamespace}\0${packageRoot}\0${config.path}\0${pluginEntries.join('\0')}`,
         config: config.value,
         configEntry: config.entry ? 'config' : '',
         graph,
