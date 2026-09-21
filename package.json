@@ -16,6 +16,7 @@
     "e2e:headless": "npm run e2e:headless --workspace=packages/e2e",
     "format": "prettier --write .",
     "lint": "eslint . && prettier --check .",
+    "measure": "npm run measure --workspace=packages/memory",
     "test": "npm test --workspaces --if-present",
     "test:watch": "npm run test:watch --workspace=packages/extension",
     "type-check": "tsc -b"

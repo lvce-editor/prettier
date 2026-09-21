@@ -39,6 +39,7 @@ jobs:
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
+      - run: npm run build
       - run: npm test
       - run: npm run type-check
       - name: install playwright dependencies
@@ -49,6 +50,10 @@ jobs:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Run headless test
         run: npm run e2e:headless
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
+      - name: Measure extension worker memory
+        run: npm run measure
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Build static site
