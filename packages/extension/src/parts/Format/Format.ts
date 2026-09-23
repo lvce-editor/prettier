@@ -1,5 +1,4 @@
 import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
-import { FormattingError } from '../FormattingError/FormattingError.ts'
 import * as FormattingWorker from '../FormattingWorker/FormattingWorker.ts'
 import * as LocalPrettier from '../LocalPrettier/LocalPrettier.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
@@ -41,10 +40,7 @@ export const format = async (
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)
     return minimizedEdit
   } catch (error) {
-    const enhancedError = new FormattingError(
-      `Failed to format ${uri}: ${error}`,
-    )
-    await OutputChannel.log(enhancedError.message)
-    throw enhancedError
+    await OutputChannel.log(`Failed to format ${uri}: ${error}`)
+    return undefined
   }
 }
