@@ -15,8 +15,8 @@ export const test: Test = async ({
       import.meta.url,
     ).pathname.replace(/^\/remote/, ''),
   )
-  await Workspace.setPath(workspacePath)
-  await Main.openUri(`${workspacePath}/Main.elm`)
+  await Workspace.setUri(new URL(`file://${workspacePath}`).href)
+  await Main.openUri(new URL(`file://${workspacePath}/Main.elm`).href)
 
   await Editor.format()
 
