@@ -1,10 +1,10 @@
+import type { Plugin } from 'rollup'
 import { packageExtension } from '@lvce-editor/package-extension'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path, { join } from 'node:path'
 import { rollup } from 'rollup'
-import { build as esbuildBuild } from 'esbuild'
 import esbuild from 'rollup-plugin-esbuild'
 import { copyPrettier } from './copyPrettier.ts'
 import { root } from './root.ts'
@@ -18,10 +18,9 @@ const sandboxWorker = path.join(
   'nodejsSandboxWorkerMain.ts',
 )
 const require = createRequire(import.meta.url)
-const commonjs =
-  require('@rollup/plugin-commonjs') as () => import('rollup').Plugin
+const commonjs = require('@rollup/plugin-commonjs') as () => Plugin
 
-fs.rmSync(join(root, 'dist'), { recursive: true, force: true })
+fs.rmSync(join(root, 'dist'), { force: true, recursive: true })
 
 fs.mkdirSync(path.join(root, 'dist'))
 fs.mkdirSync(path.join(root, 'dist', 'media'))
@@ -42,8 +41,8 @@ fs.cpSync(join(extension, 'schemas'), join(root, 'dist', 'schemas'), {
 copyPrettier(root, join(root, 'dist'))
 
 const bundle = await rollup({
-  input: join(extension, 'src', 'prettierMain.ts'),
   external: ['electron', 'node:*'],
+  input: join(extension, 'src', 'prettierMain.ts'),
   plugins: [
     nodeResolve({
       browser: true,
@@ -68,28 +67,50 @@ await bundle.write({
 
 await bundle.close()
 
-await esbuildBuild({
-  bundle: true,
-  entryPoints: [sandboxWorker],
+const sandboxWorkerBundle = await rollup({
   external: ['electron', 'node:*'],
-  format: 'esm',
-  outfile: join(root, 'dist', 'dist', 'nodejsSandboxWorkerMain.js'),
-  platform: 'browser',
-  target: 'esnext',
+  input: sandboxWorker,
+  plugins: [
+    nodeResolve({
+      browser: true,
+    }),
+    commonjs(),
+    esbuild({
+      target: 'esnext',
+    }),
+  ],
 })
 
-await esbuildBuild({
-  bundle: true,
-  define: {
-    PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
-  },
-  entryPoints: [join(extension, 'src', 'formattingWorkerMain.ts')],
-  external: ['electron', 'node:*'],
+await sandboxWorkerBundle.write({
+  file: join(root, 'dist', 'dist', 'nodejsSandboxWorkerMain.js'),
   format: 'esm',
-  outfile: join(root, 'dist', 'dist', 'formattingWorkerMain.js'),
-  platform: 'browser',
-  target: 'esnext',
 })
+
+await sandboxWorkerBundle.close()
+
+const formattingWorkerBundle = await rollup({
+  external: ['electron', 'node:*'],
+  input: join(extension, 'src', 'formattingWorkerMain.ts'),
+  plugins: [
+    nodeResolve({
+      browser: true,
+    }),
+    commonjs(),
+    esbuild({
+      define: {
+        PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
+      },
+      target: 'esnext',
+    }),
+  ],
+})
+
+await formattingWorkerBundle.write({
+  file: join(root, 'dist', 'dist', 'formattingWorkerMain.js'),
+  format: 'esm',
+})
+
+await formattingWorkerBundle.close()
 
 await packageExtension({
   highestCompression: true,
