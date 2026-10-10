@@ -14,6 +14,7 @@ export const test: Test = async ({
   await FileSystem.writeFile(`${tmpDir}/test.html`, `<h1  >hello world</h1>`)
   await Main.openUri(`${tmpDir}/test.html`)
   await Editor.setCursor(0, 5)
+  await Editor.shouldHaveSelections(new Uint32Array([0, 5, 0, 5]))
 
   // act
   await Editor.format()
@@ -21,5 +22,5 @@ export const test: Test = async ({
   // assert
   const editor = Locator('.Editor')
   await expect(editor).toHaveText('<h1>hello world</h1>')
-  await Editor.shouldHaveSelections(new Uint32Array([1, 3, 1, 3]))
+  await Editor.shouldHaveSelections(new Uint32Array([0, 3, 0, 3]))
 }
