@@ -42,3 +42,17 @@ await esbuild.build({
   sourcemap: true,
   target: 'esnext',
 })
+
+await esbuild.build({
+  bundle: true,
+  define: {
+    PRETTIER_PATH_PREFIX: JSON.stringify('../../../node_modules/prettier'),
+  },
+  entryPoints: [path.join(extension, 'src', 'formattingWorkerMain.ts')],
+  external: ['electron', 'node:*'],
+  format: 'esm',
+  outfile: path.join(outdir, 'formattingWorkerMain.js'),
+  platform: 'browser',
+  sourcemap: true,
+  target: 'esnext',
+})

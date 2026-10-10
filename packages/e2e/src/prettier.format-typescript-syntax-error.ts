@@ -8,6 +8,8 @@ export const test: Test = async ({
   FileSystem,
   Locator,
   Main,
+  Output,
+  Panel,
 }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -21,4 +23,10 @@ export const test: Test = async ({
   // assert
   const editor = Locator('.Editor')
   await expect(editor).toHaveText(text)
+
+  await Panel.open('Output')
+  await Output.selectChannel('prettier')
+  const outputContent = Locator('.OutputContent')
+  await expect(outputContent).toContainText('Failed to format')
+  await expect(outputContent).toContainText("'}' expected")
 }

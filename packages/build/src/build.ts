@@ -78,6 +78,19 @@ await esbuildBuild({
   target: 'esnext',
 })
 
+await esbuildBuild({
+  bundle: true,
+  define: {
+    PRETTIER_PATH_PREFIX: JSON.stringify('../third_party/prettier'),
+  },
+  entryPoints: [join(extension, 'src', 'formattingWorkerMain.ts')],
+  external: ['electron', 'node:*'],
+  format: 'esm',
+  outfile: join(root, 'dist', 'dist', 'formattingWorkerMain.js'),
+  platform: 'browser',
+  target: 'esnext',
+})
+
 await packageExtension({
   highestCompression: true,
   inDir: join(root, 'dist'),

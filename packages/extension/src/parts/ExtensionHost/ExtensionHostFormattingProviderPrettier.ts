@@ -1,4 +1,5 @@
 import * as Format from '../Format/Format.ts'
+import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 
 interface TextDocument {
   readonly text: string
@@ -25,7 +26,7 @@ export const format = async (
   const start = performance.now()
   const minimizedEdit = await Format.format(uri, text)
   const end = performance.now()
-  console.warn('took', end - start, 'ms')
+  await OutputChannel.log(`took ${end - start} ms`)
   if (!minimizedEdit) {
     return []
   }
