@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'prettier.format-prettierrc'
 
-export const skip = 1
-
 export const test: Test = async ({
   Editor,
   expect,
@@ -12,7 +10,23 @@ export const test: Test = async ({
   Main,
 }) => {
   // arrange
-  const tmpDir = await FileSystem.getTmpDir()
+  const tmpDir = await FileSystem.getTmpDir({ scheme: 'file' })
+  const moduleRoot = `${tmpDir}/node_modules/prettier`
+  await FileSystem.mkdir(moduleRoot)
+  await FileSystem.writeFile(
+    `${moduleRoot}/package.json`,
+    JSON.stringify({ main: './index.cjs', name: 'prettier' }),
+  )
+  await FileSystem.writeFile(
+    `${moduleRoot}/index.cjs`,
+    `module.exports = {
+    version: '3.6.0',
+    format(content, options) {
+      const quote = options.singleQuote ? "'" : '\"'
+      return 'let message = ' + quote + 'hello' + quote + (options.semi === false ? '' : ';')
+    }
+  }`,
+  )
   await FileSystem.writeFile(
     `${tmpDir}/.prettierrc`,
     JSON.stringify({
@@ -29,4 +43,15 @@ export const test: Test = async ({
   // assert
   const editor = Locator('.Editor')
   await expect(editor).toHaveText(`let message = 'hello'`)
+  // Repeated small edits reuse discovery; a changed config must refresh the sandbox.
+  await Editor.setText(`let message="hello";`)
+  await Editor.format()
+  await expect(editor).toHaveText(`let message = 'hello'`)
+  await FileSystem.writeFile(
+    `${tmpDir}/.prettierrc`,
+    JSON.stringify({ semi: true, singleQuote: false }),
+  )
+  await Editor.setText(`let message="hello";`)
+  await Editor.format()
+  await expect(editor).toHaveText(`let message = "hello";`)
 }

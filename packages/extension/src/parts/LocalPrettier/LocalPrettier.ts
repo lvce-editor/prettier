@@ -27,9 +27,11 @@ const workerUrl = new URL('nodejsSandboxWorkerMain.js', import.meta.url).href
 
 const state: {
   readonly loadPromises: Record<string, Promise<void>>
+  readonly loadRequests: Record<string, string>
   rpcPromise: ReturnType<typeof createRpc> | undefined
 } = {
   loadPromises: Object.create(null),
+  loadRequests: Object.create(null),
   rpcPromise: undefined,
 }
 
@@ -96,9 +98,16 @@ export const getDocumentContext = (
   }
 }
 
+const toFileUri = (path: string): string => {
+  const url = new URL('file:///')
+  url.pathname = path.replace(/^([A-Za-z]:)/, '/$1')
+  return url.href
+}
+
 export const format = async (
   uri: string,
   content: string,
+  useFileWatcher = false,
 ): Promise<LocalPrettierResult> => {
   const context = getDocumentContext(uri)
   if (!context) {
@@ -113,28 +122,52 @@ export const format = async (
       filePath,
       fileSystem,
       cacheKeyNamespace,
+      useFileWatcher && cacheKeyNamespace === 'file://'
+        ? toFileUri(filePath)
+        : undefined,
     )
     if (loaded.status === 'unavailable') {
       return loaded
     }
     const rpc = await getRpc()
     const { cacheKey } = loaded.request
-    state.loadPromises[cacheKey] ||= rpc.invoke(
-      'NodeJsSandbox.loadLocalPrettier',
-      loaded.request,
-    )
-    await state.loadPromises[cacheKey]
-    return await rpc.invoke(
-      'NodeJsSandbox.formatWithLocalPrettier',
-      cacheKey,
-      filePath,
-      content,
-      loaded.request.parser,
-    )
+    const signature = JSON.stringify(loaded.request)
+    // Keep replacing a module graph and formatting with it atomic for this key.
+    const previous = state.loadPromises[cacheKey]
+    const result = (async (): Promise<LocalPrettierResult> => {
+      await previous
+      if (state.loadRequests[cacheKey] !== signature) {
+        await rpc.invoke('NodeJsSandbox.loadLocalPrettier', loaded.request)
+        state.loadRequests[cacheKey] = signature
+      }
+      return rpc.invoke(
+        'NodeJsSandbox.formatWithLocalPrettier',
+        cacheKey,
+        filePath,
+        content,
+        loaded.request.parser,
+      )
+    })()
+    state.loadPromises[cacheKey] = (async (): Promise<void> => {
+      try {
+        await result
+      } catch {
+        // A failed format must not poison subsequent requests for this key.
+      }
+    })()
+    return await result
   } catch (error) {
     return {
       reason: `local Prettier sandbox unavailable: ${error}`,
       status: 'unavailable',
     }
+  }
+}
+
+export const dispose = async (): Promise<void> => {
+  await LocalPrettierModuleGraph.dispose()
+  for (const key of Object.keys(state.loadRequests)) {
+    delete state.loadRequests[key]
+    delete state.loadPromises[key]
   }
 }

@@ -72,9 +72,6 @@ const isSupportedVersion = (version: string): boolean => {
 }
 
 export const loadLocalPrettier = (request: LocalPrettierLoadRequest): void => {
-  if (state.has(request.cacheKey)) {
-    return
-  }
   const entries = evaluate(request.graph)
   const prettier = getPrettier(entries[request.prettierEntry])
   if (!prettier) {

@@ -1,10 +1,11 @@
+import { getPreference } from '@lvce-editor/api'
 import type { OffsetBasedEdit } from '../OffsetBasedEdit/OffsetBasedEdit.ts'
 import * as FormattingWorker from '../FormattingWorker/FormattingWorker.ts'
 import * as LocalPrettier from '../LocalPrettier/LocalPrettier.ts'
 import * as MinimizeEdit from '../MinimizeEdit/MinimizeEdit.ts'
 import * as OutputChannel from '../OutputChannel/OutputChannel.ts'
 import * as PrettierIgnore from '../PrettierIgnore/PrettierIgnore.ts'
-import { resolvePackageConfig } from '../ResolvePackageConfig/ResolvePackageConfig.ts'
+import * as ResolvePackageConfig from '../ResolvePackageConfig/ResolvePackageConfig.ts'
 
 // TODO should use languageId to get right formatter instead of path
 export const format = async (
@@ -17,7 +18,20 @@ export const format = async (
   }
   await OutputChannel.log(`formatting ${uri}`)
   try {
-    const localResult = await LocalPrettier.format(uri, content)
+    let useFileWatcher = false
+    try {
+      useFileWatcher =
+        (await getPreference('prettier.useFileWatcher')) !== false
+    } catch {
+      // Older hosts still format with fresh configuration.
+    }
+    if (!useFileWatcher) {
+      await Promise.all([
+        LocalPrettier.dispose(),
+        ResolvePackageConfig.dispose(),
+      ])
+    }
+    const localResult = await LocalPrettier.format(uri, content, useFileWatcher)
     let formattedText: string
     if (localResult.status === 'formatted') {
       await OutputChannel.log(
@@ -34,7 +48,7 @@ export const format = async (
       formattedText = await FormattingWorker.format(
         uri,
         content,
-        await resolvePackageConfig(uri),
+        await ResolvePackageConfig.resolvePackageConfig(uri, useFileWatcher),
       )
     }
     const minimizedEdit = MinimizeEdit.minimizeEdit(content, formattedText)

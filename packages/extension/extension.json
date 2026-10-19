@@ -101,5 +101,12 @@
       "id": "prettier",
       "label": "Prettier"
     }
-  ]
+  ],
+  "configuration": {
+    "prettier.useFileWatcher": {
+      "type": "boolean",
+      "default": true,
+      "description": "Watch local configuration directories to reuse Prettier configuration discovery between formatting requests."
+    }
+  }
 }
