@@ -5,6 +5,7 @@ import { root } from './root.ts'
 
 const locations: readonly string[] = [
   'package.json',
+  '.nvmrc',
   'package-lock.json',
   '.github/workflows/pr.yml',
   '.github/workflows/ci.yml',
