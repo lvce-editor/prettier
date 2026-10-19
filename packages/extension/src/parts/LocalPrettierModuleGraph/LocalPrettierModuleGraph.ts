@@ -1,4 +1,5 @@
 import { exists, readFile } from '@lvce-editor/api'
+import * as ConfigCache from '../ConfigCache/ConfigCache.ts'
 import * as NodeModuleGraph from '../NodeModuleGraph/NodeModuleGraph.ts'
 import * as PluginModule from '../PluginModule/PluginModule.ts'
 import * as PrettierModuleId from '../PrettierModuleId/PrettierModuleId.ts'
@@ -65,6 +66,13 @@ const configFileNames = [
   '.prettierrc',
   '.prettierrc.json',
 ]
+
+const configCache = ConfigCache.create<ResolvedConfig>([
+  ...configFileNames,
+  'package.json',
+])
+
+export const dispose = async (): Promise<void> => configCache.dispose()
 
 const dirname = (path: string): string => {
   let normalized = path.replaceAll('\\', '/')
@@ -267,6 +275,7 @@ export const load = async (
   filePath: string,
   fileSystem: NodeModuleGraph.FileSystem = defaultFileSystem,
   cacheKeyNamespace = 'file://',
+  watchUri?: string,
 ): Promise<LocalPrettierLoadResult> => {
   const normalizedFilePath = normalizePath(filePath)
   const packageRoot = await NodeModuleGraph.findPackageRoot(
@@ -282,7 +291,9 @@ export const load = async (
   }
   try {
     const prettierEntry = await resolvePrettierEntry(packageRoot, fileSystem)
-    const config = await findConfig(normalizedFilePath, fileSystem)
+    const config = await configCache.get(watchUri, () =>
+      findConfig(normalizedFilePath, fileSystem),
+    )
     const { parser, plugins } = getBundledPluginDefinition(normalizedFilePath)
     const pluginEntries: string[] = []
     for (const specifier of getConfiguredPluginSpecifiers(config.value)) {

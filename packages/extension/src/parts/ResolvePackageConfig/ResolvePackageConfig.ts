@@ -1,9 +1,10 @@
 import { FileSystemWorker } from '@lvce-editor/rpc-registry'
+import * as ConfigCache from '../ConfigCache/ConfigCache.ts'
 import { dirname } from '../PrettierIgnore/Dirname/Dirname.ts'
 import { getAncestorDirectories } from '../PrettierIgnore/GetAncestorDirectories/GetAncestorDirectories.ts'
 import { join } from '../PrettierIgnore/Join/Join.ts'
 
-export const resolvePackageConfig = async (
+const resolveUncached = async (
   uri: string,
 ): Promise<Record<string, unknown>> => {
   const url = uri.includes('://') ? new URL(uri) : undefined
@@ -30,4 +31,19 @@ export const resolvePackageConfig = async (
     return prettier
   }
   return {}
+}
+
+const cache = ConfigCache.create<Record<string, unknown>>(['package.json'])
+
+export const dispose = async (): Promise<void> => cache.dispose()
+
+export const resolvePackageConfig = async (
+  uri: string,
+  enabled = false,
+): Promise<Record<string, unknown>> => {
+  const url = new URL('file:///')
+  url.pathname = uri.replaceAll('\\', '/').replace(/^([A-Za-z]:)/, '/$1')
+  const documentUri = uri.includes('://') ? uri : url.href
+  const watchUri = enabled ? documentUri : undefined
+  return cache.get(watchUri, () => resolveUncached(uri))
 }

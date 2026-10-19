@@ -147,3 +147,39 @@ test('uses a resolved configured plugin without passing its package name to Pret
 
   strictEqual(result.formattedText, 'ELM SOURCE')
 })
+
+test('replaces the loaded config when the graph is refreshed under the same key', async () => {
+  for (const marker of ['before', 'after']) {
+    loadLocalPrettier({
+      cacheKey: 'workspace',
+      config: { marker },
+      configEntry: '',
+      graph: {
+        entries: { prettier: '/workspace/prettier.cjs' },
+        modules: [
+          {
+            dependencies: {},
+            id: '/workspace/prettier.cjs',
+            source: `module.exports = { version: '3.6.0', format(content, options) { return options.marker } }`,
+          },
+        ],
+      },
+      parser: 'babel',
+      path: '/workspace/prettier.cjs',
+      pluginEntries: [],
+      prettierEntry: 'prettier',
+    })
+    const result = await formatWithLocalPrettier(
+      'workspace',
+      '/workspace/test.js',
+      'input',
+      'babel',
+    )
+    deepStrictEqual(result, {
+      formattedText: marker,
+      path: '/workspace/prettier.cjs',
+      status: 'formatted',
+      version: '3.6.0',
+    })
+  }
+})
