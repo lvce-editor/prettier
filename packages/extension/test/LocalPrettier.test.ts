@@ -18,3 +18,7 @@ test('keeps custom filesystem authorities isolated', () => {
 
   expect(first?.cacheKeyNamespace).not.toBe(second?.cacheKeyNamespace)
 })
+
+test('does not discover workspace Prettier for application documents', () => {
+  expect(getDocumentContext('app:///settings.json')).toBeUndefined()
+})
