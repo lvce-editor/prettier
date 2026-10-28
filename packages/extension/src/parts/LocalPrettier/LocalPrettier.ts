@@ -88,6 +88,9 @@ export const getDocumentContext = (
   }
   try {
     const url = new URL(uri)
+    if (url.protocol === 'app:') {
+      return undefined
+    }
     return {
       cacheKeyNamespace: `${url.protocol}//${url.host}`,
       filePath: getPathFromUri(url),
